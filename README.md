@@ -1476,4 +1476,4 @@ Return spots filtered by query parameters.
       }
     }
     ```
-    [db-schema-design]: https://i.imgur.com/wBvCxmw.png
+    [db-schema-design]: https://i.imgur.com/k0kCnVa.png
