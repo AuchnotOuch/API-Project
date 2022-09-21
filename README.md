@@ -4,7 +4,7 @@
 
 ## Database Schema Design
 
-`<insert database schema design here>`
+![db-schema-design]
 
 ## API Documentation
 
@@ -1476,3 +1476,4 @@ Return spots filtered by query parameters.
       }
     }
     ```
+    [db-schema-design]: https://i.imgur.com/wBvCxmw.png
