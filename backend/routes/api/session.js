@@ -6,7 +6,7 @@ const { handleValidationErrors } = require('../../utils/validation')
 
 const router = express.Router()
 
-//validate login info
+//validate login info middleware
 const validateLogin = [
     check('credential')
         .exists({ checkFalsy: true })
