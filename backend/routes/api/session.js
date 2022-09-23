@@ -4,6 +4,7 @@ const { User } = require('../../db/models')
 
 const router = express.Router()
 
+
 // log in
 router.post('/', async (req, res, next) => {
     const { credential, password } = req.body
@@ -28,6 +29,18 @@ router.post('/', async (req, res, next) => {
 router.delete('/', (req, res) => {
     res.clearCookie('token')
     return res.json({ message: 'success' })
+})
+
+//restore session user
+router.get('/', restoreUser, (req, res) => {
+    const { user } = req
+    if (user) {
+        return res.json({
+            user: user.toSafeObject()
+        })
+    } else {
+        return res.json({})
+    }
 })
 
 
