@@ -24,6 +24,12 @@ router.post('/', async (req, res, next) => {
     return res.json({ user })
 })
 
+// log out user by removing token cookie
+router.delete('/', (req, res) => {
+    res.clearCookie('token')
+    return res.json({ message: 'success' })
+})
+
 
 
 module.exports = router
