@@ -5,16 +5,21 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
+    //method that returns an object that with user info that
+    //is safe to save to a JWT
     toSafeObject() {
       const { id, username, email } = this
       return { id, username, email }
     }
+    // checks if password provided by user matches hashed password
     validatePassword(password) {
       return bcrypt.compareSync(password, this.hashedPassword.toString())
     }
-    static getCurrentuserById(id) {
+    // returns current user using currentUser scope
+    static getCurrentUserById(id) {
       return User.scope('currentUser').findByPk(id)
     }
+    // logs in user if user exists and password is validated
     static async login({ credential, password }) {
       const { Op } = require('sequelize')
       const user = await User.scope('loginUser').findOne({
@@ -29,6 +34,7 @@ module.exports = (sequelize, DataTypes) => {
         return await User.scope('currentUser').findByPk(user.id)
       }
     }
+    // creates user from provided credentials and hashes password
     static async signup({ username, email, password }) {
       const hashedPassword = bcrypt.hashSync(password)
       const user = await User.create({
