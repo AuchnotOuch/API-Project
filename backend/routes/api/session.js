@@ -37,7 +37,7 @@ router.post('/', validateLogin, async (req, res, next) => {
 
     console.log(token)
     user.token = token
-    return res.json({ user })
+    return res.json(user)
 })
 
 // log out user by removing token cookie
