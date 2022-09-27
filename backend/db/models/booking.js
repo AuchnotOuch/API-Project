@@ -19,17 +19,19 @@ module.exports = (sequelize, DataTypes) => {
       references: {
         model: 'Spots'
       },
-      onDelete: 'CASCADE'
+      onDelete: 'CASCADE',
+      allowNull: false,
     },
     userId: {
       type: DataTypes.INTEGER,
       references: {
         model: 'Users'
       },
-      onDelete: 'CASCADE'
+      onDelete: 'CASCADE',
+      allowNull: false
     },
-    startDate: DataTypes.DATE,
-    endDate: DataTypes.DATE
+    startDate: DataTypes.DATEONLY,
+    endDate: DataTypes.DATEONLY
   }, {
     sequelize,
     modelName: 'Booking',
