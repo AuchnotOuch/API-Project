@@ -8,8 +8,8 @@ module.exports = (sequelize, DataTypes) => {
     //method that returns an object that with user info that
     //is safe to save to a JWT
     toSafeObject() {
-      const { id, username, email } = this
-      return { id, username, email }
+      const { id, username, email, firstName, lastName } = this
+      return { id, username, email, firstName, lastName }
     }
     // checks if password provided by user matches hashed password
     validatePassword(password) {
