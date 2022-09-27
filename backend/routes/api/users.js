@@ -22,7 +22,7 @@ const validateSignup = [
     check('password')
         .exists({ checkFalsy: true })
         .isLength({ min: 6 })
-        .withMessage('Password msut be 6 characters or more'),
+        .withMessage('Password must be 6 characters or more'),
     check('firstName')
         .exists({ checkFalsy: true })
         .isLength({ min: 1 })
@@ -34,8 +34,46 @@ const validateSignup = [
     handleValidationErrors
 ]
 //signs up user
-router.post('/', validateSignup, async (req, res) => {
+router.post('/', validateSignup, async (req, res, next) => {
     const { email, password, username, firstName, lastName } = req.body;
+    const userEmailCheck = await User.findOne({
+        where: {
+            email: email
+        }
+    })
+    const userNameCheck = await User.findOne({
+        where: {
+            username: username
+        }
+    })
+    if (userNameCheck && userEmailCheck) {
+        const err = new Error()
+        err.message = "User already exists"
+        err.status = 403
+        err.errors = {
+            email_username: "User with that username and email already exists"
+        }
+        return next(err)
+    }
+    if (userEmailCheck) {
+        const err = new Error()
+        err.message = "User already exists"
+        err.status = 403
+        err.errors = {
+            email: "User with that email already exists"
+        }
+        return next(err)
+    }
+    if (userNameCheck) {
+        const err = new Error()
+        err.message = "User already exists"
+        err.status = 403
+        err.errors = {
+            username: "User with that username already exists"
+        }
+        return next(err)
+    }
+
     const user = await User.signup({
         email,
         username,
@@ -43,14 +81,21 @@ router.post('/', validateSignup, async (req, res) => {
         firstName,
         lastName
     })
-    await setTokenCookie(res, user)
+    const token = await setTokenCookie(res, user)
 
-    return res.json({ user })
+    user.token = token
+    return res.json(user)
 })
 
-router.get('/', async (req, res) => {
-    const users = await User.findAll()
-    return res.json(users)
+// router.get('/', async (req, res) => {
+//     const users = await User.findAll()
+//     return res.json(users)
+// })
+
+router.use((err, req, res, next) => {
+    console.error(err)
+    res.status(err.status || 500)
+    return res.json(err)
 })
 
 module.exports = router
