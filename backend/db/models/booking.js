@@ -31,22 +31,22 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     startDate: {
-      type: DataTypes.DATEONLY,
+      type: DataTypes.DATE,
       validate: {
         validStartDate(value) {
           const currentTime = Date()
-          if (value.getTime() < currentTime.getTime()) {
+          if (value.getTime() > currentTime.getTime()) {
             throw new Error('Start date must be past current date')
           }
         }
       }
     },
     endDate: {
-      type: DataTypes.DATEONLY,
+      type: DataTypes.DATE,
       validate: {
         validEndDate(value) {
           const currentTime = Date()
-          if (value.getTime() < currentTime.getTime()) {
+          if (value.getTime() > currentTime.getTime()) {
             throw new Error('End date must be past current date')
           }
         }
