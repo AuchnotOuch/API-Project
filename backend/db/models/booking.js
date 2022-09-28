@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       references: {
         model: 'Spots'
       },
-      // onDelete: 'CASCADE',
+      onDelete: 'CASCADE',
       allowNull: false,
     },
     userId: {
@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
       references: {
         model: 'Users'
       },
-      // onDelete: 'CASCADE',
+      onDelete: 'CASCADE',
       allowNull: false
     },
     startDate: {
