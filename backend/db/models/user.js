@@ -50,14 +50,17 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       User.hasMany(
         models.Spot,
-        { foreignKey: 'ownerId', onDelete: 'CASCADE', hooks: true }
+        {
+          as: 'Owner', foreignKey: 'ownerId',
+          onDelete: 'CASCADE'
+        }
       );
       User.belongsToMany(
         models.Spot,
         {
           through: models.Booking,
           foreignKey: 'userId',
-          otherKey: 'spotId'
+          otherKey: 'spotId',
         }
       );
       User.belongsToMany(
@@ -66,6 +69,18 @@ module.exports = (sequelize, DataTypes) => {
           through: models.Review,
           foreignKey: 'userId',
           otherKey: 'spotId'
+        }
+      )
+      User.hasMany(
+        models.Review,
+        {
+          foreignKey: 'userId'
+        }
+      )
+      User.hasMany(
+        models.Booking,
+        {
+          foreignKey: 'userId'
         }
       )
     }
