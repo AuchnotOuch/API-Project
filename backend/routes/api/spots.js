@@ -21,13 +21,13 @@ const validateCreateSpot = [
         .exists({ checkFalsy: true })
         .withMessage('Latitude is required'),
     check('lat')
-        .isDecimal()
+        .isDecimal({ force_decimal: true })
         .withMessage('Latitude is not valid'),
     check('lng')
         .exists({ checkFalsy: true })
         .withMessage('Latitude is required'),
     check('lng')
-        .isDecimal()
+        .isDecimal({ force_decimal: true })
         .withMessage('Latitude is not valid'),
     check('name')
         .exists({ checkFalsy: true })
@@ -112,8 +112,14 @@ router.get('/:spotId', async (req, res, next) => {
 router.post('/', [requireAuth, validateCreateSpot], async (req, res, next) => {
     const { address, city, state, country, lat, lng, name, description, price } = req.body
     const ownerId = req.user.id
-    const owner = await User.findByPk(ownerId)
-    const newSpot = await owner.createSpot({
+    const owner = await User.findOne({
+        where: {
+            id: ownerId
+        }
+    })
+    console.log(owner)
+    const newSpot = await Spot.create({
+        ownerId: ownerId,
         address,
         city,
         state,
@@ -127,6 +133,44 @@ router.post('/', [requireAuth, validateCreateSpot], async (req, res, next) => {
 
     return res.json(newSpot)
 })
+
+//edit a spot
+router.put('/:spotId', [requireAuth, validateCreateSpot], async (req, res, next) => {
+
+    const { address, city, state, country, lat, lng, name, description, price } = req.body
+
+    const spot = await Spot.findByPk(req.params.spotId)
+
+    if (!spot) {
+        const err = new Error()
+        err.message = "Spot couldn't be found"
+        err.statusCode = 404
+        return next(err)
+    }
+
+    if (req.user.id !== spot.ownerId) {
+        const err = new Error()
+        err.message = "Can't edit a spot that doesn't belong to you."
+        err.status = 401
+        return res.json(err)
+    }
+
+    spot.update({
+        address,
+        city,
+        state,
+        country,
+        lat,
+        lng,
+        name,
+        description,
+        price
+    })
+
+    return res.json(spot)
+
+})
+//delete a spot
 //get all spots
 router.get('/', async (req, res, next) => {
 
@@ -161,5 +205,11 @@ router.get('/', async (req, res, next) => {
     // console.log(spots)
     return res.json({ Spots: spotArr })
 })
+
+// router.use((err, req, res, next) => {
+//     console.error(err)
+//     res.status(err.status || 500)
+//     return res.json(err)
+// })
 
 module.exports = router
