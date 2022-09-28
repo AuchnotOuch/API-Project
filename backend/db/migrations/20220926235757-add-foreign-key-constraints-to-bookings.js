@@ -16,7 +16,7 @@ module.exports = {
         table: 'Users',
         field: 'id'
       },
-      onDelete: 'CASCADE'
+      // onDelete: 'CASCADE'
     })
     await queryInterface.addConstraint('Bookings', {
       fields: ['spotId'],

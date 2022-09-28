@@ -50,7 +50,10 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       User.hasMany(
         models.Spot,
-        { as: 'Owner', foreignKey: 'ownerId', onDelete: 'CASCADE' }
+        {
+          as: 'Owner', foreignKey: 'ownerId',
+          onDelete: 'CASCADE'
+        }
       );
       User.belongsToMany(
         models.Spot,
@@ -70,6 +73,12 @@ module.exports = (sequelize, DataTypes) => {
       )
       User.hasMany(
         models.Review,
+        {
+          foreignKey: 'userId'
+        }
+      )
+      User.hasMany(
+        models.Booking,
         {
           foreignKey: 'userId'
         }

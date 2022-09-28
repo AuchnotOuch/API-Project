@@ -48,18 +48,46 @@ const validateCreateSpot = [
 
 //get all spots of current user
 router.get('/current', requireAuth, async (req, res, next) => {
-    const ownerId = req.user.id
 
-    const Spots = await Spot.findAll({
+    const spots = await Spot.findAll({
         where: {
-            ownerId: ownerId
+            ownerId: req.user.id
         }
     })
-    return res.json({ Spots })
+    const spotArr = []
+    for (let spot of spots) {
+        const spotAggregateData = await Spot.findAll({
+            where: {
+                id: spot.id
+            },
+            include: [
+                {
+                    model: Review,
+                    attributes: []
+                },
+            ],
+            attributes: [
+                [Sequelize.fn("AVG", Sequelize.col("Reviews.stars")), "avgRating"]
+            ],
+            raw: true
+        })
+        const spotImage = await SpotImage.findByPk(spot.id, {
+            where: {
+                preview: true
+            }
+        })
+        let spotData = spot.toJSON()
+        spotData.previewImage = spotImage.url
+        spotData.avgRating = spotAggregateData[0].avgRating
+        spotArr.push(spotData)
+    }
+
+    return res.json({ Spots: spotArr })
 })
 
 //get details of a spot from spot id
 router.get('/:spotId', async (req, res, next) => {
+
     const { spotId } = req.params
 
     const spotAggregateData = await Spot.findByPk(spotId, {
@@ -144,7 +172,7 @@ router.put('/:spotId', [requireAuth, validateCreateSpot], async (req, res, next)
     if (!spot) {
         const err = new Error()
         err.message = "Spot couldn't be found"
-        err.statusCode = 404
+        err.status = 404
         return next(err)
     }
 
@@ -171,6 +199,26 @@ router.put('/:spotId', [requireAuth, validateCreateSpot], async (req, res, next)
 
 })
 //delete a spot
+router.delete('/:spotId', requireAuth, async (req, res, next) => {
+    const spot = await Spot.findByPk(req.params.spotId)
+    if (!spot) {
+        const err = new Error()
+        err.message = "Spot couldn't be found"
+        err.status = 404
+        return next(err)
+    }
+    if (req.user.id !== spot.ownerId) {
+        const err = new Error()
+        err.message = "Can't delete a spot that doesn't belong to you."
+        err.status = 401
+        return res.json(err)
+    }
+    await spot.destroy()
+    return res.json({
+        message: "Successfully Deleted",
+        statusCode: 200
+    })
+})
 //get all spots
 router.get('/', async (req, res, next) => {
 
