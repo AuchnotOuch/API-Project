@@ -4,7 +4,7 @@ const { requireAuth } = require('../../utils/auth')
 const { User, Spot, Booking, Review, SpotImage, ReviewImage } = require('../../db/models')
 const { check } = require('express-validator')
 const { handleValidationErrors } = require('../../utils/validation')
-const { Router } = require('express')
+// const { Router } = require('express')
 
 const router = express.Router()
 

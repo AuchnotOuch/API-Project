@@ -1,0 +1,44 @@
+const express = require('express')
+const { Sequelize } = require('sequelize')
+const { requireAuth } = require('../../utils/auth')
+const { User, Spot, Booking, Review, SpotImage, ReviewImage } = require('../../db/models')
+const { check } = require('express-validator')
+const { handleValidationErrors } = require('../../utils/validation')
+
+const router = express.Router()
+
+//get all of the current users bookings
+router.get('/current', requireAuth, async (req, res, next) => {
+
+    const bookings = await Booking.findAll({
+        where: {
+            userId: req.user.id
+        },
+        include: [
+            {
+                model: Spot,
+                attributes: {
+                    exclude: ['createdAt', 'updatedAt']
+                }
+            }
+        ]
+    })
+
+    const bookingArr = []
+    for (let booking of bookings) {
+        const spot = await Spot.findByPk(booking.spotId)
+        const spotImage = await SpotImage.findByPk(spot.id, {
+            where: {
+                preview: true
+            }
+        })
+
+        let bookingData = booking.toJSON()
+        bookingData.Spot.previewImage = spotImage.url
+        bookingArr.push(bookingData)
+    }
+
+    return res.json({ Bookings: bookingArr })
+})
+
+module.exports = router

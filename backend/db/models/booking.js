@@ -47,7 +47,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     startDate: {
-      type: DataTypes.DATE,
+      type: DataTypes.DATEONLY,
       validate: {
         validStartDate(value) {
           const currentTime = Date()
@@ -58,8 +58,9 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     endDate: {
-      type: DataTypes.DATE,
+      type: DataTypes.DATEONLY,
       validate: {
+        isAfter: this.startDate,
         validEndDate(value) {
           const currentTime = Date()
           if (value.getTime() > currentTime.getTime()) {
