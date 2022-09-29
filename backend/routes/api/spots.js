@@ -42,8 +42,19 @@ const validateCreateSpot = [
         .exists({ checkFalsy: true })
         .withMessage('Price per day is required'),
     handleValidationErrors
+]
 
-
+const validateReview = [
+    check('review')
+        .exists({ checkFalsy: true })
+        .withMessage('Review text is required'),
+    check('stars')
+        .exists({ checkFalsy: true })
+        .withMessage('Rating required'),
+    check('stars')
+        .isInt({ min: 1, max: 5 })
+        .withMessage('Stars must be an integer from 1 to 5'),
+    handleValidationErrors
 ]
 
 //get all spots of current user
@@ -83,6 +94,112 @@ router.get('/current', requireAuth, async (req, res, next) => {
     }
 
     return res.json({ Spots: spotArr })
+})
+
+//add image to spot based on spotid
+router.post('/:spotId/images', requireAuth, async (req, res, next) => {
+    const spot = await Spot.findByPk(req.params.spotId)
+
+    if (!spot) {
+        const err = new Error()
+        err.message = "Spot couldn't be found"
+        err.status = 404
+        res.statusCode = 404
+        return res.json(err)
+    }
+    if (req.user.id !== spot.ownerId) {
+        const err = new Error()
+        err.message = "Can't add an image to a spot that doesn't belong to you."
+        err.status = 403
+        res.statusCode = 403
+        return res.json(err)
+    }
+
+    const { url, preview } = req.body
+    const image = await SpotImage.create({
+        spotId: req.params.spotId,
+        url,
+        preview
+    })
+    const returnedImage = await SpotImage.findByPk(image.id, {
+        attributes: {
+            exclude: ['createdAt', 'updatedAt', 'reviewId', 'spotId']
+        }
+    })
+    res.statusCode = 200
+    return res.json(returnedImage)
+})
+//create a review for a spot based on spot id
+router.post('/:spotId/reviews', [requireAuth, validateReview], async (req, res, next) => {
+
+    const spot = await Spot.findByPk(req.params.spotId)
+
+    if (!spot) {
+        const err = new Error() //object!!!!!!!!
+        err.message = "Spot couldn't be found"
+        err.status = 404
+        return next(err)
+    }
+
+    const existingReviewCheck = await Review.findOne({
+        where: {
+            spotId: spot.id,
+            userId: req.user.id
+        }
+    })
+
+    if (existingReviewCheck) {
+        const err = new Error()
+        err.message = "User already has a review for this spot"
+        err.status = 403
+        return next(err)
+    }
+
+    const { review, stars } = req.body
+
+    const newReview = await Review.create({
+        userId: req.user.id,
+        spotId: spot.id,
+        review,
+        stars
+    })
+    res.statusCode = 201
+    return res.json(newReview)
+})
+
+//get all reviews by a spots id
+router.get('/:spotId/reviews', async (req, res, next) => {
+
+    const spot = await Spot.findByPk(req.params.spotId)
+
+    if (!spot) {
+        const err = new Error() //object!!!!!!!!
+        err.message = "Spot couldn't be found"
+        err.status = 404
+        return next(err) //object????
+    }
+
+    const reviews = await Review.findAll({
+        where: {
+            spotId: req.params.spotId
+        },
+        include: [
+            {
+                model: User,
+                attributes: {
+                    exclude: ['user', 'email', 'hashedPassword', 'token', 'createdAt', 'updatedAt', 'username']
+                }
+            },
+            {
+                model: ReviewImage,
+                attributes: {
+                    exclude: ['createdAt', 'updatedAt', 'reviewId']
+                }
+            }
+        ]
+    })
+
+    return res.json({ Reviews: reviews })
 })
 
 //get details of a spot from spot id
@@ -145,7 +262,7 @@ router.post('/', [requireAuth, validateCreateSpot], async (req, res, next) => {
             id: ownerId
         }
     })
-    console.log(owner)
+
     const newSpot = await Spot.create({
         ownerId: ownerId,
         address,
@@ -158,7 +275,7 @@ router.post('/', [requireAuth, validateCreateSpot], async (req, res, next) => {
         description,
         price
     })
-
+    res.statusCode = 201
     return res.json(newSpot)
 })
 
@@ -198,6 +315,7 @@ router.put('/:spotId', [requireAuth, validateCreateSpot], async (req, res, next)
     return res.json(spot)
 
 })
+
 //delete a spot
 router.delete('/:spotId', requireAuth, async (req, res, next) => {
     const spot = await Spot.findByPk(req.params.spotId)
@@ -219,6 +337,7 @@ router.delete('/:spotId', requireAuth, async (req, res, next) => {
         statusCode: 200
     })
 })
+
 //get all spots
 router.get('/', async (req, res, next) => {
 
