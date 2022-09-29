@@ -19,18 +19,18 @@ module.exports = (sequelize, DataTypes) => {
           hooks: true
         }
       )
-      // Review.belongsTo(
-      //   models.User,
-      //   {
-      //     foreignKey: 'userId'
-      //   }
-      // )
-      // Review.belongsTo(
-      //   models.Spot,
-      //   {
-      //     foreignKey: 'spotId'
-      //   }
-      // )
+      Review.belongsTo(
+        models.User,
+        {
+          foreignKey: 'userId'
+        }
+      )
+      Review.belongsTo(
+        models.Spot,
+        {
+          foreignKey: 'spotId'
+        }
+      )
     }
   }
   Review.init({
@@ -39,7 +39,6 @@ module.exports = (sequelize, DataTypes) => {
       references: {
         model: 'Spots'
       },
-      onDelete: 'CASCADE',
       allowNull: false,
     },
     userId: {
@@ -47,7 +46,6 @@ module.exports = (sequelize, DataTypes) => {
       references: {
         model: 'Users'
       },
-      onDelete: 'CASCADE',
       allowNull: false
     },
     review: DataTypes.STRING,

@@ -24,8 +24,8 @@ module.exports = (sequelize, DataTypes) => {
           through: models.Booking,
           foreignKey: 'spotId',
           otherKey: 'userId',
-          onDelete: 'CASCADE',
-          hooks: true
+          // onDelete: 'CASCADE',
+          // hooks: true
         }
       );
       Spot.belongsToMany(
@@ -34,8 +34,13 @@ module.exports = (sequelize, DataTypes) => {
           through: models.Review,
           foreignKey: 'spotId',
           otherKey: 'userId',
+<<<<<<< HEAD
           onDelete: 'CASCADE',
           hooks: true
+=======
+          // onDelete: 'CASCADE',
+          // hooks: true
+>>>>>>> dev
         }
       )
       Spot.hasMany(
