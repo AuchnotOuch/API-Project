@@ -15,8 +15,7 @@ module.exports = (sequelize, DataTypes) => {
         models.ReviewImage,
         {
           foreignKey: 'reviewId',
-          onDelete: 'CASCADE',
-          hooks: true
+          onDelete: 'CASCADE'
         }
       )
       Review.belongsTo(
@@ -28,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
       Review.belongsTo(
         models.Spot,
         {
-          foreignKey: 'spotId'
+          foreignKey: 'spotId',
         }
       )
     }
