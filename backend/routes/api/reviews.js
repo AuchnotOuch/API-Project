@@ -32,7 +32,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
             {
                 model: Spot,
                 attributes: {
-                    exclude: ['createdAt', 'updatedAt']
+                    exclude: ['description', 'createdAt', 'updatedAt']
                 }
             },
             {
@@ -83,7 +83,7 @@ router.put('/:reviewId', [requireAuth, validateReview], async (req, res, next) =
         const err = new Error()
         err.message = "Can't edit a review that doesn't belong to you."
         err.status = 401
-        return res.json(err)
+        return next(err)
     }
 
     const { review, stars } = req.body
@@ -106,13 +106,13 @@ router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
         const err = new Error()
         err.message = "Review couldn't be found"
         err.status = 404
-        return res.json(err)
+        return next(err)
     }
     if (req.user.id !== review.userId) {
         const err = new Error()
         err.message = "Can't add an image to a review that doesn't belong to you."
         err.status = 401
-        return res.json(err)
+        return next(err)
     }
 
     const currentImages = await ReviewImage.findAll({
@@ -125,7 +125,7 @@ router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
         const err = new Error()
         err.message = "Maximum number of images for this resource was reached"
         err.status = 403
-        return res.json(err)
+        return next(err)
     }
     const { url } = req.body
     const image = await ReviewImage.create({
@@ -155,7 +155,7 @@ router.delete('/:reviewId', requireAuth, async (req, res, next) => {
         const err = new Error()
         err.message = "Can't delete a review that doesn't belong to you."
         err.status = 401
-        return res.json(err)
+        return next(err)
     }
 
     await review.destroy()
@@ -165,6 +165,18 @@ router.delete('/:reviewId', requireAuth, async (req, res, next) => {
         statusCode: 200
     })
 
+})
+
+router.use((err, req, res, next) => {
+    console.error(err)
+    const statusCode = err.status
+    const errors = err.errors
+    res.statusCode = statusCode
+    res.json({
+        message: err.message,
+        statusCode,
+        errors
+    })
 })
 
 module.exports = router

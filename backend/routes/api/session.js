@@ -3,6 +3,7 @@ const { setTokenCookie, restoreUser, requireAuth } = require('../../utils/auth')
 const { User } = require('../../db/models')
 const { check } = require('express-validator')
 const { handleValidationErrors } = require('../../utils/validation')
+const { application } = require('express')
 
 const router = express.Router()
 
@@ -21,6 +22,7 @@ const validateLogin = [
 // log in
 router.post('/', validateLogin, async (req, res, next) => {
     const { credential, password } = req.body
+
     const user = await User.login({
         credential,
         password
@@ -55,6 +57,16 @@ router.get('/', [restoreUser, requireAuth], (req, res) => {
     }
 })
 
-
+router.use((err, req, res, next) => {
+    console.error(err)
+    const statusCode = err.status
+    const errors = err.errors
+    res.statusCode = statusCode
+    res.json({
+        message: err.message,
+        statusCode,
+        errors
+    })
+})
 
 module.exports = router
