@@ -46,15 +46,15 @@ router.post('/', validateSignup, async (req, res, next) => {
             username: username
         }
     })
-    if (userNameCheck && userEmailCheck) {
-        const err = new Error()
-        err.message = "User already exists"
-        err.status = 403
-        err.errors = {
-            email_username: "User with that username and email already exists"
-        }
-        return next(err)
-    }
+    // if (userNameCheck && userEmailCheck) {
+    //     const err = new Error()
+    //     err.message = "User already exists"
+    //     err.status = 403
+    //     err.errors = {
+    //         email_username: "User with that username and email already exists"
+    //     }
+    //     return next(err)
+    // }
     if (userEmailCheck) {
         const err = new Error()
         err.message = "User already exists"
@@ -87,15 +87,17 @@ router.post('/', validateSignup, async (req, res, next) => {
     return res.json(user)
 })
 
-// router.get('/', async (req, res) => {
-//     const users = await User.findAll()
-//     return res.json(users)
-// })
 
 router.use((err, req, res, next) => {
     console.error(err)
-    res.status(err.status || 500)
-    return res.json(err)
+    const statusCode = err.status
+    const errors = err.errors
+    res.statusCode = statusCode
+    res.json({
+        message: err.message,
+        statusCode,
+        errors
+    })
 })
 
 module.exports = router

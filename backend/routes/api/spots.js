@@ -50,31 +50,28 @@ const validateReview = [
         .exists({ checkFalsy: true })
         .withMessage('Review text is required'),
     check('stars')
-        .exists({ checkFalsy: true })
-        .withMessage('Rating required'),
-    check('stars')
         .isInt({ min: 1, max: 5 })
         .withMessage('Stars must be an integer from 1 to 5'),
     handleValidationErrors
 ]
 
-const validateBooking = [
-    check('endDate')
-        .custom((value, { req }) => {
-            console.log('req.body --->', req.body)
-            console.log('value --->', value)
-            const endDate = new Date(value).getTime()
-            console.log('endDate --->', endDate)
-            const startDate = new Date(req.body.startDate).getTime()
-            console.log('req.body.startDate --->', req.body.startDate)
-            console.log('startDate --->', startDate)
-            if (endDate <= startDate) {
-                throw new Error('endDate cannot be on or before startDate')
-            }
-            return true
-        }),
-    handleValidationErrors
-]
+// const validateBooking = [
+//     body('endDate')
+//         .custom((value, { req }) => {
+//             console.log('req.body --->', req.body)
+//             console.log('value --->', value)
+//             const endDate = new Date(value).getTime()
+//             console.log('endDate --->', endDate)
+//             const startDate = new Date(req.body.startDate).getTime()
+//             console.log('req.body.startDate --->', req.body.startDate)
+//             console.log('startDate --->', startDate)
+//             if (endDate <= startDate) {
+//                 throw new Error('endDate cannot be on or before startDate')
+//             }
+//             return true
+//         }),
+//     handleValidationErrors
+// ]
 
 // const validateQuery = [
 //     query('page')
@@ -150,14 +147,12 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
         const err = new Error()
         err.message = "Spot couldn't be found"
         err.status = 404
-        res.statusCode = 404
         return res.json(err)
     }
     if (req.user.id !== spot.ownerId) {
         const err = new Error()
         err.message = "Can't add an image to a spot that doesn't belong to you."
         err.status = 403
-        res.statusCode = 403
         return res.json(err)
     }
 
@@ -172,7 +167,6 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
             exclude: ['createdAt', 'updatedAt', 'reviewId', 'spotId']
         }
     })
-    res.statusCode = 200
     return res.json(returnedImage)
 })
 
@@ -215,7 +209,7 @@ router.post('/:spotId/reviews', [requireAuth, validateReview], async (req, res, 
 })
 
 //create a booking from a spot based on the spots id
-router.post('/:spotId/bookings', [requireAuth, validateBooking], async (req, res, next) => {
+router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
 
     const spot = await Spot.findByPk(req.params.spotId)
 
@@ -223,7 +217,6 @@ router.post('/:spotId/bookings', [requireAuth, validateBooking], async (req, res
         const err = new Error()
         err.message = "Spot couldn't be found"
         err.status = 404
-        res.statusCode = 404
         return next(err)
     }
 
@@ -231,30 +224,51 @@ router.post('/:spotId/bookings', [requireAuth, validateBooking], async (req, res
         const err = new Error()
         err.message = "You cannot book your own spot"
         err.status = 404
-        res.statusCode = 404
         return next(err)
     }
 
     const { startDate, endDate } = req.body
 
-    const conflictCheck = await Booking.findOne({
+    const startDateTime = new Date(startDate).getTime()
+    const endDateTime = new Date(endDate).getTime()
+
+    if (endDateTime < startDateTime) {
+        const err = new Error()
+        err.message = "endDate can't be on or before startDate"
+        err.status = 400
+        return next(err)
+    }
+
+
+    const conflictCheck1 = await Booking.findOne({
         where: {
-            [Op.or]: [
-                { startDate: startDate },
-                { endDate: endDate }
-            ]
+            startDate: startDate
         }
     })
 
-    if (conflictCheck) {
+    const conflictCheck2 = await Booking.findOne({
+        where: {
+            startDate: startDate
+        }
+    })
+
+    if (conflictCheck1) {
         const err = new Error()
-        err.statusCode = 403
+        err.message = "Sorry, this spot is already booked for the specified dates"
         err.status = 403
         err.errors = {
             startDate: 'Start date conflicts with an existing booking',
-            endDate: 'End date conflicts with an existing booking'
         }
-        res.statusCode = 403
+        return next(err)
+    }
+
+    if (conflictCheck2) {
+        const err = new Error()
+        err.message = "Sorry, this spot is already booked for the specified dates"
+        err.status = 403
+        err.errors = {
+            startDate: 'End date conflicts with an existing booking',
+        }
         return next(err)
     }
 
@@ -313,7 +327,6 @@ router.get('/:spotId/bookings', requireAuth, async (req, res, next) => {
         const err = new Error()
         err.message = "Spot couldn't be found"
         err.status = 404
-        res.statusCode = 404
         return next(err)
     }
 
@@ -383,16 +396,16 @@ router.get('/:spotId', async (req, res, next) => {
                 model: SpotImage,
                 as: 'SpotImages',
                 attributes: {
-                    exclude: ['id', 'createdAt', 'updatedAt', '']
+                    exclude: ['spotId', 'createdAt', 'updatedAt', '']
                 }
             }
         ]
     })
 
     if (!spot) {
-        const err = new Error("Spot couldn't be found")
+        const err = new Error()
         err.message = "Spot couldn't be found."
-        err.statusCode = 404
+        err.status = 404
         return next(err)
     }
 
@@ -446,7 +459,7 @@ router.put('/:spotId', [requireAuth, validateCreateSpot], async (req, res, next)
         const err = new Error()
         err.message = "Can't edit a spot that doesn't belong to you."
         err.status = 401
-        return res.json(err)
+        return next(err)
     }
 
     spot.update({
@@ -478,7 +491,7 @@ router.delete('/:spotId', requireAuth, async (req, res, next) => {
         const err = new Error()
         err.message = "Can't delete a spot that doesn't belong to you."
         err.status = 401
-        return res.json(err)
+        return next(err)
     }
     await spot.destroy()
     return res.json({
@@ -538,14 +551,31 @@ router.get('/', async (req, res, next) => {
         spotData.avgRating = spotAggregateData[0].avgRating
         spotArr.push(spotData)
     }
-    // console.log(spots)
-    return res.json({ Spots: spotArr })
+    return res.json({ Spots: spotArr, page, size })
 })
 
-// router.use((err, req, res, next) => {
-//     console.error(err)
-//     res.status(err.status || 500)
-//     return res.json(err)
-// })
+router.use((err, req, res, next) => {
+    console.error(err)
+    if (err.name === 'SequelizeUniqueConstraintError') {
+        res.statusCode = 403
+        return res.json({
+            message: "Sorry, this spot is already booked for the specified dates",
+            statusCode: 403,
+            errors: {
+                startDate: 'Start date conflicts with an existing booking',
+                endDate: 'End date conflicts with an existing booking'
+            }
+        })
+    }
+    const statusCode = err.status
+    console.log(statusCode)
+    const errors = err.errors
+    res.statusCode = statusCode
+    res.json({
+        message: err.message,
+        statusCode,
+        errors
+    })
+})
 
 module.exports = router
