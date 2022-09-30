@@ -48,26 +48,12 @@ module.exports = (sequelize, DataTypes) => {
     },
     startDate: {
       type: DataTypes.DATEONLY,
-      validate: {
-        validStartDate(value) {
-          const currentTime = Date()
-          if (value.getTime() > currentTime.getTime()) {
-            throw new Error('Start date must be past current date')
-          }
-        }
-      }
     },
     endDate: {
       type: DataTypes.DATEONLY,
-      validate: {
-        isAfter: this.startDate,
-        validEndDate(value) {
-          const currentTime = Date()
-          if (value.getTime() > currentTime.getTime()) {
-            throw new Error('End date must be past current date')
-          }
-        }
-      }
+      // validate: {
+      //   isAfter: this.startDate,
+      // }
     }
   }, {
     sequelize,

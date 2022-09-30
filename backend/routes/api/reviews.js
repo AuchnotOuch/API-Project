@@ -69,7 +69,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
 })
 
 //edit a review
-router.post('/:reviewId', [requireAuth, validateReview], async (req, res, next) => {
+router.put('/:reviewId', [requireAuth, validateReview], async (req, res, next) => {
 
     const reviewToEdit = await Review.findByPk(req.params.reviewId)
 
