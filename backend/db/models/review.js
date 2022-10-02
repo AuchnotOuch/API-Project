@@ -54,7 +54,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     review: DataTypes.STRING,
     stars: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.FLOAT(1, 1),
       validate: {
         min: 1,
         max: 5
