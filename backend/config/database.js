@@ -17,7 +17,8 @@ module.exports = {
       ssl: {
         require: true,
         rejectUnauthorized: false
-      }
+      },
+      decimalNumbers: true
     }
   }
 };
