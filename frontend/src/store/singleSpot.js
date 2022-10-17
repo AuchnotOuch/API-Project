@@ -7,7 +7,7 @@ const actionGetSpot = (spot) => {
     }
 }
 
-export const getSpot = (spotId) => async (dispatch) => {
+export const thunkGetSpot = (spotId) => async (dispatch) => {
     const response = await fetch(`/api/spots/${spotId}`, {
         method: 'GET'
     })
