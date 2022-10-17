@@ -1,4 +1,4 @@
-.login-form {
+.signup-form {
     display: flex;
     flex-direction: column;
     padding: 10px;
@@ -13,7 +13,7 @@ input {
     border-radius: 5px;
 }
 
-#login-button {
+#signup-button {
     background-color: white;
     border: none;
 }
