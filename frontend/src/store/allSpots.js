@@ -1,5 +1,3 @@
-import { csrfFetch } from "./csrf";
-
 const GET_ALL_SPOTS = 'spots/getSpots'
 
 const actionGetAllSpots = (spots) => {
