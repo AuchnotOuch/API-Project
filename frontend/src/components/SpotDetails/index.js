@@ -10,13 +10,22 @@ function SpotDetails() {
 
     useEffect(() => {
         dispatch(getSpot(spotId))
-    }, [dispatch])
+    }, [spotId, dispatch])
 
     const spot = useSelector(state => state.singleSpot)
-    console.log(spot)
+    console.log(spot.SpotImages)
+
+    let spotImgUrl;
+    if (!spot) return null
+    else {
+        spot.SpotImages.forEach(img => spotImgUrl = img.url)
+    }
+
+    console.log(spotImgUrl)
+
     return (
         <div>
-            <img src={spot.SpotImages[0].url} alt={spot.name}></img>
+            <img src={spotImgUrl} alt={spot.name}></img>
             <div>{spot.name}</div>
             <div>{spot.description}</div>
         </div>
