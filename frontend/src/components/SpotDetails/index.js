@@ -16,7 +16,7 @@ function SpotDetails() {
     console.log(spot)
     return (
         <div>
-            <img src={spot.previewImage} alt={spot.name}></img>
+            <img src={spot.SpotImages[0].url} alt={spot.name}></img>
             <div>{spot.name}</div>
             <div>{spot.description}</div>
         </div>
