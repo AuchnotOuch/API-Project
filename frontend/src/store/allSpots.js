@@ -9,7 +9,7 @@ const actionGetAllSpots = (spots) => {
     }
 }
 
-export const allSpots = () => async (dispatch) => {
+export const getAllSpots = () => async (dispatch) => {
     const response = await fetch('/api/spots', {
         method: 'GET'
     })
