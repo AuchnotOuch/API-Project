@@ -21,6 +21,12 @@ function LoginForm() {
         );
     };
 
+    function demoUser() {
+        setCredential('FakeUser1');
+        setPassword('password1')
+        return handleSubmit
+    }
+
     return (
         <form className='login-form' onSubmit={handleSubmit}>
             <ul>
@@ -45,6 +51,8 @@ function LoginForm() {
             />
             <div>
                 <button id="login-button" type="submit">Log In</button>
+                <button onClick={demoUser}>Demo User</button>
+
             </div>
         </form>
     );
