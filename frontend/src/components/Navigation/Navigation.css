@@ -23,8 +23,21 @@ button {
     font-size: 13.3333px;
     padding-right: 6px;
     text-decoration: none;
+    color: black;
 }
 
 #home-button:visited {
+    color: black;
+}
+
+#create-spot {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13.3333px;
+    padding-right: 6px;
+    text-decoration: none;
+    color: black
+}
+
+#create-spot:visited {
     color: black;
 }

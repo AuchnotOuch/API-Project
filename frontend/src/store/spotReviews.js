@@ -1,9 +1,17 @@
 const GET_REVIEWS = 'spot/getReviews'
+const GET_USER_REVIEWS = 'user/Reviews'
 const CLEAR_STATE = 'spot/clearReviews'
 
 const actionGetReviews = (reviews) => {
     return {
         type: GET_REVIEWS,
+        payload: reviews
+    }
+}
+
+const actionGetUserReviews = (reviews) => {
+    return {
+        type: GET_USER_REVIEWS,
         payload: reviews
     }
 }
@@ -20,6 +28,15 @@ export const thunkGetReviews = (spotId) => async (dispatch) => {
     })
     const data = await response.json()
     dispatch(actionGetReviews(data))
+    return response
+}
+
+export const thunkGetUserReviews = () => async (dispatch) => {
+    const response = await fetch(`/api/current`, {
+        method: 'GET'
+    })
+    const data = await response.json()
+    dispatch(actionGetUserReviews(data))
     return response
 }
 
