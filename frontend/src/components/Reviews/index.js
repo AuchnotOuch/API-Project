@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { thunkGetReviews } from '../../store/spotReviews'
 import './Reviews.css'
+
 function Reviews() {
     const { spotId } = useParams()
     const dispatch = useDispatch()
