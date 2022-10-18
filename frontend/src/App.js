@@ -20,6 +20,7 @@ function App() {
         <Switch>
           <Route exact path='/' component={HomePage} />
           <Route exact path='/spots/:spotId' component={SpotDetails} />
+          <Route path='/spots' />
         </Switch>
       )}
     </>

@@ -1,0 +1,10 @@
+.spot-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.spot {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

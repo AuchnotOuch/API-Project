@@ -11,7 +11,7 @@ import { restoreCSRF, csrfFetch } from "./store/csrf";
 import * as sessionActions from "./store/session";
 import * as spotActions from "./store/allSpots"
 import * as singleSpotActions from './store/singleSpot'
-
+import * as reviewsActions from './store/spotReviews'
 const store = configureStore();
 
 if (process.env.NODE_ENV !== "production") {
@@ -22,6 +22,7 @@ if (process.env.NODE_ENV !== "production") {
   window.sessionActions = sessionActions;
   window.spotActions = spotActions;
   window.singleSpotActions = singleSpotActions
+  window.reviewsActions = reviewsActions
 }
 
 function Root() {

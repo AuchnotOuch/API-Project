@@ -1,33 +1,37 @@
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { getSpot } from '../../store/singleSpot'
+import { thunkGetSpot } from '../../store/singleSpot'
+import Reviews from '../../components/Reviews'
+import './SpotDetails.css'
 
 function SpotDetails() {
     const { spotId } = useParams()
-    console.log(spotId)
+
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(getSpot(spotId))
+        dispatch(thunkGetSpot(spotId))
     }, [spotId, dispatch])
 
     const spot = useSelector(state => state.singleSpot)
-    console.log(spot.SpotImages)
+
+    if (!spot.SpotImages) return null
 
     let spotImgUrl;
-    if (!spot) return null
-    else {
-        spot.SpotImages.forEach(img => spotImgUrl = img.url)
-    }
+    spot.SpotImages.forEach(img => spotImgUrl = img.url)
 
-    console.log(spotImgUrl)
+
 
     return (
-        <div>
-            <img src={spotImgUrl} alt={spot.name}></img>
-            <div>{spot.name}</div>
-            <div>{spot.description}</div>
+        <div className='spot-details'>
+            <div className='spot'>
+                <img src={spotImgUrl} alt={spot.name}></img>
+                <div>{spot.name}</div>
+                <div>{spot.description}</div>
+                <div>${spot.price}</div>
+            </div>
+            <Reviews />
         </div>
     )
 
