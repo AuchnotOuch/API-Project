@@ -1,9 +1,16 @@
 const GET_REVIEWS = 'spot/getReviews'
+const CLEAR_STATE = 'spot/clearReviews'
 
 const actionGetReviews = (reviews) => {
     return {
         type: GET_REVIEWS,
         payload: reviews
+    }
+}
+
+export const actionClearReviews = () => {
+    return {
+        type: CLEAR_STATE
     }
 }
 
@@ -20,7 +27,11 @@ export default function reviewsReducer(state = {}, action) {
     let newState;
     switch (action.type) {
         case GET_REVIEWS:
-            newState = { ...action.payload }
+            newState = { ...state }
+            action.payload.Reviews.forEach(review => newState[review.id] = review)
+            return newState
+        case CLEAR_STATE:
+            newState = {}
             return newState
         default:
             return state
