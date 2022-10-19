@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { actionClearSingleSpot, thunkEditSpot } from '../../store/singleSpot'
-import { thunkDeleteSpot } from '../../store/allSpots'
+import { getAllSpots, thunkDeleteSpot } from '../../store/allSpots'
 import '../CreateSpot/CreateSpot.css'
 
 function EditSpot({ spot }) {

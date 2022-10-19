@@ -67,7 +67,6 @@ export const thunkCreateSpot = (spot) => async (dispatch) => {
         })
         dispatch(actionCreateSpot(data))
     }
-
 }
 
 export const thunkDeleteSpot = (spotId) => async (dispatch) => {
@@ -85,8 +84,13 @@ export default function spotsReducer(state = {}, action) {
     let newState;
     switch (action.type) {
         case GET_ALL_SPOTS:
-            newState = { ...state }
-            action.payload.Spots.forEach(spot => newState[spot.id] = spot)
+            console.log(action.payload)
+            const spotsObj = { ...state }
+            console.log(spotsObj)
+            action.payload.Spots.forEach(spot => spotsObj[spot.id] = spot)
+            console.log(spotsObj)
+            newState = Object.assign({ ...state }, { ...spotsObj })
+            console.log(newState)
             return newState
         case CREATE_SPOT:
             newState = { ...state }

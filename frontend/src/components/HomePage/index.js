@@ -9,9 +9,11 @@ import './HomePage.css'
 function HomePage() {
     const allSpots = useSelector(state => state.allSpots)
     const dispatch = useDispatch()
+
     useEffect(() => {
         dispatch(getAllSpots())
     }, [dispatch])
+
 
     return (
         <>
@@ -25,7 +27,7 @@ function HomePage() {
 
                                 <div>
                                     <div>{spot.city}, {spot.state}</div>
-                                    <div>{spot.avgRating}<i class="fa-solid fa-star"></i></div>
+                                    <div>{spot.avgRating}<i className="fa-solid fa-star"></i></div>
                                     <div>${spot.price}</div>
                                 </div>
                                 <div>
