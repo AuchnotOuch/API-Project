@@ -1,7 +1,6 @@
 import { csrfFetch } from "./csrf"
 
 const GET_REVIEWS = 'spot/getReviews'
-const GET_USER_REVIEWS = 'user/Reviews'
 const ADD_REVIEW = 'spot/AddReview'
 const CLEAR_STATE = 'spot/clearReviews'
 
@@ -16,13 +15,6 @@ const actionAddReview = (review) => {
     return {
         type: GET_REVIEWS,
         payload: review
-    }
-}
-
-const actionGetUserReviews = (reviews) => {
-    return {
-        type: GET_USER_REVIEWS,
-        payload: reviews
     }
 }
 
@@ -57,17 +49,6 @@ export const thunkAddReview = (addReview, spotId) => async (dispatch) => {
     if (response.ok) {
         const data = await response.json()
         dispatch(actionAddReview(data))
-        return response
-    }
-}
-
-export const thunkGetUserReviews = () => async (dispatch) => {
-    const response = await fetch(`/api/current`, {
-        method: 'GET'
-    })
-    if (response.ok) {
-        const data = await response.json()
-        dispatch(actionGetUserReviews(data))
         return response
     }
 }

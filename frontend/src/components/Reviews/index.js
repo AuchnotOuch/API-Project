@@ -26,7 +26,7 @@ function Reviews() {
 
     useEffect(() => {
         existingReviewCheck()
-    }, [])
+    })
 
     if (!spot) return null
     if (!Object.entries(reviews).length) return null

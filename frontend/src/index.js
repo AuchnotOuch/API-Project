@@ -12,6 +12,7 @@ import * as sessionActions from "./store/session";
 import * as spotActions from "./store/allSpots"
 import * as singleSpotActions from './store/singleSpot'
 import * as reviewsActions from './store/spotReviews'
+import * as userReviewActions from './store/userReviews'
 const store = configureStore();
 
 if (process.env.NODE_ENV !== "production") {
@@ -23,6 +24,7 @@ if (process.env.NODE_ENV !== "production") {
   window.spotActions = spotActions;
   window.singleSpotActions = singleSpotActions
   window.reviewsActions = reviewsActions
+  window.userReviewActions = userReviewActions
 }
 
 function Root() {
