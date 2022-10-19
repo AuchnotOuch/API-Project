@@ -1,0 +1,19 @@
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form textarea {
+    resize: none;
+}
+
+button {
+    background-color: salmon;
+}
+
+.edit-spot-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

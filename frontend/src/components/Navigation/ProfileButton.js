@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from 'react-redux';
+import { useHistory } from "react-router-dom";
 import * as sessionActions from '../../store/session';
 import './Navigation.css'
 
@@ -24,14 +25,17 @@ const ProfileButton = ({ user }) => {
         return () => document.removeEventListener('click', closeMenu)
     }, [showMenu])
 
+    const history = useHistory()
     const logout = (e) => {
         e.preventDefault()
         dispatch(sessionActions.logout())
+        history.push('/')
     }
 
     return (
         <>
-            <button onClick={openMenu}>
+            <button className='menu-button' onClick={openMenu}>
+                <i className="fa-solid fa-bars"></i>
                 <i className="fa-regular fa-user"></i>
             </button>
             {showMenu && (
@@ -39,7 +43,7 @@ const ProfileButton = ({ user }) => {
                     <li>{user.username}</li>
                     <li>{user.email}</li>
                     <li>
-                        <button onClick={logout}>Log Out</button>
+                        <button id='logout-button' onClick={logout}>Log Out</button>
                     </li>
                 </ul>
             )}
