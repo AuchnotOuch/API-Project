@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { actionClearSingleSpot, thunkEditSpot } from '../../store/singleSpot'
-import { getAllSpots, thunkDeleteSpot } from '../../store/allSpots'
+import { thunkDeleteSpot } from '../../store/allSpots'
 import '../CreateSpot/CreateSpot.css'
 
 function EditSpot({ spot }) {
@@ -17,8 +17,10 @@ function EditSpot({ spot }) {
     const [description, setDescription] = useState(spot.description)
     const [price, setPrice] = useState(spot.price)
 
-    const previewImgUrl = useSelector(state => state.allSpots[spot.id].previewImage)
-    const [previewImage, setPreviewImage] = useState(previewImgUrl)
+    // const previewImgUrl = useSelector(state => state.allSpots[spot.id].previewImage)
+
+    const [previewImage, setPreviewImage] = useState(spot.SpotImages[0].url)
+
 
 
     const dispatch = useDispatch()
