@@ -2,12 +2,11 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useDispatch } from "react-redux";
-import * as sessionActions from "../../store/session";
 import ProfileButton from './ProfileButton';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal'
-import './Navigation.css';
 import { actionClearReviews } from '../../store/spotReviews';
+import './Navigation.css';
 
 function Navigation({ isLoaded }) {
     const dispatch = useDispatch()
@@ -19,10 +18,10 @@ function Navigation({ isLoaded }) {
     let sessionLinks;
     if (sessionUser) {
         sessionLinks = (
-            <>
+            <div className='logged-in-nav'>
                 <NavLink id='create-spot' to='/spots'>Become a Host</NavLink>
                 <ProfileButton user={sessionUser} />
-            </>
+            </div>
         );
     } else {
         sessionLinks = (
@@ -33,18 +32,22 @@ function Navigation({ isLoaded }) {
         );
     }
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        dispatch(sessionActions.login({ credential: 'FakeUser1', password: 'password1' }))
-    };
     return (
-        <ul>
-            <li>
-                <NavLink
-                    onClick={resetReviewState} id='home-button' exact to="/">Home</NavLink>
-                {isLoaded && sessionLinks}
-            </li>
-        </ul>
+        <div className='nav-bar'>
+            <NavLink
+                onClick={resetReviewState} id='home-button' exact to="/">
+                <img
+                    src='https://cdn0.iconfinder.com/data/icons/picons-social/57/68-airbnb-1024.png'
+                    alt={`Al's BnB Logo`}>
+                </img>
+                <>Al's BnB</>
+            </NavLink>
+            <ul>
+                <li>
+                    {isLoaded && sessionLinks}
+                </li>
+            </ul>
+        </div>
     );
 }
 

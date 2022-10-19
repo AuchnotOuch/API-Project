@@ -1,5 +1,9 @@
+import { csrfFetch } from "./csrf"
+
 const GET_ALL_SPOTS = 'spots/getSpots'
 const CREATE_SPOT = 'spots/createSpot'
+const DELETE_SPOT = 'spots/deleteSpot'
+
 
 const actionGetAllSpots = (spots) => {
     return {
@@ -15,19 +19,28 @@ const actionCreateSpot = (spot) => {
     }
 }
 
+const actionDeleteSpot = (id) => {
+    return {
+        type: DELETE_SPOT,
+        payload: id
+    }
+}
+
 export const getAllSpots = () => async (dispatch) => {
     const response = await fetch('/api/spots', {
         method: 'GET'
     })
-    const data = await response.json()
-    dispatch(actionGetAllSpots(data))
-    return response
+    if (response.ok) {
+        const data = await response.json()
+        dispatch(actionGetAllSpots(data))
+        return response
+    }
 }
 
 export const thunkCreateSpot = (spot) => async (dispatch) => {
-    const { address, city, state, country, lat, lng, name, description, price } = spot
+    const { address, city, state, country, lat, lng, name, description, price, previewImage } = spot
 
-    const response = await fetch('/api/spots', {
+    const response = await csrfFetch('/api/spots', {
         method: 'POST',
         body: JSON.stringify({
             address,
@@ -38,19 +51,34 @@ export const thunkCreateSpot = (spot) => async (dispatch) => {
             lng,
             name,
             description,
-            price
+            price,
+            previewImage
         })
     })
-    const data = await response.json()
-    dispatch(actionCreateSpot(data))
+    if (response.ok) {
+        const data = await response.json()
+        console.log(data.id)
+        await csrfFetch(`/api/spots/${data.id}/images`, {
+            method: 'POST',
+            body: JSON.stringify({
+                url: previewImage,
+                preview: true
+            })
+        })
+        dispatch(actionCreateSpot(data))
+    }
+
 }
 
-function normalizeData(data) {
-    const normalizedData = {}
-    data.forEach(el => {
-        normalizeData[el.id] = el
+export const thunkDeleteSpot = (spotId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/spots/${spotId}`, {
+        method: 'DELETE'
     })
-    return normalizeData
+    if (response.ok) {
+        // const data = await response.json()
+        dispatch(actionDeleteSpot(spotId))
+        return response
+    }
 }
 
 export default function spotsReducer(state = {}, action) {
@@ -61,7 +89,12 @@ export default function spotsReducer(state = {}, action) {
             action.payload.Spots.forEach(spot => newState[spot.id] = spot)
             return newState
         case CREATE_SPOT:
-            newState = { ...state, ...action.payload }
+            newState = { ...state }
+            newState[action.payload.id] = action.payload
+            return newState
+        case DELETE_SPOT:
+            newState = { ...state }
+            delete newState[action.payload]
             return newState
         default:
             return state

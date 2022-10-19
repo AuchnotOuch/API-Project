@@ -26,18 +26,22 @@ export const thunkGetReviews = (spotId) => async (dispatch) => {
     const response = await fetch(`/api/spots/${spotId}/reviews`, {
         method: 'GET'
     })
-    const data = await response.json()
-    dispatch(actionGetReviews(data))
-    return response
+    if (response.ok) {
+        const data = await response.json()
+        dispatch(actionGetReviews(data))
+        return response
+    }
 }
 
 export const thunkGetUserReviews = () => async (dispatch) => {
     const response = await fetch(`/api/current`, {
         method: 'GET'
     })
-    const data = await response.json()
-    dispatch(actionGetUserReviews(data))
-    return response
+    if (response.ok) {
+        const data = await response.json()
+        dispatch(actionGetUserReviews(data))
+        return response
+    }
 }
 
 export default function reviewsReducer(state = {}, action) {

@@ -1,13 +1,13 @@
 .reviews {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
 }
 
 .review-content {
     display: flex;
     flex-direction: column-reverse;
-    align-items: center;
+    align-items: flex-start;
     padding: 0;
 }
 

@@ -1,10 +1,15 @@
 .spot-details {
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
 }
 
 .spot {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
+}
+
+.spot img {
+    width: 500px;
 }
