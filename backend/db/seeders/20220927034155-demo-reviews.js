@@ -15,32 +15,32 @@ module.exports = {
       {
         spotId: 5,
         userId: 1,
-        review: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-        stars: 1
+        review: 'Awesome spot!',
+        stars: 5
       },
       {
         spotId: 4,
         userId: 2,
-        review: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-        stars: 2
+        review: 'Amazing spot!',
+        stars: 4
       },
       {
         spotId: 3,
         userId: 4,
-        review: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-        stars: 3
+        review: 'Beautiful spot',
+        stars: 5
       },
       {
         spotId: 2,
         userId: 3,
-        review: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-        stars: 4
+        review: 'Absolutely horrible',
+        stars: 1
       },
       {
         spotId: 1,
         userId: 5,
-        review: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-        stars: 5
+        review: 'Could have been a lot better',
+        stars: 2
       }
     ])
   },

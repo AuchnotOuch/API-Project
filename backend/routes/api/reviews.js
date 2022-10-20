@@ -92,7 +92,6 @@ router.put('/:reviewId', [requireAuth, validateReview], async (req, res, next) =
         review,
         stars
     })
-
     return res.json(reviewToEdit)
 
 })

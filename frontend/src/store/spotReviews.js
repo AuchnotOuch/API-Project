@@ -1,5 +1,7 @@
+import { csrfFetch } from "./csrf"
+
 const GET_REVIEWS = 'spot/getReviews'
-const GET_USER_REVIEWS = 'user/Reviews'
+const ADD_REVIEW = 'spot/AddReview'
 const CLEAR_STATE = 'spot/clearReviews'
 
 const actionGetReviews = (reviews) => {
@@ -9,10 +11,10 @@ const actionGetReviews = (reviews) => {
     }
 }
 
-const actionGetUserReviews = (reviews) => {
+const actionAddReview = (review) => {
     return {
-        type: GET_USER_REVIEWS,
-        payload: reviews
+        type: ADD_REVIEW,
+        payload: review
     }
 }
 
@@ -33,13 +35,18 @@ export const thunkGetReviews = (spotId) => async (dispatch) => {
     }
 }
 
-export const thunkGetUserReviews = () => async (dispatch) => {
-    const response = await fetch(`/api/current`, {
-        method: 'GET'
+export const thunkAddReview = (addReview, spotId) => async (dispatch) => {
+    const { review, stars } = addReview
+    const response = await csrfFetch(`/api/spots/${spotId}/reviews`, {
+        method: 'POST',
+        body: JSON.stringify({
+            review,
+            stars
+        })
     })
     if (response.ok) {
         const data = await response.json()
-        dispatch(actionGetUserReviews(data))
+        dispatch(actionAddReview(data))
         return response
     }
 }
@@ -50,6 +57,10 @@ export default function reviewsReducer(state = {}, action) {
         case GET_REVIEWS:
             newState = { ...state }
             action.payload.Reviews.forEach(review => newState[review.id] = review)
+            return newState
+        case ADD_REVIEW:
+            newState = { ...state }
+            newState[action.payload.id] = action.payload
             return newState
         case CLEAR_STATE:
             newState = {}
