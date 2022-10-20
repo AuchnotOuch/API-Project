@@ -57,7 +57,7 @@ export const thunkDeleteReview = (reviewId) => async (dispatch) => {
         method: 'DELETE'
     })
     if (response.ok) {
-        dispatch(thunkDeleteReview(reviewId))
+        dispatch(actionDeleteReview(reviewId))
         return response
     }
 }
@@ -70,16 +70,14 @@ export default function userReviewsReducer(state = {}, action) {
             action.payload.Reviews.forEach(review => newState[review.id] = review)
             return newState
         case EDIT_REVIEW:
-            console.log('state -->', state)
             newState = { ...state }
-            console.log('payload', action.payload)
-            // console.log(action.payload.review)
-            console.log('initial new state --->', newState)
             const reviewId = action.payload.id
-            console.log(newState[reviewId].review)
             newState[reviewId].review = action.payload.review
             newState[reviewId].stars = action.payload.stars
-            console.log('updated new state --->', newState)
+            return newState
+        case DELETE_REVIEW:
+            newState = { ...state }
+            delete newState[action.payload]
             return newState
         default:
             return state

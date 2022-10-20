@@ -9,12 +9,13 @@ import './Reviews.css'
 function UserReviews() {
     const dispatch = useDispatch()
 
-    useEffect(() => {
-        dispatch(thunkGetUserReviews())
-    }, [dispatch])
 
 
     const reviews = useSelector(state => state.userReviews)
+
+    useEffect(() => {
+        dispatch(thunkGetUserReviews())
+    }, [dispatch])
 
     function reviewImgUrl(review) {
         let url;

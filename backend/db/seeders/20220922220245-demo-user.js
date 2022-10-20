@@ -15,39 +15,39 @@ module.exports = {
     */
     await queryInterface.bulkInsert('Users', [
       {
-        email: 'user1@user.io',
-        username: 'FakeUser1',
-        hashedPassword: bcrypt.hashSync('password1'),
-        firstName: 'Fake',
-        lastName: 'User1'
+        email: 'demosmith@user.io',
+        username: 'demosmith',
+        hashedPassword: bcrypt.hashSync('password'),
+        firstName: 'Demo',
+        lastName: 'Smith'
       },
       {
-        email: 'user2@user.io',
-        username: 'FakeUser2',
-        hashedPassword: bcrypt.hashSync('password2'),
-        firstName: 'Fake',
-        lastName: 'User2'
+        email: 'john@user.io',
+        username: 'johnsmith',
+        hashedPassword: bcrypt.hashSync('password'),
+        firstName: 'John',
+        lastName: 'Smith'
       },
       {
-        email: 'user3@user.io',
-        username: 'FakeUser3',
-        hashedPassword: bcrypt.hashSync('password3'),
-        firstName: 'Fake',
-        lastName: 'User3'
+        email: 'jane@user.io',
+        username: 'janesmith',
+        hashedPassword: bcrypt.hashSync('password'),
+        firstName: 'Jane',
+        lastName: 'Smith'
       },
       {
-        email: 'user4@user.io',
-        username: 'FakeUser4',
-        hashedPassword: bcrypt.hashSync('password4'),
-        firstName: 'Fake',
-        lastName: 'User4'
+        email: 'karen@user.io',
+        username: 'karensmith',
+        hashedPassword: bcrypt.hashSync('password'),
+        firstName: 'Karen',
+        lastName: 'Smith'
       },
       {
-        email: 'user5@user.io',
-        username: 'FakeUser5',
-        hashedPassword: bcrypt.hashSync('password5'),
-        firstName: 'Fake',
-        lastName: 'User5'
+        email: 'Ken@user.io',
+        username: 'kensmith',
+        hashedPassword: bcrypt.hashSync('password'),
+        firstName: 'Ken',
+        lastName: 'Smith'
       },
     ])
   },
@@ -60,7 +60,7 @@ module.exports = {
      * await queryInterface.bulkDelete('People', null, {});
      */
     await queryInterface.bulkDelete('Users', {
-      username: ['FakeUser1', 'FakeUser2', 'FakeUser3', 'FakeUser4', 'FakeUser5']
+      username: ['demosmith', 'johnsmith', 'janesmith', 'karensmith', 'kensmith']
     })
   }
 };

@@ -22,8 +22,8 @@ function LoginForm() {
     };
 
     function demoUser() {
-        setCredential('FakeUser1');
-        setPassword('password1')
+        setCredential('demosmith');
+        setPassword('password')
         return handleSubmit
     }
 

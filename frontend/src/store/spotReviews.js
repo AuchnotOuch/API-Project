@@ -30,7 +30,6 @@ export const thunkGetReviews = (spotId) => async (dispatch) => {
     })
     if (response.ok) {
         const data = await response.json()
-        console.log(data)
         dispatch(actionGetReviews(data))
         return response
     }
@@ -58,10 +57,14 @@ export default function reviewsReducer(state = {}, action) {
     switch (action.type) {
         case GET_REVIEWS:
             newState = { ...state }
+            console.log('get reviews initial newstate--->', newState)
+            console.log('get reviews payload --->', action.payload)
+            // newState[action.payload.id] = action.payload
             action.payload.Reviews.forEach(review => newState[review.id] = review)
             return newState
         case ADD_REVIEW:
             newState = { ...state }
+            console.log('add review payload --->', action.payload)
             newState[action.payload.id] = action.payload
             return newState
         case CLEAR_STATE:

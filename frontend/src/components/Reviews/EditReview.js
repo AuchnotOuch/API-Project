@@ -9,7 +9,12 @@ function EditReview() {
     const { reviewId } = useParams()
 
     const targetReview = useSelector(state => state.userReviews[reviewId])
-
+    // const userReviews = useSelector(state => state.userReviews)
+    // const reviewArr = Object.keys(userReviews)
+    // const targetArr = reviewArr.filter(id => id === reviewId)
+    // const targetReview = userReviews[targetArr[0]]
+    // console.log('user reviews state--->', userReviews)
+    console.log('targetReview before edit submit--->', targetReview)
     const [editReview, setEditReview] = useState(targetReview.review)
     const [stars, setStars] = useState(targetReview.stars)
     const dispatch = useDispatch()
@@ -24,14 +29,20 @@ function EditReview() {
         }
 
         dispatch(thunkEditReview(editedReview, reviewId))
-        console.log('targetReview--->', targetReview)
-        history.push(`/reviews/current`)
+            .then(() => history.push(`/reviews/current`))
     };
+
+
 
     const deleteReview = () => {
         dispatch(thunkDeleteReview(reviewId))
         history.push(`/reviews/current`)
     }
+
+    // useEffect(() => {
+
+    // }, [deleteReview])
+
 
     return (
         <div className='edit-review-container'>
