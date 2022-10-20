@@ -7,6 +7,9 @@ import HomePage from './components/HomePage'
 import SpotDetails from "./components/SpotDetails";
 import CreateSpot from "./components/CreateSpot";
 import AddReview from "./components/Reviews/AddReview"
+import UserReviews from "./components/Reviews/UserReviews";
+import EditReview
+  from "./components/Reviews/EditReview";
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -22,6 +25,8 @@ function App() {
           <Route exact path='/' component={HomePage} />
           <Route exact path='/spots/:spotId/reviews' component={AddReview}></Route>
           <Route exact path='/spots/:spotId' component={SpotDetails} />
+          <Route exact path='/reviews/current' component={UserReviews} />
+          <Route exact path='/reviews/:reviewId' component={EditReview} />
           <Route path='/spots' component={CreateSpot} />
         </Switch>
       )}
