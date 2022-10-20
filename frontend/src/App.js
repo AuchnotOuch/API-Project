@@ -8,6 +8,7 @@ import SpotDetails from "./components/SpotDetails";
 import CreateSpot from "./components/CreateSpot";
 import AddReview from "./components/Reviews/AddReview"
 import UserReviews from "./components/Reviews/UserReviews";
+import UserSpots from './components/SpotDetails/UserSpots'
 import EditReview
   from "./components/Reviews/EditReview";
 function App() {
@@ -22,6 +23,7 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
+          <Route exact path='/spots/current' component={UserSpots} />
           <Route exact path='/' component={HomePage} />
           <Route exact path='/spots/:spotId/reviews' component={AddReview}></Route>
           <Route exact path='/spots/:spotId' component={SpotDetails} />

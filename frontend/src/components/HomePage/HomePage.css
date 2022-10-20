@@ -1,6 +1,8 @@
 .spots {
     display: flex;
+    flex-direction: row;
     flex-wrap: wrap;
+    /* justify-content: space-between; */
 }
 
 .spot-card {
@@ -8,7 +10,7 @@
     flex-direction: column;
     justify-content: center;
     margin-bottom: 20px;
-    margin-left: 5vw;
+
 }
 
 .container {

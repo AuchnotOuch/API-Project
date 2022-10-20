@@ -40,9 +40,11 @@ const ProfileButton = ({ user }) => {
             </button>
             {showMenu && (
                 <ul className="profile-dropdown">
-                    <li>{user.username}</li>
-                    <li>{user.email}</li>
-                    <li><NavLink exact to='/reviews/current'>Reviews</NavLink></li>
+                    <li>Hello {user.firstName}!</li>
+                    {/* <li>{user.email}</li> */}
+                    <br></br>
+                    <li><NavLink exact to='/reviews/current'>Your Reviews</NavLink></li>
+                    <li><NavLink exact to='/spots/current'>Spots You Own</NavLink></li>
                     <li>
                         <button id='logout-button' onClick={logout}>Log Out</button>
                     </li>

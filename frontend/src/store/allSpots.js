@@ -1,9 +1,17 @@
 import { csrfFetch } from "./csrf"
+import { actionClearSingleSpot } from "./singleSpot"
 
 const GET_ALL_SPOTS = 'spots/getSpots'
+const GET_USER_SPOTS = 'spots/getUserSpots'
 const CREATE_SPOT = 'spots/createSpot'
 const DELETE_SPOT = 'spots/deleteSpot'
+const CLEAR_STATE = 'spots/clearAllSpots'
 
+export const actionClearAllSpots = () => {
+    return {
+        type: CLEAR_STATE
+    }
+}
 
 const actionGetAllSpots = (spots) => {
     return {
@@ -26,6 +34,13 @@ const actionDeleteSpot = (id) => {
     }
 }
 
+const actionGetUserSpots = (spots) => {
+    return {
+        type: GET_USER_SPOTS,
+        payload: spots
+    }
+}
+
 export const getAllSpots = () => async (dispatch) => {
     const response = await fetch('/api/spots', {
         method: 'GET'
@@ -33,6 +48,19 @@ export const getAllSpots = () => async (dispatch) => {
     if (response.ok) {
         const data = await response.json()
         dispatch(actionGetAllSpots(data))
+        dispatch(actionClearSingleSpot())
+        return response
+    }
+}
+
+export const thunkGetUserSpots = () => async (dispatch) => {
+    const response = await csrfFetch('/api/spots/current', {
+        method: 'GET'
+    })
+    if (response.ok) {
+        const data = await response.json()
+        dispatch(actionGetUserSpots(data))
+        dispatch(actionClearSingleSpot())
         return response
     }
 }
@@ -91,6 +119,11 @@ export default function spotsReducer(state = {}, action) {
             action.payload.Spots.forEach(spot => spotsObj[spot.id] = spot)
             newState = Object.assign({ ...state }, { ...spotsObj })
             return newState
+        case GET_USER_SPOTS:
+            const userSpotsObj = {}
+            action.payload.Spots.forEach(spot => userSpotsObj[spot.id] = spot)
+            newState = userSpotsObj
+            return newState
         case CREATE_SPOT:
             newState = { ...state }
             newState[action.payload.id] = action.payload
@@ -98,6 +131,9 @@ export default function spotsReducer(state = {}, action) {
         case DELETE_SPOT:
             newState = { ...state }
             delete newState[action.payload]
+            return newState
+        case CLEAR_STATE:
+            newState = {}
             return newState
         default:
             return state
