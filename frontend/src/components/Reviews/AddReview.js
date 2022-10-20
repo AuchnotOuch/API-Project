@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useHistory, useParams } from 'react-router-dom'
-import { thunkAddReview } from '../../store/spotReviews'
+import { thunkAddReview, thunkGetReviews } from '../../store/spotReviews'
 // import './CreateSpot.css'
 
 function AddReview() {
@@ -24,7 +24,8 @@ function AddReview() {
         }
 
         dispatch(thunkAddReview(newReview, spotId))
-        history.push(`/spots/${spotId}`)
+            .then(() => dispatch(thunkGetReviews(spotId)))
+            .then(() => history.push(`/spots/${spotId}`))
     };
 
     return (

@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory, useParams } from 'react-router-dom'
-import { thunkDeleteReview, thunkEditReview } from '../../store/userReviews'
+import { thunkDeleteReview, thunkEditReview, thunkGetUserReviews } from '../../store/userReviews'
 import './Reviews.css'
 
 function EditReview() {
@@ -13,10 +13,8 @@ function EditReview() {
     // const reviewArr = Object.keys(userReviews)
     // const targetArr = reviewArr.filter(id => id === reviewId)
     // const targetReview = userReviews[targetArr[0]]
-    // console.log('user reviews state--->', userReviews)
-    console.log('targetReview before edit submit--->', targetReview)
-    const [editReview, setEditReview] = useState(targetReview.review)
-    const [stars, setStars] = useState(targetReview.stars)
+    const [editReview, setEditReview] = useState(targetReview ? targetReview.review : '')
+    const [stars, setStars] = useState(targetReview ? targetReview.stars : '')
     const dispatch = useDispatch()
     const history = useHistory()
 
@@ -29,6 +27,9 @@ function EditReview() {
         }
 
         dispatch(thunkEditReview(editedReview, reviewId))
+            .then(() => setEditReview(''))
+            .then(() => setStars(''))
+            .then(() => dispatch(thunkGetUserReviews()))
             .then(() => history.push(`/reviews/current`))
     };
 
@@ -36,7 +37,8 @@ function EditReview() {
 
     const deleteReview = () => {
         dispatch(thunkDeleteReview(reviewId))
-        history.push(`/reviews/current`)
+            .then(() => dispatch(thunkGetUserReviews()))
+            .then(() => history.push(`/reviews/current`))
     }
 
     // useEffect(() => {

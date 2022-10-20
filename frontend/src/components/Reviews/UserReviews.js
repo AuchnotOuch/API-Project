@@ -29,7 +29,7 @@ function UserReviews() {
         <div className='reviews'>
             <h2>Reviews</h2>
             <ul className='reviews-container'>
-                {Object.values(reviews).map(review => (
+                {reviews && Object.values(reviews).map(review => (
                     <li className='user-reviews' key={review.id}>
                         <ul className='review-content'>
                             <li>{review.stars}<i className="fa-solid fa-star"></i></li>

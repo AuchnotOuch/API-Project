@@ -13,7 +13,7 @@ const actionGetReviews = (reviews) => {
 
 const actionAddReview = (review) => {
     return {
-        type: GET_REVIEWS,
+        type: ADD_REVIEW,
         payload: review
     }
 }
@@ -37,7 +37,6 @@ export const thunkGetReviews = (spotId) => async (dispatch) => {
 
 export const thunkAddReview = (addReview, spotId) => async (dispatch) => {
     const { review, stars } = addReview
-    console.log(review)
     const response = await csrfFetch(`/api/spots/${spotId}/reviews`, {
         method: 'POST',
         body: JSON.stringify({
@@ -57,14 +56,10 @@ export default function reviewsReducer(state = {}, action) {
     switch (action.type) {
         case GET_REVIEWS:
             newState = { ...state }
-            console.log('get reviews initial newstate--->', newState)
-            console.log('get reviews payload --->', action.payload)
-            // newState[action.payload.id] = action.payload
             action.payload.Reviews.forEach(review => newState[review.id] = review)
             return newState
         case ADD_REVIEW:
             newState = { ...state }
-            console.log('add review payload --->', action.payload)
             newState[action.payload.id] = action.payload
             return newState
         case CLEAR_STATE:

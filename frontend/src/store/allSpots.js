@@ -57,7 +57,6 @@ export const thunkCreateSpot = (spot) => async (dispatch) => {
     })
     if (response.ok) {
         const data = await response.json()
-        console.log(data.id)
         const imgRes = await csrfFetch(`/api/spots/${data.id}/images`, {
             method: 'POST',
             body: JSON.stringify({
@@ -88,14 +87,9 @@ export default function spotsReducer(state = {}, action) {
     let newState;
     switch (action.type) {
         case GET_ALL_SPOTS:
-            console.log('payload -->', action.payload)
             const spotsObj = { ...state }
-            console.log('current state copy --->', spotsObj)
             action.payload.Spots.forEach(spot => spotsObj[spot.id] = spot)
-            console.log('current state copy after adding spots from payload--->', spotsObj)
-            console.log('newState initial --->', newState)
             newState = Object.assign({ ...state }, { ...spotsObj })
-            console.log('newState after adding new state --->', newState)
             return newState
         case CREATE_SPOT:
             newState = { ...state }

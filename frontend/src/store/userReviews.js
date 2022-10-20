@@ -3,6 +3,9 @@ import { csrfFetch } from "./csrf"
 const GET_USER_REVIEWS = 'user/Reviews'
 const EDIT_REVIEW = 'user/editReview'
 const DELETE_REVIEW = 'user/deleteReview'
+// const ADD_REVIEW = 'spot/AddReview'
+
+
 
 const actionGetUserReviews = (reviews) => {
     return {
@@ -24,6 +27,14 @@ const actionDeleteReview = (id) => {
         payload: id
     }
 }
+
+// const actionAddReview = (review) => {
+//     return {
+//         type: GET_REVIEWS,
+//         payload: review
+//     }
+// }
+
 export const thunkGetUserReviews = () => async (dispatch) => {
     const response = await csrfFetch(`/api/reviews/current`, {
         method: 'GET'
@@ -46,7 +57,6 @@ export const thunkEditReview = (editedReview, reviewId) => async (dispatch) => {
     })
     if (response.ok) {
         const data = await response.json()
-        console.log('test')
         dispatch(actionEditReview(data))
         return response
     }

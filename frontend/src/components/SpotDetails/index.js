@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { thunkGetSpot } from '../../store/singleSpot'
 import Reviews from '../../components/Reviews'
@@ -9,11 +9,13 @@ import EditSpot from '../EditSpot'
 function SpotDetails() {
     const [editMode, setEditMode] = useState(false)
     const { spotId } = useParams()
+    const history = useHistory()
 
     const dispatch = useDispatch()
 
     useEffect(() => {
         dispatch(thunkGetSpot(spotId))
+            .then(() => history.push(`/spots/${spotId}`))
     }, [spotId, dispatch])
 
     const mountEditSpot = () => {
