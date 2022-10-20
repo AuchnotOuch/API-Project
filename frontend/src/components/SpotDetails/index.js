@@ -16,7 +16,7 @@ function SpotDetails() {
     useEffect(() => {
         dispatch(thunkGetSpot(spotId))
             .then(() => history.push(`/spots/${spotId}`))
-    }, [spotId, dispatch])
+    }, [history, spotId, dispatch])
 
     const mountEditSpot = () => {
         setEditMode(true)

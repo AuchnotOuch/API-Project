@@ -35,7 +35,8 @@ function Navigation({ isLoaded }) {
     return (
         <div className='nav-bar'>
             <NavLink
-                onClick={resetReviewState} id='home-button' exact to="/">
+                onClick={resetReviewState}
+                id='home-button' exact to="/">
                 <img
                     src='https://cdn0.iconfinder.com/data/icons/picons-social/57/68-airbnb-1024.png'
                     alt={`Al's BnB Logo`}>
