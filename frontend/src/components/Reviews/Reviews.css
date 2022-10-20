@@ -6,9 +6,11 @@
 
 .review-content {
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
     align-items: flex-start;
     padding: 0;
+    margin-bottom: 5px;
+    border: 1px solid black;
 }
 
 .review-content img {
@@ -32,4 +34,10 @@
     background-color: salmon;
     border-radius: 10px;
     padding: 1px;
+}
+
+.edit-review-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }

@@ -38,7 +38,7 @@ function Reviews() {
                     <li key={review.id}>
                         <ul className='review-content'>
                             <li>{review.User.firstName}</li>
-                            <li>{review.stars} Stars</li>
+                            <li>{review.stars}<i className="fa-solid fa-star"></i></li>
                             <li>{review.review}</li>
                             {reviewImgUrl(review) && <img src={reviewImgUrl(review)} alt='spot review'></img>
                             }

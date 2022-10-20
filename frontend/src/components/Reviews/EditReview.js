@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory, useParams } from 'react-router-dom'
-import { thunkEditReview } from '../../store/userReviews'
+import { thunkDeleteReview, thunkEditReview } from '../../store/userReviews'
 import './Reviews.css'
 
 function EditReview() {
@@ -28,28 +28,32 @@ function EditReview() {
         history.push(`/reviews/current`)
     };
 
-
-    useEffect(() => {
-    }, [handleSubmit])
+    const deleteReview = () => {
+        dispatch(thunkDeleteReview(reviewId))
+        history.push(`/reviews/current`)
+    }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <input
-                type='number'
-                value={stars}
-                onChange={e => setStars(e.target.value)}
-                required
-                placeholder='Stars'
-            />
-            <textarea
-                type='text'
-                value={editReview}
-                onChange={e => setEditReview(e.target.value)}
-                required
-                placeholder='Enter Review'
-            />
-            <button type='submit'>Save</button>
-        </form>
+        <div className='edit-review-container'>
+            <form onSubmit={handleSubmit}>
+                <input
+                    type='number'
+                    value={stars}
+                    onChange={e => setStars(e.target.value)}
+                    required
+                    placeholder='Stars'
+                />
+                <textarea
+                    type='text'
+                    value={editReview}
+                    onChange={e => setEditReview(e.target.value)}
+                    required
+                    placeholder='Enter Review'
+                />
+                <button type='submit'>Save</button>
+            </form>
+            <button onClick={deleteReview}>Delete</button>
+        </div>
 
     )
 }
