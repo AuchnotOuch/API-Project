@@ -1,6 +1,6 @@
 .single-spot {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
 }
 
@@ -29,7 +29,34 @@ h2 {
     position: unset;
 }
 
+#edit-button {
+    background-color: white;
+    border: none;
+    padding: 0;
+    margin-left: -8px;
+}
+
 #rating {
     margin-left: -11px;
     margin-top: 10px;
+}
+
+#host-div {
+    font-size: x-large;
+    border-bottom: 1px solid lightgray;
+}
+
+#price-div {
+    position: fixed;
+    font-weight: bold;
+    font-size: xx-large;
+    margin-left: 60%;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    box-shadow: 0 0 10px #d7d7d7;
+    padding: 5px
+}
+
+#description {
+    width: 500px;
 }

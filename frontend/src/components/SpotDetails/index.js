@@ -24,7 +24,6 @@ function SpotDetails() {
 
     const spot = useSelector(state => state.singleSpot)
     const user = useSelector(state => state.session.user)
-    const reviews = useSelector(state => state.spotReviews)
     const spotRating = useSelector(state => state.allSpots[spotId].avgRating)
 
     if (!spot.SpotImages) return null
@@ -39,9 +38,13 @@ function SpotDetails() {
                 <br></br>
                 <div className='spot'>
                     <img src={spotImgUrl} alt={spot.name}></img>
-                    <div>{spot.name}</div>
-                    <div>{spot.description}</div>
-                    <div>${spot.price}</div>
+                    <br></br>
+                    <br></br>
+                    <div id='host-div'>Hosted by {spot.Owner.firstName}</div>
+                    <br></br>
+                    <div id='description'>
+                        <div>{spot.description}</div>
+                    </div>
                 </div>
                 <Reviews />
             </div>
@@ -55,17 +58,22 @@ function SpotDetails() {
         elements = (
             <div className='single-spot'>
                 <div className='spot-details'>
+                    <div id='price-div'>${spot.price} nightly</div>
+                    {owner &&
+                        <button id='edit-button' onClick={mountEditSpot}><i class="fa-solid fa-pen-to-square"></i> Edit Spot</button>
+                    }
                     <div><h2>{spot.name}</h2></div>
                     <div id='rating'><i className="fa-solid fa-star"></i> {spotRating} - {spot.city}, {spot.state}, {spot.country}</div>
                     <br></br>
                     <div className='spot'>
-                        {owner &&
-                            <button onClick={mountEditSpot}>Edit Your Spot</button>
-                        }
                         <img src={spotImgUrl} alt={spot.name}></img>
-                        <div>{spot.name}</div>
-                        <div>{spot.description}</div>
-                        <div>${spot.price}</div>
+                        <br></br>
+                        <br></br>
+                        <div id='host-div'>Hosted by {spot.Owner.firstName}</div>
+                        <br></br>
+                        <div id='description'>
+                            <div>{spot.description}</div>
+                        </div>
                     </div>
                     <Reviews />
                 </div>
