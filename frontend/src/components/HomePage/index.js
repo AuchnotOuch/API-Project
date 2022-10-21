@@ -27,9 +27,14 @@ function HomePage() {
                                 <img src={spot.previewImage} alt={spot.name}></img>
 
                                 <div>
-                                    <div>{spot.city}, {spot.state}</div>
-                                    <div>{spot.avgRating}<i className="fa-solid fa-star"></i></div>
-                                    <div>${spot.price}</div>
+                                    <div id='location-stars'>
+                                        <span>{spot.city}, {spot.state}</span>
+                                        <span><i className="fa-solid fa-star"></i> {spot.avgRating}</span>
+                                    </div>
+                                    <br></br>
+                                    <div id='price-nightly'>
+                                        <div id='price'>${spot.price}</div><div>nightly</div>
+                                    </div>
                                 </div>
                                 <div>
                                 </div>

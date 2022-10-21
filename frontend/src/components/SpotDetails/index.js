@@ -24,20 +24,27 @@ function SpotDetails() {
 
     const spot = useSelector(state => state.singleSpot)
     const user = useSelector(state => state.session.user)
+    const reviews = useSelector(state => state.spotReviews)
+    const spotRating = useSelector(state => state.allSpots[spotId].avgRating)
 
     if (!spot.SpotImages) return null
     let spotImgUrl;
     spot.SpotImages.forEach(img => spotImgUrl = img.url)
 
     if (!user) return (
-        <div className='spot-details'>
-            <div className='spot'>
-                <img src={spotImgUrl} alt={spot.name}></img>
-                <div>{spot.name}</div>
-                <div>{spot.description}</div>
-                <div>${spot.price}</div>
+        <div className='single-spot'>
+            <div className='spot-details'>
+                <div><h2>{spot.name}</h2></div>
+                <div id='rating'><i className="fa-solid fa-star"></i> {spotRating} -{spot.city}, {spot.state}, {spot.country}</div>
+                <br></br>
+                <div className='spot'>
+                    <img src={spotImgUrl} alt={spot.name}></img>
+                    <div>{spot.name}</div>
+                    <div>{spot.description}</div>
+                    <div>${spot.price}</div>
+                </div>
+                <Reviews />
             </div>
-            <Reviews />
         </div>
     )
 
@@ -46,17 +53,23 @@ function SpotDetails() {
     let elements;
     if (!editMode) {
         elements = (
-            <div className='spot-details'>
-                <div className='spot'>
-                    {owner &&
-                        <button onClick={mountEditSpot}>Edit Your Spot</button>
-                    }
-                    <img src={spotImgUrl} alt={spot.name}></img>
-                    <div>{spot.name}</div>
-                    <div>{spot.description}</div>
-                    <div>${spot.price}</div>
+            <div className='single-spot'>
+                <div className='spot-details'>
+                    <div><h2>{spot.name}</h2></div>
+                    <div id='rating'><i className="fa-solid fa-star"></i> {spotRating} - {spot.city}, {spot.state}, {spot.country}</div>
+                    <br></br>
+                    <div className='spot'>
+                        {owner &&
+                            <button onClick={mountEditSpot}>Edit Your Spot</button>
+                        }
+                        <img src={spotImgUrl} alt={spot.name}></img>
+                        <div>{spot.name}</div>
+                        <div>{spot.description}</div>
+                        <div>${spot.price}</div>
+                    </div>
+                    <Reviews />
                 </div>
-                <Reviews />
+
             </div>
         )
     } else {

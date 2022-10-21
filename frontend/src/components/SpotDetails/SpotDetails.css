@@ -1,7 +1,14 @@
+.single-spot {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .spot-details {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    padding: 20vh;
 }
 
 .spot {
@@ -11,5 +18,18 @@
 }
 
 .spot img {
-    width: 500px;
+    max-width: 500px;
+    max-height: 350px;
+    /* width: fit-content; */
+    border-radius: 5%;
+}
+
+h2 {
+    margin: 0;
+    position: unset;
+}
+
+#rating {
+    margin-left: -11px;
+    margin-top: 10px;
 }
