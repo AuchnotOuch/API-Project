@@ -12,6 +12,11 @@ function UserReviews() {
 
 
     const reviews = useSelector(state => state.userReviews)
+    const spots = useSelector(state => state.allSpots)
+
+    const findSpotName = (spotId) => {
+        return spots[spotId].name
+    }
 
     useEffect(() => {
         dispatch(thunkGetUserReviews())
@@ -26,18 +31,19 @@ function UserReviews() {
     }
 
     return (
-        <div className='reviews'>
-            <h2>Reviews</h2>
+        <div className='user-reviews-container'>
+            <h2>Your Reviews</h2>
             <ul className='reviews-container'>
                 {reviews && Object.values(reviews).map(review => (
                     <li className='user-reviews' key={review.id}>
                         <ul className='review-content'>
-                            <li>{review.stars}<i className="fa-solid fa-star"></i></li>
-                            <li>{review.review}</li>
+                            <NavLink id='edit-review-button' to={`/reviews/${review.id}`}><i className="fa-solid fa-pen-to-square"></i> Edit Review</NavLink>
+                            <li id='spot-name'>{findSpotName(review.spotId)}</li>
+                            <li id='stars'><i className="fa-solid fa-star"></i>{review.stars}</li>
+                            <li id='review'>"{review.review}"</li>
                             {reviewImgUrl(review) && <img src={reviewImgUrl(review)} alt='spot review'></img>
                             }
                         </ul>
-                        <NavLink to={`/reviews/${review.id}`}>Edit Review</NavLink>
                     </li>
                 ))}
             </ul>

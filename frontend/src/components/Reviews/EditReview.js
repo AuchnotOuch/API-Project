@@ -15,6 +15,7 @@ function EditReview() {
     // const targetReview = userReviews[targetArr[0]]
     const [editReview, setEditReview] = useState(targetReview ? targetReview.review : '')
     const [stars, setStars] = useState(targetReview ? targetReview.stars : '')
+    const [errors, setErrors] = useState([])
     const dispatch = useDispatch()
     const history = useHistory()
 
@@ -31,6 +32,10 @@ function EditReview() {
             .then(() => setStars(''))
             .then(() => dispatch(thunkGetUserReviews()))
             .then(() => history.push(`/reviews/current`))
+            .catch(async (response) => {
+                const data = await response.json()
+                if (data && data.errors) setErrors(data.errors)
+            })
     };
 
 
@@ -66,6 +71,9 @@ function EditReview() {
                 <button type='submit'>Save</button>
             </form>
             <button onClick={deleteReview}>Delete</button>
+            <ul>
+                {errors.map(error => <li key={error}>{error}</li>)}
+            </ul>
         </div>
 
     )

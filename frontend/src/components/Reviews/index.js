@@ -18,6 +18,8 @@ function Reviews() {
     const reviews = useSelector(state => state.spotReviews)
     const spot = useSelector(state => state.singleSpot)
     const user = useSelector(state => state.session.user)
+    const spotRating = useSelector(state => state.allSpots[spotId].avgRating)
+
 
     useEffect(() => {
         if (user && Object.values(reviews).find(review => review.userId === user.id)) {
@@ -28,17 +30,21 @@ function Reviews() {
 
     if (!user) return (
         <div className='reviews'>
-            <h2>Reviews</h2>
+            <div id='reviews-label'>Reviews</div>
+            <br></br>
             <ul>
                 {Object.values(reviews).map(review => (
                     <li key={review.id}>
-                        <ul className='review-content'>
-                            <li>{review.User.firstName}</li>
-                            <li>{review.stars}<i className="fa-solid fa-star"></i></li>
-                            <li>{review.review}</li>
+                        <div className='review-content'>
+                            <div id='name-stars'>
+                                <div>{review.User.firstName}</div>
+                                <div><i className="fa-solid fa-star"></i>{review.stars}</div>
+                            </div>
+                            <div id='review'>"{review.review}"</div>
+                            <br></br>
                             {reviewImgUrl(review) && <img src={reviewImgUrl(review)} alt='spot review'></img>
                             }
-                        </ul>
+                        </div>
                     </li>
                 ))}
             </ul>
@@ -50,17 +56,21 @@ function Reviews() {
     if (!Object.entries(reviews).length) return null
     if (!allowReview) return (
         <div className='reviews'>
-            <h2>Reviews</h2>
+            <div id='reviews-label'>Reviews</div>
+            <br></br>
             <ul>
                 {Object.values(reviews).map(review => (
                     <li key={review.id}>
-                        <ul className='review-content'>
-                            <li>{review.User.firstName}</li>
-                            <li>{review.stars}<i className="fa-solid fa-star"></i></li>
-                            <li>{review.review}</li>
+                        <div className='review-content'>
+                            <div id='name-stars'>
+                                <div>{review.User.firstName}</div>
+                                <div><i className="fa-solid fa-star"></i>{review.stars}</div>
+                            </div>
+                            <div id='review'>"{review.review}"</div>
+                            <br></br>
                             {reviewImgUrl(review) && <img src={reviewImgUrl(review)} alt='spot review'></img>
                             }
-                        </ul>
+                        </div>
                     </li>
                 ))}
             </ul>
@@ -77,18 +87,22 @@ function Reviews() {
 
     return (
         <div className='reviews'>
-            <h2>Reviews</h2>
-            {!owner && (<NavLink exact to={`/spots/${spotId}/reviews`}>Add Review</NavLink>)}
+            <div id='reviews-label'>Reviews</div>
+            <br></br>
+            {!owner && (<NavLink exact to={`/spots/${spotId}/reviews`}><i class="fa-regular fa-square-plus"></i> Add Review</NavLink>)}
             <ul>
                 {Object.values(reviews).map(review => (
                     <li key={review.id}>
-                        <ul className='review-content'>
-                            <li>{review.User.firstName}</li>
-                            <li>{review.stars} Stars</li>
-                            <li>{review.review}</li>
+                        <div className='review-content'>
+                            <div id='name-stars'>
+                                <div>{review.User.firstName}</div>
+                                <div><i className="fa-solid fa-star"></i>{review.stars}</div>
+                            </div>
+                            <div id='review'>"{review.review}"</div>
+                            <br></br>
                             {reviewImgUrl(review) && <img src={reviewImgUrl(review)} alt='spot review'></img>
                             }
-                        </ul>
+                        </div>
                     </li>
                 ))}
             </ul>

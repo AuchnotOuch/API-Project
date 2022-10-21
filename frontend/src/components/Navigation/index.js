@@ -41,7 +41,7 @@ function Navigation({ isLoaded }) {
                     src='https://cdn0.iconfinder.com/data/icons/picons-social/57/68-airbnb-1024.png'
                     alt={`Al's BnB Logo`}>
                 </img>
-                <>Al's BnB</>
+                <>al's bnb</>
             </NavLink>
             <ul>
                 <li>

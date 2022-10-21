@@ -19,6 +19,7 @@ function UserSpots() {
 
     return (
         <>
+            <h2>Your Spots</h2>
             <div className='spots'>
                 {Object.values(allSpots).map(spot => (
                     <div key={spot.id} className='spot-card'>
@@ -28,11 +29,14 @@ function UserSpots() {
                                 <img src={spot.previewImage} alt={spot.name}></img>
 
                                 <div>
-                                    <div>{spot.city}, {spot.state}</div>
-                                    <div>{spot.avgRating ? spot.avgRating : 'No Ratings'}<i className="fa-solid fa-star"></i></div>
-                                    <div>${spot.price}</div>
-                                </div>
-                                <div>
+                                    <div id='location-stars'>
+                                        <span>{spot.city}, {spot.state}</span>
+                                        <span><i className="fa-solid fa-star"></i> {spot.avgRating}</span>
+                                    </div>
+                                    <br></br>
+                                    <div id='price-nightly'>
+                                        <div id='price'>${spot.price}</div><div>nightly</div>
+                                    </div>
                                 </div>
                             </div>
                         </Link>

@@ -40,7 +40,7 @@ const ProfileButton = ({ user }) => {
             </button>
             {showMenu && (
                 <ul className="profile-dropdown">
-                    <li>Hello {user.firstName}!</li>
+                    <li id="greeting">Hello {user.firstName}!</li>
                     {/* <li>{user.email}</li> */}
                     <br></br>
                     <li><NavLink exact to='/reviews/current'>Your Reviews</NavLink></li>
