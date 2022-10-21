@@ -27,7 +27,7 @@ function UserReviews() {
 
     return (
         <div className='reviews'>
-            <h2>Reviews</h2>
+            <h2>Your Reviews</h2>
             <ul className='reviews-container'>
                 {reviews && Object.values(reviews).map(review => (
                     <li className='user-reviews' key={review.id}>

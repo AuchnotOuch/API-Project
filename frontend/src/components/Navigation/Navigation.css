@@ -4,7 +4,12 @@
     align-items: center;
     justify-content: space-between;
     margin-bottom: 5vh;
+    margin-top: -10px;
+
     border-bottom: 1px solid lightgray;
+    position: fixed;
+    width: 100%;
+    background-color: white;
 }
 
 /* .logged-in-nav {

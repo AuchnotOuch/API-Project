@@ -9,6 +9,7 @@ function AddReview() {
 
     const [review, setReview] = useState('')
     const [stars, setStars] = useState('')
+    const [errors, setErrors] = useState([])
 
 
 
@@ -26,6 +27,11 @@ function AddReview() {
         dispatch(thunkAddReview(newReview, spotId))
             .then(() => dispatch(thunkGetReviews(spotId)))
             .then(() => history.push(`/spots/${spotId}`))
+            .catch(async (response) => {
+                const data = await response.json()
+                if (data && data.errors) setErrors(data.errors)
+
+            })
     };
 
     return (
@@ -46,6 +52,9 @@ function AddReview() {
                 placeholder='Enter Review'
             />
             <button type='submit'>Add Review</button>
+            <ul>
+                {errors.map(error => <li key={error}>{error}</li>)}
+            </ul>
         </form>
 
     )

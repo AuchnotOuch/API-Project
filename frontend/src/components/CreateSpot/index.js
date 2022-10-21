@@ -9,12 +9,11 @@ function CreateSpot() {
     const [city, setCity] = useState('')
     const [state, setState] = useState('')
     const [country, setCountry] = useState('')
-    const [lat, setLat] = useState('')
-    const [lng, setLng] = useState('')
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
     const [price, setPrice] = useState('')
     const [previewImage, setPreviewImage] = useState('')
+    const [errors, setErrors] = useState([])
 
 
     const dispatch = useDispatch()
@@ -28,16 +27,24 @@ function CreateSpot() {
             city,
             state,
             country,
-            lat,
-            lng,
             name,
             description,
             price,
             previewImage
         }
-
+        const errorsArr = []
         dispatch(thunkCreateSpot(spot))
-        history.push(`/`)
+            .then(() => history.push('/'))
+            .catch(async (response) => {
+                const data = await response.json()
+                console.log(data)
+                if (data && data.errors) {
+                    data.errors.forEach(error => {
+                        errorsArr.push(error.message)
+                    })
+                    setErrors(errorsArr)
+                }
+            })
     };
 
     return (
@@ -80,27 +87,6 @@ function CreateSpot() {
             />
             <input
                 type='number'
-                value={lat}
-                onChange={e => setLat(e.target.value)}
-                required
-                placeholder='Latitude'
-            />
-            <input
-                type='number'
-                value={lng}
-                onChange={e => setLng(e.target.value)}
-                required
-                placeholder='Longitude'
-            />
-            <textarea
-                type='text'
-                value={description}
-                onChange={e => setDescription(e.target.value)}
-                required
-                placeholder='Description'
-            />
-            <input
-                type='number'
                 value={price}
                 onChange={e => setPrice(e.target.value)}
                 required
@@ -113,7 +99,17 @@ function CreateSpot() {
                 required
                 placeholder='Photo Link'
             />
+            <textarea
+                type='text'
+                value={description}
+                onChange={e => setDescription(e.target.value)}
+                required
+                placeholder='Description'
+            />
             <button type='submit'>Create Spot!</button>
+            <ul>
+                {errors.map(error => <li key={error}>{error}</li>)}
+            </ul>
         </form>
 
     )

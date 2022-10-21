@@ -38,9 +38,23 @@ export const thunkGetSpot = (spotId) => async (dispatch) => {
 }
 
 export const thunkEditSpot = (spot, spotId) => async (dispatch) => {
+    const { address, city, state, country, name, description, price, previewImage } = spot
+    const latitude = (Math.random() * (180 - (-180)) + -180).toFixed(3) * 1
+    const longitude = (Math.random() * (180 - (-180)) + -180).toFixed(3) * 1
     const response = await csrfFetch(`/api/spots/${spotId}`, {
         method: 'PUT',
-        body: JSON.stringify(spot)
+        body: JSON.stringify({
+            address,
+            city,
+            state,
+            country,
+            lat: latitude,
+            lng: longitude,
+            name,
+            description,
+            price,
+            previewImage
+        })
     })
 
     if (response.ok) {

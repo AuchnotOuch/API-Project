@@ -559,15 +559,12 @@ router.use((err, req, res, next) => {
     if (err.name === 'SequelizeUniqueConstraintError') {
         res.statusCode = 403
         return res.json({
-            message: "Sorry, this spot is already booked for the specified dates",
+            message: err.message,
             statusCode: 403,
-            errors: {
-                startDate: 'Start date conflicts with an existing booking',
-                endDate: 'End date conflicts with an existing booking'
-            }
+            errors: err.errors
         })
     }
-    const statusCode = err.status
+    const statusCode = err.statusCode
     console.log(statusCode)
     const errors = err.errors
     res.statusCode = statusCode
