@@ -11,14 +11,13 @@ function Reviews() {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        // dispatch(actionClearReviews())
+        dispatch(actionClearReviews())
         dispatch(thunkGetReviews(spotId))
     }, [spotId, dispatch])
 
     const reviews = useSelector(state => state.spotReviews)
     const spot = useSelector(state => state.singleSpot)
     const user = useSelector(state => state.session.user)
-    const spotRating = useSelector(state => state.allSpots[spotId].avgRating)
 
 
     useEffect(() => {
@@ -89,7 +88,7 @@ function Reviews() {
         <div className='reviews'>
             <div id='reviews-label'>Reviews</div>
             <br></br>
-            {!owner && (<NavLink exact to={`/spots/${spotId}/reviews`}><i class="fa-regular fa-square-plus"></i> Add Review</NavLink>)}
+            {!owner && (<NavLink exact to={`/spots/${spotId}/reviews`}><i className="fa-regular fa-square-plus"></i> Add Review</NavLink>)}
             <ul>
                 {Object.values(reviews).map(review => (
                     <li key={review.id}>

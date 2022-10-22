@@ -1,30 +1,37 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { thunkGetUserSpots, actionClearAllSpots } from '../../store/allSpots'
-import '../HomePage/HomePage.css'
+import { getAllSpots } from '../../store/allSpots'
+import './UserSpots.css'
 
 
 
 function UserSpots() {
+    const user = useSelector(state => state.session.user)
     const allSpots = useSelector(state => state.allSpots)
-    console.log(allSpots)
+
+    const userSpots = {}
+    Object.values(allSpots).map(spot => {
+        if (spot.ownerId === user.id) {
+            userSpots[spot.id] = { ...spot }
+        }
+        return
+    })
+
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(actionClearAllSpots())
-        dispatch(thunkGetUserSpots())
+        dispatch(getAllSpots())
     }, [dispatch])
 
 
     return (
-        <>
-            <h2>Your Spots</h2>
-            <div className='spots'>
-                {Object.values(allSpots).map(spot => (
-                    <div key={spot.id} className='spot-card'>
+        <div id='user-spots-container-main'>
+            <div className='user-spots'>
+                {Object.values(userSpots).map(spot => (
+                    <div key={spot.id} className='user-spot-card'>
                         <Link to={`/spots/${spot.id}`}>
-                            <div key={spot.id} className='container'>
+                            <div key={spot.id} className='user-spot-container'>
 
                                 <img src={spot.previewImage} alt={spot.name}></img>
 
@@ -44,7 +51,7 @@ function UserSpots() {
                     </div>
                 ))}
             </div>
-        </>
+        </div>
     )
 }
 

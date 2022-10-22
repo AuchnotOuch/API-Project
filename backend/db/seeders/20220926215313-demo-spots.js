@@ -71,6 +71,66 @@ module.exports = {
         name: 'Calico Chateau',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
         price: 400
+      },
+      {
+        ownerId: 1,
+        address: '1758 Hamill Avenue',
+        city: 'San Diego',
+        state: 'California',
+        country: 'United States of America',
+        lat: 32.895561,
+        lng: -117.284500,
+        name: 'Hamill Hill',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        price: 150
+      },
+      {
+        ownerId: 2,
+        address: '3447 Bingamon Branch Road',
+        city: 'Lake Forest',
+        state: 'Illinois',
+        country: 'United States of America',
+        lat: 42.261929,
+        lng: -87.859642,
+        name: 'Bingamon Bungaloo',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        price: 250
+      },
+      {
+        ownerId: 3,
+        address: '4001 Cambridge Place',
+        city: 'Baltimore',
+        state: 'Maryland',
+        country: 'United States of America',
+        lat: 39.323212,
+        lng: -76.700180,
+        name: 'Cambridge Cottage',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        price: 350
+      },
+      {
+        ownerId: 4,
+        address: '3192 Pennsylvania Avenue',
+        city: 'New Brunswick',
+        state: 'New Jersey',
+        country: 'United States of America',
+        lat: 40.443775,
+        lng: -74.410324,
+        name: 'New England Hidden Treasure',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        price: 215
+      },
+      {
+        ownerId: 5,
+        address: '1684 Chenoweth Drive',
+        city: 'Nashville',
+        state: 'Tennessee',
+        country: 'United States of America',
+        lat: 36.208359,
+        lng: -86.761642,
+        name: 'Chenoweth Garden Home',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        price: 400
       }
     ])
   },

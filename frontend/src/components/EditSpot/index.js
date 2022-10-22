@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { actionClearSingleSpot, thunkEditSpot } from '../../store/singleSpot'
-import { thunkDeleteSpot } from '../../store/allSpots'
+import { thunkEditSpot, thunkGetSpot } from '../../store/singleSpot'
+import { getAllSpots, thunkDeleteSpot } from '../../store/allSpots'
 import '../CreateSpot/CreateSpot.css'
 
 function EditSpot({ spot }) {
@@ -24,6 +24,38 @@ function EditSpot({ spot }) {
     const dispatch = useDispatch()
     const history = useHistory()
 
+    useEffect(() => {
+        const errorArr = []
+        if (address.length === 0) {
+            errorArr.push("Please provide an address")
+        }
+        if (city.length === 0) {
+            errorArr.push("Please provide a city")
+        }
+        if (state.length === 0) {
+            errorArr.push("Please provide a state")
+        }
+        if (country.length === 0) {
+            errorArr.push("Please provide a country")
+        }
+        if (name.length === 0) {
+            errorArr.push("Please provide a name for the spot")
+        }
+        if (description.length === 0) {
+            errorArr.push("Please provide a description")
+        }
+        if (price <= 0) {
+            errorArr.push("Please provide a valid price")
+        }
+        if (previewImage.length === 0) {
+            errorArr.push("Please provide a spot image")
+        }
+
+        setErrors(errorArr)
+
+    }, [previewImage, price, description, name, country, state, city, address])
+
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -40,7 +72,9 @@ function EditSpot({ spot }) {
 
 
         dispatch(thunkEditSpot(spot, spotId))
-            .then(() => history.push('/'))
+            .then(() => dispatch(getAllSpots()))
+            .then(() => dispatch(thunkGetSpot(spotId)))
+            .then(() => history.push(`/spots/current`))
             .catch(async (response) => {
                 const data = await response.json()
                 if (data && data.errors) setErrors(data.errors)
@@ -50,12 +84,11 @@ function EditSpot({ spot }) {
 
     const deleteSpot = () => {
         dispatch(thunkDeleteSpot(spotId))
-        dispatch(actionClearSingleSpot())
         history.push('/')
     }
 
     return (
-        <div className='edit-spot-container'>
+        <div className='form-div'>
             <form onSubmit={handleSubmit}>
                 <input
                     type='text'
@@ -113,12 +146,12 @@ function EditSpot({ spot }) {
                     required
                     placeholder='Description'
                 />
-                <button type='submit'>Save</button>
                 <ul>
-                    {errors.map((error) => <li key={error}>{error}</li>)}
+                    {errors.map((error) => <li id='error' key={error}>{error}</li>)}
                 </ul>
+                <button id='create-spot-button' type='submit'>Save</button>
+                <button id="delete-button-spots" onClick={deleteSpot}><i className="fa-solid fa-trash-can"></i> Delete Spot</button>
             </form>
-            <button onClick={deleteSpot}>Delete Spot</button>
         </div>
 
     )
