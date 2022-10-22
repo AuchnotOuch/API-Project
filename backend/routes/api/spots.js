@@ -565,7 +565,6 @@ router.use((err, req, res, next) => {
         })
     }
     const statusCode = err.statusCode
-    console.log(statusCode)
     const errors = err.errors
     res.statusCode = statusCode
     res.json({

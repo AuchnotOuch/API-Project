@@ -1,23 +1,30 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory, useParams } from 'react-router-dom'
 import { thunkDeleteReview, thunkEditReview, thunkGetUserReviews } from '../../store/userReviews'
-import './Reviews.css'
+import '../CreateSpot/CreateSpot.css'
 
 function EditReview() {
 
     const { reviewId } = useParams()
 
     const targetReview = useSelector(state => state.userReviews[reviewId])
-    // const userReviews = useSelector(state => state.userReviews)
-    // const reviewArr = Object.keys(userReviews)
-    // const targetArr = reviewArr.filter(id => id === reviewId)
-    // const targetReview = userReviews[targetArr[0]]
     const [editReview, setEditReview] = useState(targetReview ? targetReview.review : '')
     const [stars, setStars] = useState(targetReview ? targetReview.stars : '')
     const [errors, setErrors] = useState([])
     const dispatch = useDispatch()
     const history = useHistory()
+
+    useEffect(() => {
+        const errArr = []
+        if (stars === '') {
+            errArr.push("Please provide a rating")
+        }
+        if (editReview.length === 0) {
+            errArr.push("Please provide a review")
+        }
+        setErrors(errArr)
+    }, [stars, editReview, errors])
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -52,15 +59,56 @@ function EditReview() {
 
 
     return (
-        <div className='edit-review-container'>
+        <div className='form-div'>
             <form onSubmit={handleSubmit}>
-                <input
-                    type='number'
-                    value={stars}
-                    onChange={e => setStars(e.target.value)}
-                    required
-                    placeholder='Stars'
-                />
+                <div className='rating'>
+                    <div>Stars:</div>
+                    <input
+                        name='rating'
+                        type='radio'
+                        value={1}
+                        onChange={e => setStars(e.target.value)}
+                        placeholder='Stars'
+
+                    />
+                    <label>1</label>
+                    <input
+                        name='rating'
+
+                        type='radio'
+                        value={2}
+                        onChange={e => setStars(e.target.value)}
+                        placeholder='Stars'
+                    />
+                    <label>2</label>
+                    <input
+                        name='rating'
+
+                        type='radio'
+                        value={3}
+                        onChange={e => setStars(e.target.value)}
+                        placeholder='Stars'
+                    />
+                    <label>3</label>
+                    <input
+                        name='rating'
+
+                        type='radio'
+                        value={4}
+                        onChange={e => setStars(e.target.value)}
+                        placeholder='Stars'
+                    />
+                    <label>4</label>
+                    <input
+                        name='rating'
+
+                        type='radio'
+                        value={5}
+                        onChange={e => setStars(e.target.value)}
+                        placeholder='Stars'
+                    />
+                    <label>5</label>
+                </div>
                 <textarea
                     type='text'
                     value={editReview}
@@ -68,12 +116,12 @@ function EditReview() {
                     required
                     placeholder='Enter Review'
                 />
-                <button type='submit'>Save</button>
+                <ul>
+                    {errors.map(error => <li id='error' key={error}>{error}</li>)}
+                </ul>
+                <button id='create-spot-button' type='submit'>Save</button>
+                <button id="delete-button-review" onClick={deleteReview}><i className="fa-solid fa-trash-can"></i>Delete</button>
             </form>
-            <button onClick={deleteReview}>Delete</button>
-            <ul>
-                {errors.map(error => <li key={error}>{error}</li>)}
-            </ul>
         </div>
 
     )

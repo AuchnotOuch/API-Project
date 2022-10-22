@@ -1,14 +1,12 @@
-.spots {
+.user-spots {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: flex-start;
-    /* padding: 20vh; */
-    padding-top: 20vh;
-    padding-left: 30px;
+    padding: 20vh;
 }
 
-.spot-card {
+.user-spot-card {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -17,13 +15,13 @@
 
 }
 
-.container {
+.user-spot-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
-.container img {
+.user-spot-container img {
     width: 320px;
     height: 300px;
     border-radius: 5%;
@@ -44,6 +42,13 @@
 #price-nightly {
     display: flex;
     flex-direction: row;
+}
+
+#user-spots-container-main {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
 }
 
 a {

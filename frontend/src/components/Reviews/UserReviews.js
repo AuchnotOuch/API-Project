@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { NavLink } from 'react-router-dom'
+import { getAllSpots } from '../../store/allSpots'
 import { thunkGetUserReviews } from '../../store/userReviews'
 import './Reviews.css'
 
@@ -10,17 +11,22 @@ function UserReviews() {
     const dispatch = useDispatch()
 
 
+    useEffect(() => {
+        dispatch(getAllSpots())
+            .then(() => dispatch(thunkGetUserReviews()))
+    }, [dispatch])
 
     const reviews = useSelector(state => state.userReviews)
+
     const spots = useSelector(state => state.allSpots)
+
+    if (!spots) return null
+    if (!reviews) return null
 
     const findSpotName = (spotId) => {
         return spots[spotId].name
     }
 
-    useEffect(() => {
-        dispatch(thunkGetUserReviews())
-    }, [dispatch])
 
     function reviewImgUrl(review) {
         let url;

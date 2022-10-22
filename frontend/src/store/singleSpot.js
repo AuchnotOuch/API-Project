@@ -31,7 +31,6 @@ export const thunkGetSpot = (spotId) => async (dispatch) => {
 
     if (response.ok) {
         const data = await response.json()
-        dispatch(actionClearSingleSpot())
         dispatch(actionGetSpot(data))
         return response
     }

@@ -41,7 +41,7 @@ export const thunkAddReview = (addReview, spotId) => async (dispatch) => {
         method: 'POST',
         body: JSON.stringify({
             review,
-            stars
+            stars,
         })
     })
     if (response.ok) {

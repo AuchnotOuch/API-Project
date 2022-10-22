@@ -5,6 +5,8 @@ import { thunkGetSpot } from '../../store/singleSpot'
 import Reviews from '../../components/Reviews'
 import './SpotDetails.css'
 import EditSpot from '../EditSpot'
+import { getAllSpots } from '../../store/allSpots'
+
 
 function SpotDetails() {
     const [editMode, setEditMode] = useState(false)
@@ -13,10 +15,13 @@ function SpotDetails() {
 
     const dispatch = useDispatch()
 
+
     useEffect(() => {
-        dispatch(thunkGetSpot(spotId))
+        dispatch(getAllSpots())
+            .then(() => dispatch(thunkGetSpot(spotId)))
             .then(() => history.push(`/spots/${spotId}`))
     }, [history, spotId, dispatch])
+
 
     const mountEditSpot = () => {
         setEditMode(true)
@@ -24,7 +29,7 @@ function SpotDetails() {
 
     const spot = useSelector(state => state.singleSpot)
     const user = useSelector(state => state.session.user)
-    const spotRating = useSelector(state => state.allSpots[spotId].avgRating)
+    const spots = useSelector(state => state.allSpots)
 
     if (!spot.SpotImages) return null
     let spotImgUrl;
@@ -33,8 +38,10 @@ function SpotDetails() {
     if (!user) return (
         <div className='single-spot'>
             <div className='spot-details'>
+                <div id='price-div'>${spot.price} nightly</div>
+
                 <div><h2>{spot.name}</h2></div>
-                <div id='rating'><i className="fa-solid fa-star"></i> {spotRating} -{spot.city}, {spot.state}, {spot.country}</div>
+                <div id='rating'><i className="fa-solid fa-star"></i>{spot.city}, {spot.state}, {spot.country}</div>
                 <br></br>
                 <div className='spot'>
                     <img src={spotImgUrl} alt={spot.name}></img>
@@ -52,6 +59,10 @@ function SpotDetails() {
     )
 
     const owner = (spot.ownerId === user.id)
+    if (!spot) return null
+    if (!spots[spotId].avgRating) return null
+
+    const spotAvgRating = spots[spotId].avgRating
 
     let elements;
     if (!editMode) {
@@ -60,10 +71,10 @@ function SpotDetails() {
                 <div className='spot-details'>
                     <div id='price-div'>${spot.price} nightly</div>
                     {owner &&
-                        <button id='edit-button' onClick={mountEditSpot}><i class="fa-solid fa-pen-to-square"></i> Edit Spot</button>
+                        <button id='edit-button' onClick={mountEditSpot}><i className="fa-solid fa-pen-to-square"></i> Edit Spot</button>
                     }
                     <div><h2>{spot.name}</h2></div>
-                    <div id='rating'><i className="fa-solid fa-star"></i> {spotRating} - {spot.city}, {spot.state}, {spot.country}</div>
+                    <div id='rating'><i className="fa-solid fa-star"></i>{spotAvgRating} - {spot.city}, {spot.state}, {spot.country}</div>
                     <br></br>
                     <div className='spot'>
                         <img src={spotImgUrl} alt={spot.name}></img>

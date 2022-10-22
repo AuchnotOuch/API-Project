@@ -1,19 +1,111 @@
 form {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
+    justify-content: space-evenly;
+    padding: 25px;
+    width: auto;
+    height: auto;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    box-shadow: 0 0 10px #d7d7d7;
+    position: absolute;
 }
 
 form textarea {
     resize: none;
+    width: auto;
+    height: auto;
+    font: inherit;
 }
 
 button {
     background-color: salmon;
 }
 
+.form-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15vh;
+}
+
 .edit-spot-container {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.rating {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5px;
+}
+
+.rating input {
+    height: auto;
+    width: auto;
+}
+
+input {
+    height: 50px;
+    width: 500px;
+    font-size: x-large;
+}
+
+#create-spot-button {
+    background-color: white;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    height: 50px;
+    font-size: x-large;
+    border-color: lightgray;
+}
+
+#create-spot-button:hover {
+    background-color: salmon;
+}
+
+#delete-button {
+    background-color: white;
+    width: 115px;
+    padding: 5px;
+    margin-left: 21%;
+    /* margin-top: -15px; */
+}
+
+#delete-button-spots {
+    background-color: white;
+    width: 115px;
+    padding: 5px;
+    margin-left: 40%;
+    margin-top: 0;
+}
+
+#delete-button-spots i {
+    margin-left: -5px;
+}
+
+#delete-button-review {
+    background-color: white;
+    width: 115px;
+    padding: 5px;
+    margin-left: 30%;
+    margin-top: 0;
+}
+
+#delete-button i {
+    margin-left: -5px;
+}
+
+#delete-button:hover {
+    background-color: red;
+}
+
+#delete-button-spots:hover {
+    background-color: red;
+}
+
+#error {
+    color: red;
 }
