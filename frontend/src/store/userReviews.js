@@ -3,6 +3,7 @@ import { csrfFetch } from "./csrf"
 const GET_USER_REVIEWS = 'user/Reviews'
 const EDIT_REVIEW = 'user/editReview'
 const DELETE_REVIEW = 'user/deleteReview'
+const CLEAR_REVIEWS = 'user/clearReviews'
 // const ADD_REVIEW = 'spot/AddReview'
 
 
@@ -28,12 +29,12 @@ const actionDeleteReview = (id) => {
     }
 }
 
-// const actionAddReview = (review) => {
-//     return {
-//         type: GET_REVIEWS,
-//         payload: review
-//     }
-// }
+export const actionClearUserReviews = () => {
+    return {
+        type: CLEAR_REVIEWS
+
+    }
+}
 
 export const thunkGetUserReviews = () => async (dispatch) => {
     const response = await csrfFetch(`/api/reviews/current`, {
@@ -48,6 +49,7 @@ export const thunkGetUserReviews = () => async (dispatch) => {
 
 export const thunkEditReview = (editedReview, reviewId) => async (dispatch) => {
     const { review, stars } = editedReview
+    console.log(review)
     const response = await csrfFetch(`/api/reviews/${reviewId}`, {
         method: 'PUT',
         body: JSON.stringify({
@@ -82,12 +84,16 @@ export default function userReviewsReducer(state = {}, action) {
         case EDIT_REVIEW:
             newState = { ...state }
             const reviewId = action.payload.id
+            // Object.assign(newState[reviewId], action.payload)
             newState[reviewId].review = action.payload.review
             newState[reviewId].stars = action.payload.stars
             return newState
         case DELETE_REVIEW:
             newState = { ...state }
             delete newState[action.payload]
+            return newState
+        case CLEAR_REVIEWS:
+            newState = {}
             return newState
         default:
             return state

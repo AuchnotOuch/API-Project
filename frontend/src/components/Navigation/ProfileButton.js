@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from 'react-redux';
 import { useHistory, NavLink } from "react-router-dom";
 import * as sessionActions from '../../store/session';
+import { actionClearUserReviews } from "../../store/userReviews";
 import './Navigation.css'
 
 const ProfileButton = ({ user }) => {
@@ -29,6 +30,7 @@ const ProfileButton = ({ user }) => {
     const logout = (e) => {
         e.preventDefault()
         dispatch(sessionActions.logout())
+        dispatch(actionClearUserReviews())
         history.push('/')
     }
 

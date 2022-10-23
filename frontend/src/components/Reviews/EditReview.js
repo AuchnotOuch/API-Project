@@ -9,15 +9,17 @@ function EditReview() {
     const history = useHistory()
     const { reviewId } = useParams()
 
-    // useEffect(() => {
-    //     dispatch(thunkGetUserReviews())
-    // }, [dispatch])
+    useEffect(() => {
+        dispatch(thunkGetUserReviews())
+    }, [dispatch])
 
     const targetReview = useSelector(state => state.userReviews[reviewId])
     const [editReview, setEditReview] = useState(targetReview ? targetReview.review : '')
     const [stars, setStars] = useState(targetReview ? targetReview.stars : '')
     console.log(stars)
     const [errors, setErrors] = useState([])
+
+    console.log(editReview)
 
 
     useEffect(() => {

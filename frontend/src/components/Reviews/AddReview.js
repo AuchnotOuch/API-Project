@@ -24,6 +24,9 @@ function AddReview() {
         if (review.length === 0) {
             errArr.push("Please provide a review")
         }
+        if (review.length > 256) {
+            errArr.push('Review must be less than 256 characters')
+        }
         setErrors(errArr)
     }, [stars, review])
 
