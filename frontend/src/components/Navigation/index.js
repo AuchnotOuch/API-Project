@@ -38,7 +38,7 @@ function Navigation({ isLoaded }) {
                 onClick={resetReviewState}
                 id='home-button' exact to="/">
                 <img
-                    src='https://cdn0.iconfinder.com/data/icons/picons-social/57/68-airbnb-1024.png'
+                    src='https://i.imgur.com/bqrhjB3.png'
                     alt={`Al's BnB Logo`}>
                 </img>
                 <>al's bnb</>

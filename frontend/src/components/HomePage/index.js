@@ -29,7 +29,7 @@ function HomePage() {
                                 <div>
                                     <div id='location-stars'>
                                         <span>{spot.city}, {spot.state}</span>
-                                        <span><i className="fa-solid fa-star"></i> {spot.avgRating || 'No Ratings'}</span>
+                                        <span><i className="fa-solid fa-star"></i> {Math.round(spot.avgRating * 100) / 100 || 'No Ratings'}</span>
                                     </div>
                                     <br></br>
                                     <div id='price-nightly'>

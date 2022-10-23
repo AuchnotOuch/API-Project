@@ -23,13 +23,14 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
-          <Route exact path='/spots/current' component={UserSpots} />
           <Route exact path='/' component={HomePage} />
+          <Route exact path='/spots/current' component={UserSpots} />
           <Route exact path='/spots/:spotId/reviews' component={AddReview}></Route>
           <Route exact path='/spots/:spotId' component={SpotDetails} />
           <Route exact path='/reviews/current' component={UserReviews} />
           <Route exact path='/reviews/:reviewId' component={EditReview} />
           <Route path='/spots' component={CreateSpot} />
+          <Route><div id='header'>404 Page Not Found</div></Route>
         </Switch>
       )}
     </>

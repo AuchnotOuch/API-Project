@@ -5,15 +5,20 @@ import { thunkDeleteReview, thunkEditReview, thunkGetUserReviews } from '../../s
 import '../CreateSpot/CreateSpot.css'
 
 function EditReview() {
-
+    const dispatch = useDispatch()
+    const history = useHistory()
     const { reviewId } = useParams()
+
+    // useEffect(() => {
+    //     dispatch(thunkGetUserReviews())
+    // }, [dispatch])
 
     const targetReview = useSelector(state => state.userReviews[reviewId])
     const [editReview, setEditReview] = useState(targetReview ? targetReview.review : '')
     const [stars, setStars] = useState(targetReview ? targetReview.stars : '')
+    console.log(stars)
     const [errors, setErrors] = useState([])
-    const dispatch = useDispatch()
-    const history = useHistory()
+
 
     useEffect(() => {
         const errArr = []
@@ -23,8 +28,11 @@ function EditReview() {
         if (editReview.length === 0) {
             errArr.push("Please provide a review")
         }
+        if (editReview.length > 256) {
+            errArr.push('Review must be less than 256 characters')
+        }
         setErrors(errArr)
-    }, [stars, editReview, errors])
+    }, [stars, editReview])
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -69,6 +77,7 @@ function EditReview() {
                         value={1}
                         onChange={e => setStars(e.target.value)}
                         placeholder='Stars'
+                        defaultChecked={stars === 1}
 
                     />
                     <label>1</label>
@@ -79,6 +88,7 @@ function EditReview() {
                         value={2}
                         onChange={e => setStars(e.target.value)}
                         placeholder='Stars'
+                        defaultChecked={stars === 2}
                     />
                     <label>2</label>
                     <input
@@ -88,6 +98,7 @@ function EditReview() {
                         value={3}
                         onChange={e => setStars(e.target.value)}
                         placeholder='Stars'
+                        defaultChecked={stars === 3}
                     />
                     <label>3</label>
                     <input
@@ -97,6 +108,7 @@ function EditReview() {
                         value={4}
                         onChange={e => setStars(e.target.value)}
                         placeholder='Stars'
+                        defaultChecked={stars === 4}
                     />
                     <label>4</label>
                     <input
@@ -106,6 +118,7 @@ function EditReview() {
                         value={5}
                         onChange={e => setStars(e.target.value)}
                         placeholder='Stars'
+                        defaultChecked={stars === 5}
                     />
                     <label>5</label>
                 </div>
@@ -115,11 +128,12 @@ function EditReview() {
                     onChange={e => setEditReview(e.target.value)}
                     required
                     placeholder='Enter Review'
+
                 />
                 <ul>
                     {errors.map(error => <li id='error' key={error}>{error}</li>)}
                 </ul>
-                <button id='create-spot-button' type='submit'>Save</button>
+                <button id='create-spot-button' type='submit' disabled={!!errors.length}>Save</button>
                 <button id="delete-button-review" onClick={deleteReview}><i className="fa-solid fa-trash-can"></i>Delete</button>
             </form>
         </div>

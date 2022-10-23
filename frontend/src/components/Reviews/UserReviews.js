@@ -37,23 +37,25 @@ function UserReviews() {
     }
 
     return (
-        <div className='user-reviews-container'>
-            <h2>Your Reviews</h2>
-            <ul className='reviews-container'>
-                {reviews && Object.values(reviews).map(review => (
-                    <li className='user-reviews' key={review.id}>
-                        <ul className='review-content'>
-                            <NavLink id='edit-review-button' to={`/reviews/${review.id}`}><i className="fa-solid fa-pen-to-square"></i> Edit Review</NavLink>
-                            <li id='spot-name'>{findSpotName(review.spotId)}</li>
-                            <li id='stars'><i className="fa-solid fa-star"></i>{review.stars}</li>
-                            <li id='review'>"{review.review}"</li>
-                            {reviewImgUrl(review) && <img src={reviewImgUrl(review)} alt='spot review'></img>
-                            }
-                        </ul>
-                    </li>
-                ))}
-            </ul>
-        </div>
+        <>
+            <div id='header'><h2>Your Reviews</h2></div>
+            <div className='user-reviews-container'>
+                <ul className='reviews-container'>
+                    {reviews && Object.values(reviews).map(review => (
+                        <li className='user-reviews' key={review.id}>
+                            <ul className='review-content'>
+                                <NavLink id='edit-review-button' to={`/reviews/${review.id}`}><i className="fa-solid fa-pen-to-square"></i> Edit Review</NavLink>
+                                <li id='spot-name'>{findSpotName(review.spotId)}</li>
+                                <li id='stars'><i className="fa-solid fa-star"></i>{review.stars}</li>
+                                <li id='review'>"{review.review}"</li>
+                                {reviewImgUrl(review) && <img src={reviewImgUrl(review)} alt='spot review'></img>
+                                }
+                            </ul>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        </>
     )
 }
 

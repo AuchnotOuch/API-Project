@@ -25,7 +25,8 @@ function AddReview() {
             errArr.push("Please provide a review")
         }
         setErrors(errArr)
-    }, [stars, review, errors])
+    }, [stars, review])
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -102,7 +103,7 @@ function AddReview() {
                     required
                     placeholder='Enter Review'
                 />
-                <button id='create-spot-button' type='submit'>Add Review</button>
+                <button id='create-spot-button' type='submit' disabled={!!errors.length}>Add Review</button>
                 <ul>
                     {errors.map(error => <li id='error' key={error}>{error}</li>)}
                 </ul>

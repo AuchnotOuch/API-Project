@@ -84,7 +84,7 @@ function EditSpot({ spot }) {
 
     const deleteSpot = () => {
         dispatch(thunkDeleteSpot(spotId))
-        history.push('/')
+        history.push('/spots/current')
     }
 
     return (

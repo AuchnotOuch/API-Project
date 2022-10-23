@@ -29,7 +29,6 @@ function SpotDetails() {
 
     const spot = useSelector(state => state.singleSpot)
     const user = useSelector(state => state.session.user)
-    const owner = (spot.ownerId === user.id)
     // const spots = useSelector(state => state.allSpots)
 
     if (!spot) return null
@@ -60,6 +59,7 @@ function SpotDetails() {
         </div>
     )
 
+    const owner = (spot.ownerId === user.id)
 
     let elements;
     if (!editMode) {
