@@ -29,8 +29,10 @@ function SpotDetails() {
 
     const spot = useSelector(state => state.singleSpot)
     const user = useSelector(state => state.session.user)
-    const spots = useSelector(state => state.allSpots)
+    const owner = (spot.ownerId === user.id)
+    // const spots = useSelector(state => state.allSpots)
 
+    if (!spot) return null
     if (!spot.SpotImages) return null
     let spotImgUrl;
     spot.SpotImages.forEach(img => spotImgUrl = img.url)
@@ -58,11 +60,6 @@ function SpotDetails() {
         </div>
     )
 
-    const owner = (spot.ownerId === user.id)
-    if (!spot) return null
-    if (!spots[spotId].avgRating) return null
-
-    const spotAvgRating = spots[spotId].avgRating
 
     let elements;
     if (!editMode) {
@@ -74,7 +71,7 @@ function SpotDetails() {
                         <button id='edit-button' onClick={mountEditSpot}><i className="fa-solid fa-pen-to-square"></i> Edit Spot</button>
                     }
                     <div><h2>{spot.name}</h2></div>
-                    <div id='rating'><i className="fa-solid fa-star"></i>{spotAvgRating} - {spot.city}, {spot.state}, {spot.country}</div>
+                    <div>{spot.city}, {spot.state}, {spot.country}</div>
                     <br></br>
                     <div className='spot'>
                         <img src={spotImgUrl} alt={spot.name}></img>

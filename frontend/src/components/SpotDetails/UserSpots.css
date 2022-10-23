@@ -21,9 +21,15 @@
     justify-content: center;
 }
 
-.user-spot-container img {
+.wrapper {
     width: 320px;
     height: 300px;
+}
+
+.wrapper img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
     border-radius: 5%;
     margin-bottom: 10px;
 }
@@ -49,6 +55,12 @@
     justify-content: center;
     flex-direction: column;
 
+}
+
+#header {
+    position: fixed;
+    margin-left: 45%;
+    margin-top: 1.5%;
 }
 
 a {

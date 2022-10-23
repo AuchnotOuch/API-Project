@@ -19,7 +19,6 @@ function Reviews() {
     const spot = useSelector(state => state.singleSpot)
     const user = useSelector(state => state.session.user)
 
-
     useEffect(() => {
         if (user && Object.values(reviews).find(review => review.userId === user.id)) {
             setAllowReview(false)
@@ -27,12 +26,17 @@ function Reviews() {
 
     }, [reviews, user])
 
+
+    if (!spot) return null
+    // if (!reviews) return (
+    //     <div>No reviews for this spot!</div>
+    // )
     if (!user) return (
         <div className='reviews'>
             <div id='reviews-label'>Reviews</div>
             <br></br>
             <ul>
-                {Object.values(reviews).map(review => (
+                {reviews && Object.values(reviews).map(review => (
                     <li key={review.id}>
                         <div className='review-content'>
                             <div id='name-stars'>
@@ -50,9 +54,6 @@ function Reviews() {
         </div>
     )
 
-
-    if (!spot) return null
-    if (!Object.entries(reviews).length) return null
     if (!allowReview) return (
         <div className='reviews'>
             <div id='reviews-label'>Reviews</div>

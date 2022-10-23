@@ -23,13 +23,13 @@ function HomePage() {
                     <div key={spot.id} className='spot-card'>
                         <Link to={`/spots/${spot.id}`}>
                             <div key={spot.id} className='container'>
-
-                                <img src={spot.previewImage} alt={spot.name}></img>
-
+                                <div className='wrapper'>
+                                    <img src={spot.previewImage} alt={spot.name}></img>
+                                </div>
                                 <div>
                                     <div id='location-stars'>
                                         <span>{spot.city}, {spot.state}</span>
-                                        <span><i className="fa-solid fa-star"></i> {spot.avgRating}</span>
+                                        <span><i className="fa-solid fa-star"></i> {spot.avgRating || 'No Ratings'}</span>
                                     </div>
                                     <br></br>
                                     <div id='price-nightly'>

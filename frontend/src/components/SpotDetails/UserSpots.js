@@ -26,32 +26,35 @@ function UserSpots() {
 
 
     return (
-        <div id='user-spots-container-main'>
-            <div className='user-spots'>
-                {Object.values(userSpots).map(spot => (
-                    <div key={spot.id} className='user-spot-card'>
-                        <Link to={`/spots/${spot.id}`}>
-                            <div key={spot.id} className='user-spot-container'>
-
-                                <img src={spot.previewImage} alt={spot.name}></img>
-
-                                <div>
-                                    <div id='location-stars'>
-                                        <span>{spot.city}, {spot.state}</span>
-                                        <span><i className="fa-solid fa-star"></i> {spot.avgRating}</span>
+        <>
+            <div id='header'><h2>Your Spots</h2></div>
+            <div id='user-spots-container-main'>
+                <div className='user-spots'>
+                    {Object.values(userSpots).map(spot => (
+                        <div key={spot.id} className='user-spot-card'>
+                            <Link to={`/spots/${spot.id}`}>
+                                <div key={spot.id} className='user-spot-container'>
+                                    <div className='wrapper'>
+                                        <img src={spot.previewImage} alt={spot.name}></img>
                                     </div>
-                                    <br></br>
-                                    <div id='price-nightly'>
-                                        <div id='price'>${spot.price}</div><div>nightly</div>
+                                    <div>
+                                        <div id='location-stars'>
+                                            <span>{spot.city}, {spot.state}</span>
+                                            <span><i className="fa-solid fa-star"></i> {spot.avgRating || 'No Rating'}</span>
+                                        </div>
+                                        <br></br>
+                                        <div id='price-nightly'>
+                                            <div id='price'>${spot.price}</div><div>nightly</div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </Link>
+                            </Link>
 
-                    </div>
-                ))}
+                        </div>
+                    ))}
+                </div>
             </div>
-        </div>
+        </>
     )
 }
 
