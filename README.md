@@ -28,14 +28,21 @@ Al's BnB is a clone of AirBnB. It provides a clean and friendly interface for us
 
 # Features
 
-## Book:
-Easily book a spot with a few simple actions:
-## Review:
-Add a review with images:
-## List:
-Create a new spot for other users to book:
+## Spots:
+Display a single spot's details and mount the review component to display reviews for that spot:
+
+![spot-details](https://i.imgur.com/QI4Cpxg.png)
+## Reviews:
+Add a Review:
+![add-review](https://i.imgur.com/2MySQkk.png)
+![add-review-form](https://i.imgur.com/sCC56sC.png)
+Edit/Delete Review:
+![edit-reviews](https://i.imgur.com/JxtMuhq.png)
+![edit-review-form](https://i.imgur.com/EDOAdIM.png)
+
 
 # Future Offerings
+* Create, edit, and delete a booking for a spot
 * Finely tuned search engine to find the perfect spot to book
 * Messaging system between owners and users
 
@@ -43,6 +50,7 @@ Create a new spot for other users to book:
 
 * Clone repo [here](https://github.com/AuchnotOuch/API-Project).
 * run `npm install` to install all dependencies
+* create a `.env` and set the `PORT` to `8000` and the `DB_FILE` to `db/dev.db`
 * Run `npx dotenv sequelize db:migrate` to migrate database
 * run `npx dotenv sequelize db:seed:all` to seed the database with seeder data
 * Run `npm start` within the `/frontend` directory AND the `/backend` directory
