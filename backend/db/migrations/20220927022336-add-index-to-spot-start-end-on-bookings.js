@@ -1,5 +1,12 @@
 'use strict';
 
+let options = {}
+options.tableName = 'Bookings'
+
+if (process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA
+}
+
 module.exports = {
   async up(queryInterface, Sequelize) {
     /**
@@ -8,7 +15,7 @@ module.exports = {
      * Example:
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
-    await queryInterface.addIndex('Bookings',
+    await queryInterface.addIndex(options,
       ['spotId', 'startDate', 'endDate'],
       {
         unique: true
@@ -23,6 +30,6 @@ module.exports = {
      * Example:
      * await queryInterface.dropTable('users');
      */
-    await queryInterface.removeIndex('Bookings', ['spotId', 'startDate', 'endDate'])
+    await queryInterface.removeIndex(options, ['spotId', 'startDate', 'endDate'])
   }
 };

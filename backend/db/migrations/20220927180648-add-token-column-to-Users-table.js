@@ -1,5 +1,12 @@
 'use strict';
 
+let options = {}
+options.tableName = 'Users'
+
+if (process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA
+}
+
 module.exports = {
   async up(queryInterface, Sequelize) {
     /**
@@ -8,7 +15,7 @@ module.exports = {
      * Example:
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
-    await queryInterface.addColumn('Users', 'token', Sequelize.STRING)
+    await queryInterface.addColumn(options, 'token', Sequelize.STRING)
   },
 
   async down(queryInterface, Sequelize) {
@@ -18,6 +25,6 @@ module.exports = {
      * Example:
      * await queryInterface.dropTable('users');
      */
-    await queryInterface.removeColumn('Users', 'token')
+    await queryInterface.removeColumn(options, 'token')
   }
 };
