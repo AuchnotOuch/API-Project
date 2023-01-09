@@ -16,7 +16,6 @@ function EditReview() {
     const targetReview = useSelector(state => state.userReviews[reviewId])
     const [editReview, setEditReview] = useState(targetReview ? targetReview.review : '')
     const [stars, setStars] = useState(targetReview ? targetReview.stars : '')
-    console.log(stars)
     const [errors, setErrors] = useState([])
 
     console.log(editReview)

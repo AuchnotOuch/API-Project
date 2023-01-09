@@ -1,5 +1,10 @@
 'use strict';
 
+let options = {}
+if (process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA;
+}
+
 module.exports = {
   async up(queryInterface, Sequelize) {
     /**
@@ -11,7 +16,8 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-    await queryInterface.bulkInsert('SpotImages', [
+    options.tableName = 'SpotImages'
+    await queryInterface.bulkInsert(options, [
       {
         spotId: 1,
         url: "https://images.unsplash.com/photo-1592595896551-12b371d546d5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
@@ -72,7 +78,8 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    await queryInterface.bulkDelete('SpotImages', {
+    options.tableName = 'SpotImages'
+    await queryInterface.bulkDelete(options, {
       id: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
       // id: [1, 2, 3, 4, 5]
     })

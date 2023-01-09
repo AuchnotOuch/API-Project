@@ -1,5 +1,12 @@
 'use strict';
 
+let options = {}
+options.tableName = 'ReviewImages'
+
+if (process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA
+}
+
 module.exports = {
   async up(queryInterface, Sequelize) {
     /**
@@ -8,7 +15,7 @@ module.exports = {
      * Example:
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
-    await queryInterface.addConstraint('ReviewImages', {
+    await queryInterface.addConstraint(options, {
       fields: ['reviewId'],
       type: 'foreign key',
       name: 'reviewId-foreign-key',
@@ -27,6 +34,6 @@ module.exports = {
      * Example:
      * await queryInterface.dropTable('users');
      */
-    await queryInterface.removeConstraint('ReviewImages', 'reviewId-foreign-key')
+    await queryInterface.removeConstraint(options, 'reviewId-foreign-key')
   }
 };

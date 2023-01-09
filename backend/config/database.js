@@ -19,6 +19,9 @@ module.exports = {
         rejectUnauthorized: false
       },
       decimalNumbers: true
+    },
+    define: {
+      schema: process.env.SCHEMA
     }
   }
 };
