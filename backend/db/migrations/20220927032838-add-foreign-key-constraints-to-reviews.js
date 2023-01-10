@@ -1,11 +1,11 @@
 'use strict';
 
-let options = {}
-options.tableName = 'Reviews'
+// let options = {}
+// options.tableName = 'Reviews'
 
-if (process.env.NODE_ENV === 'production') {
-  options.schema = process.env.SCHEMA
-}
+// if (process.env.NODE_ENV === 'production') {
+//   options.schema = process.env.SCHEMA
+// }
 
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -15,7 +15,7 @@ module.exports = {
      * Example:
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
-    await queryInterface.addConstraint(options, {
+    await queryInterface.addConstraint('Reviews', {
       fields: ['userId'],
       type: 'foreign key',
       name: 'userId-foreign-key',
@@ -25,7 +25,7 @@ module.exports = {
       },
       onDelete: 'CASCADE'
     })
-    await queryInterface.addConstraint(options, {
+    await queryInterface.addConstraint('Reviews', {
       fields: ['spotId'],
       type: 'foreign key',
       name: 'spotId-foreign-key',
@@ -44,8 +44,8 @@ module.exports = {
      * Example:
      * await queryInterface.dropTable('users');
      */
-    await queryInterface.removeConstraint(options, 'userId-foreign-key')
-    await queryInterface.removeConstraint(options, 'spotId-foreign-key')
+    await queryInterface.removeConstraint('Reviews', 'userId-foreign-key')
+    await queryInterface.removeConstraint('Reviews', 'spotId-foreign-key')
 
   }
 };
