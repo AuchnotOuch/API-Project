@@ -6,6 +6,7 @@ import Reviews from '../../components/Reviews'
 import './SpotDetails.css'
 import EditSpot from '../EditSpot'
 import { getAllSpots } from '../../store/allSpots'
+import Booking from '../Booking'
 
 
 function SpotDetails() {
@@ -67,18 +68,7 @@ function SpotDetails() {
         elements = (
             <div className='single-spot'>
                 <div className='spot-details'>
-                    <div id='book-spot'>
-                        <div id='book-header'>
-                            <div>
-                                ${spot.price} nightly
-                            </div>
-                            <div>
-                                <div><i className="fa-solid fa-star"></i> {Math.round(spot.avgStarRating * 100) / 100 || 'No Ratings'}</div>
-                            </div>
-
-                        </div>
-
-                    </div>
+                    <Booking spot={spot} />
                     {owner &&
                         <button id='edit-button' onClick={mountEditSpot}><i className="fa-solid fa-pen-to-square"></i> Edit Spot</button>
                     }
