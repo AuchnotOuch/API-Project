@@ -24,23 +24,62 @@
 
 .date-select {
     display: flex;
-    justify-content: space-between;
-    border: 1px solid lightgray;
+    justify-content: center;
+    /* border: 1px solid lightgray; */
     width: 300px;
     padding: 10px;
-}
-
-.date-select:hover {
-    border: 1px solid black;
 }
 
 .check-in,
 .check-out {
     font-size: small;
+    border: 1px solid lightgrey;
+    padding: 5px 70px 5px 5px
+}
+
+.check-in {
+    border-radius: 5px 0px 0px 5px;
+}
+
+.check-out {
+    border-radius: 0px 5px 5px 0px;
+}
+
+.check-in-header,
+.check-out-header {
+    margin-bottom: 15px;
+    font-size: smaller;
+    font-weight: bold;
+}
+
+.reserve {
+    width: 300px;
+    height: 60px;
+    font-size: x-large;
+}
+
+.price {
+    display: flex;
+    width: 300px;
+    justify-content: space-between;
+    border-bottom: 1px solid lightgray;
+    font-weight: lighter;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+}
+
+.total-price {
+    display: flex;
+    width: 300px;
+    justify-content: space-between;
 }
 
 #date-select-button {
     border: none;
     background: none;
     width: auto;
+}
+
+p {
+    font-weight: lighter;
 }
