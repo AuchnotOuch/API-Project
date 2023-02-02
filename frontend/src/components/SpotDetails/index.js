@@ -28,6 +28,7 @@ function SpotDetails() {
     }
 
     const spot = useSelector(state => state.singleSpot)
+    console.log(spot)
     const user = useSelector(state => state.session.user)
     // const spots = useSelector(state => state.allSpots)
 
@@ -66,7 +67,18 @@ function SpotDetails() {
         elements = (
             <div className='single-spot'>
                 <div className='spot-details'>
-                    <div id='price-div'>${spot.price} nightly</div>
+                    <div id='book-spot'>
+                        <div id='book-header'>
+                            <div>
+                                ${spot.price} nightly
+                            </div>
+                            <div>
+                                <div><i className="fa-solid fa-star"></i> {Math.round(spot.avgStarRating * 100) / 100 || 'No Ratings'}</div>
+                            </div>
+
+                        </div>
+
+                    </div>
                     {owner &&
                         <button id='edit-button' onClick={mountEditSpot}><i className="fa-solid fa-pen-to-square"></i> Edit Spot</button>
                     }
