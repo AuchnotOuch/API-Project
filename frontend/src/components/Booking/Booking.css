@@ -90,6 +90,8 @@
     width: 500px;
     box-shadow: 0 0 10px #d7d7d7;
     padding: 15px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
 }
 
 .select-dates-header {
@@ -104,6 +106,17 @@
     width: auto;
 }
 
+.cancel-dates {
+    background: none;
+    border: none;
+}
+
 p {
     font-weight: lighter;
+}
+
+.react-calendar__tile--active,
+.react-calendar__tile--range {
+
+    background-color: salmon;
 }

@@ -1,19 +1,26 @@
 import React, { useEffect, useState } from "react";
-import './Booking.css'
+import { useSelector } from "react-redux";
+import { csrfFetch } from "../../store/csrf"
 import SelectDays from "./SelectDays";
+
+import './Booking.css'
+import { useHistory } from "react-router-dom";
 
 
 
 const Booking = ({ spot }) => {
-    const date = new Date()
-    const [checkin, setCheckin] = useState(date.toLocaleDateString())
-    const [checkout, setCheckout] = useState(date.toLocaleDateString())
+    const user = useSelector(state => state.session.user)
+    const history = useHistory()
+
+    const [checkin, setCheckin] = useState(new Date().toLocaleDateString())
+    const [checkout, setCheckout] = useState(new Date().toLocaleDateString())
     const [dayTotal, setDayTotal] = useState(null)
     const [mountCalendar, setMountCalendar] = useState(false)
+    const [errors, setErrors] = useState([])
+
 
     const mount = () => {
         setMountCalendar(!mountCalendar)
-        console.log(mountCalendar)
     }
 
     useEffect(() => {
@@ -25,6 +32,33 @@ const Booking = ({ spot }) => {
         }
         days()
     }, [checkin, checkout])
+
+    const handleSubmit = async () => {
+
+        const errorsArr = []
+
+        const response = await csrfFetch(`/api/spots/${spot.id}/bookings`, {
+            method: 'POST',
+            body: JSON.stringify({
+                spotId: spot.id,
+                userId: user.id,
+                startDate: checkin,
+                endDate: checkout
+            })
+        })
+        if (response.ok) {
+            history.push('/')
+        }
+        if (response.err) {
+            const data = await response.json()
+            if (data && data.errors) {
+                data.errors.forEach(error => {
+                    errorsArr.push(error.message)
+                })
+                setErrors(errorsArr)
+            }
+        }
+    }
 
     return (
         <>
@@ -52,7 +86,7 @@ const Booking = ({ spot }) => {
                         </div>
                     </div>
                 </button>
-                <button className="reserve">Reserve</button>
+                <button disabled={user.id === spot.ownerId} onClick={handleSubmit} className="reserve">{user.id === spot.ownerId ? "You can't book your own spot" : 'Reserve'}</button>
                 <p>You won't be charged yet.</p>
                 <div className="price">
                     <div className="per-night">${spot.price} X {dayTotal} nights</div>
@@ -64,6 +98,9 @@ const Booking = ({ spot }) => {
                         <div className="subtotal">${spot.price * dayTotal}</div>
                     </div>
                 </div>
+                <ul>
+                    {errors.map(error => <li id='error' key={error}>{error}</li>)}
+                </ul>
             </div>
         </>
     )
