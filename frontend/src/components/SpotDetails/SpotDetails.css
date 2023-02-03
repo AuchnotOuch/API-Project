@@ -46,18 +46,6 @@ h2 {
     border-bottom: 1px solid lightgray;
 }
 
-#price-div {
-    position: fixed;
-    font-weight: bold;
-    font-size: xx-large;
-    margin-left: 60%;
-    margin-top: 2%;
-    border: 1px solid lightgray;
-    border-radius: 5px;
-    box-shadow: 0 0 10px #d7d7d7;
-    padding: 5px
-}
-
 #description {
     width: 500px;
 }

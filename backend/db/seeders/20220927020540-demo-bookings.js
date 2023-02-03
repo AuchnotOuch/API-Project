@@ -21,32 +21,32 @@ module.exports = {
       {
         spotId: 5,
         userId: 1,
-        startDate: '2023-01-17',
-        endDate: '2023-01-28'
+        startDate: new Date('2023-02-17'),
+        endDate: new Date('2023-02-28')
       },
       {
         spotId: 4,
         userId: 2,
-        startDate: '2023-02-17',
-        endDate: '2023-02-28'
+        startDate: new Date('2023-02-17'),
+        endDate: new Date('2023-02-28')
       },
       {
         spotId: 3,
         userId: 4,
-        startDate: '2023-03-17',
-        endDate: '2023-03-28'
+        startDate: new Date('2023-03-17'),
+        endDate: new Date('2023-03-28')
       },
       {
         spotId: 2,
         userId: 3,
-        startDate: '2023-04-17',
-        endDate: '2023-04-28'
+        startDate: new Date('2023-04-17'),
+        endDate: new Date('2023-04-28')
       },
       {
         spotId: 1,
         userId: 5,
-        startDate: '2023-05-17',
-        endDate: '2023-05-28'
+        startDate: new Date('2023-05-17'),
+        endDate: new Date('2023-05-28')
       }
     ])
   },

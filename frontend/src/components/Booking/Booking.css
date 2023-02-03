@@ -1,0 +1,122 @@
+.book-spot {
+    position: fixed;
+    width: 375px;
+    height: 500px;
+    font-weight: bold;
+    font-size: larger;
+    margin-left: 60%;
+    margin-top: 2%;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    box-shadow: 0 0 10px #d7d7d7;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.book-header {
+    display: flex;
+    justify-content: space-between;
+    width: 350px;
+    margin-bottom: 20px;
+}
+
+.date-select {
+    display: flex;
+    justify-content: center;
+    /* border: 1px solid lightgray; */
+    width: 300px;
+    padding: 10px;
+}
+
+.check-in,
+.check-out {
+    font-size: small;
+    border: 1px solid lightgrey;
+    padding: 5px 70px 5px 5px
+}
+
+.check-in {
+    border-radius: 5px 0px 0px 5px;
+}
+
+.check-out {
+    border-radius: 0px 5px 5px 0px;
+}
+
+.check-in-header,
+.check-out-header {
+    margin-bottom: 15px;
+    font-size: smaller;
+    font-weight: bold;
+}
+
+.reserve {
+    width: 300px;
+    height: 60px;
+    font-size: x-large;
+}
+
+.price {
+    display: flex;
+    width: 300px;
+    justify-content: space-between;
+    border-bottom: 1px solid lightgray;
+    font-weight: lighter;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+}
+
+.total-price {
+    display: flex;
+    width: 300px;
+    justify-content: space-between;
+}
+
+.booking-range {
+    font-weight: lighter;
+    font-size: medium;
+}
+
+.select-dates {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-right: 300px;
+    background-color: white;
+    width: 500px;
+    box-shadow: 0 0 10px #d7d7d7;
+    padding: 15px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+}
+
+.select-dates-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+#date-select-button {
+    border: none;
+    background: none;
+    width: auto;
+}
+
+.cancel-dates {
+    background: none;
+    border: none;
+}
+
+p {
+    font-weight: lighter;
+}
+
+.react-calendar__tile--active,
+.react-calendar__tile--range {
+
+    background-color: salmon;
+}
