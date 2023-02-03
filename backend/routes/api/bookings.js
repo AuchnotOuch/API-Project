@@ -25,7 +25,27 @@ const router = express.Router()
 //         }),
 //     handleValidationErrors
 // ]
+// get all bookings for spot
+router.get('/:spotId', requireAuth, async (req, res, next) => {
 
+    const spot = await Spot.findByPk(req.params.spotId)
+
+    if (!spot) {
+        const err = new Error()
+        err.message = "Spot couldn't be found"
+        err.status = 404
+        return next(err)
+    }
+
+    const bookings = await Booking.findAll({
+        where: {
+            spotId: req.params.spotId
+        }
+    })
+
+    return res.json({ Bookings: bookings })
+
+})
 //get all of the current users bookings
 router.get('/current', requireAuth, async (req, res, next) => {
 
