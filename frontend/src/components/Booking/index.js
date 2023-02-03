@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Calendar from 'react-calendar'
 import './Booking.css'
+import SelectDays from "./SelectDays";
 
 
 
@@ -13,6 +13,7 @@ const Booking = ({ spot }) => {
 
     const mount = () => {
         setMountCalendar(!mountCalendar)
+        console.log(mountCalendar)
     }
 
     useEffect(() => {
@@ -26,40 +27,45 @@ const Booking = ({ spot }) => {
     }, [checkin, checkout])
 
     return (
-        <div className='book-spot'>
-            <div className='book-header'>
-                <div>
-                    ${spot.price} nightly
-                </div>
-                <div>
-                    <div><i className="fa-solid fa-star"></i> {Math.round(spot.avgStarRating * 100) / 100 || 'No Ratings'}</div>
-                </div>
-            </div>
-            <button id="date-select-button">
-                <div className='date-select'>
-                    <div className="check-in">
-                        <div className="check-in-header">CHECK-IN</div>
-                        <div className="date">{checkin}</div>
+        <>
+            <div className='book-spot'>
+                {mountCalendar &&
+                    <SelectDays dayTotal={dayTotal} checkin={checkin} setCheckin={setCheckin} checkout={checkout} setCheckout={setCheckout} mountCalendar={mountCalendar} setMountCalendar={setMountCalendar} />
+                }
+                <div className='book-header'>
+                    <div>
+                        ${spot.price} nightly
                     </div>
-                    <div className="check-out">
-                        <div className="check-out-header">CHECK-OUT</div>
-                        <div className="date">{checkout}</div>
+                    <div>
+                        <div><i className="fa-solid fa-star"></i> {Math.round(spot.avgStarRating * 100) / 100 || 'No Ratings'}</div>
                     </div>
                 </div>
-            </button>
-            <button className="reserve">Reserve</button>
-            <p>You won't be charged yet.</p>
-            <div className="price">
-                <div className="per-night">${spot.price} X {dayTotal} nights</div>
-                <div className="subtotal">${spot.price * dayTotal}</div>
-            </div>
-            <div className="total">
-                <div className="total-price">
-                    <div>Total before taxes:</div>
+                <button onClick={() => mount()} id="date-select-button">
+                    <div className='date-select'>
+                        <div className="check-in">
+                            <div className="check-in-header">CHECK-IN</div>
+                            <div className="date">{checkin}</div>
+                        </div>
+                        <div className="check-out">
+                            <div className="check-out-header">CHECK-OUT</div>
+                            <div className="date">{checkout}</div>
+                        </div>
+                    </div>
+                </button>
+                <button className="reserve">Reserve</button>
+                <p>You won't be charged yet.</p>
+                <div className="price">
+                    <div className="per-night">${spot.price} X {dayTotal} nights</div>
                     <div className="subtotal">${spot.price * dayTotal}</div>
                 </div>
+                <div className="total">
+                    <div className="total-price">
+                        <div>Total before taxes:</div>
+                        <div className="subtotal">${spot.price * dayTotal}</div>
+                    </div>
+                </div>
             </div>
-        </div>
+        </>
     )
 
 }

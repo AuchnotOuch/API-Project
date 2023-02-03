@@ -74,6 +74,30 @@
     justify-content: space-between;
 }
 
+.booking-range {
+    font-weight: lighter;
+    font-size: medium;
+}
+
+.select-dates {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-right: 300px;
+    background-color: white;
+    width: 500px;
+    box-shadow: 0 0 10px #d7d7d7;
+    padding: 15px;
+}
+
+.select-dates-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+
 #date-select-button {
     border: none;
     background: none;
