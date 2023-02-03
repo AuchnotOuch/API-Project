@@ -6,6 +6,7 @@ import Reviews from '../../components/Reviews'
 import './SpotDetails.css'
 import EditSpot from '../EditSpot'
 import { getAllSpots } from '../../store/allSpots'
+import Booking from '../Booking'
 
 
 function SpotDetails() {
@@ -28,6 +29,7 @@ function SpotDetails() {
     }
 
     const spot = useSelector(state => state.singleSpot)
+    console.log(spot)
     const user = useSelector(state => state.session.user)
     // const spots = useSelector(state => state.allSpots)
 
@@ -66,7 +68,7 @@ function SpotDetails() {
         elements = (
             <div className='single-spot'>
                 <div className='spot-details'>
-                    <div id='price-div'>${spot.price} nightly</div>
+                    <Booking spot={spot} />
                     {owner &&
                         <button id='edit-button' onClick={mountEditSpot}><i className="fa-solid fa-pen-to-square"></i> Edit Spot</button>
                     }
