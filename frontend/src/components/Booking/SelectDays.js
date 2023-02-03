@@ -26,11 +26,12 @@ const SelectDays = ({ setCheckin, setCheckout, setMountCalendar, mountCalendar }
 
     useEffect(() => {
         const getBookings = async () => {
-            const response = await csrfFetch(`/api/spots/${spotId}/bookings`, {
+            const response = await csrfFetch(`/api/bookings/${spotId}`, {
                 method: 'GET'
             })
             if (response.ok) {
                 const data = await response.json()
+                console.log(data)
                 setCurrentBookings(data.Bookings)
                 console.log(currentBookings)
             }
@@ -45,7 +46,6 @@ const SelectDays = ({ setCheckin, setCheckout, setMountCalendar, mountCalendar }
     }
 
     const tileDisabled = ({ date, view }) => {
-
         if (view === 'month') {
             return isWithinRanges(date, currentBookings)
         }

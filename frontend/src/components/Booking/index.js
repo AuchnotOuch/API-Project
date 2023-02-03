@@ -74,7 +74,7 @@ const Booking = ({ spot }) => {
                         <div><i className="fa-solid fa-star"></i> {Math.round(spot.avgStarRating * 100) / 100 || 'No Ratings'}</div>
                     </div>
                 </div>
-                <button onClick={() => mount()} id="date-select-button">
+                <button disabled={user.id === spot.ownerId} onClick={() => mount()} id="date-select-button">
                     <div className='date-select'>
                         <div className="check-in">
                             <div className="check-in-header">CHECK-IN</div>
