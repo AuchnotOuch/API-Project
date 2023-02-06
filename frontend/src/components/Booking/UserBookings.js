@@ -1,7 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { csrfFetch } from "../../store/csrf";
 import './Booking.css'
 
 const UserBookings = () => {
+    const [userBookings, setUserBookings] = useState([])
+    const [ownerBookings, setOwnerBooings] = useState([])
+
+    useEffect(() => {
+        const getBookings = async () => {
+            const response = await csrfFetch('/api/bookings/current', {
+                method: 'GET'
+            })
+            if (response.ok) {
+                const data = await response.json()
+                console.log(data)
+            }
+        }
+        getBookings()
+    })
     return (
         <>
             <div id="header"><h2>Trips</h2></div>
