@@ -122,6 +122,17 @@ p {
 }
 
 .bookings-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20vh;
+}
+
+.user-bookings {
     border: 1px solid black;
-    width: 500px;
+}
+
+.owner-bookings {
+    border: 1px solid black;
 }
