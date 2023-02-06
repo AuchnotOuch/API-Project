@@ -120,3 +120,8 @@ p {
 
     background-color: salmon;
 }
+
+.bookings-container {
+    border: 1px solid black;
+    width: 500px;
+}

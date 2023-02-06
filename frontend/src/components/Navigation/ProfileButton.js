@@ -45,6 +45,7 @@ const ProfileButton = ({ user }) => {
                     <br></br>
                     <li><NavLink exact to='/reviews/current'>Your Reviews</NavLink></li>
                     <li><NavLink exact to='/spots/current'>Spots You Own</NavLink></li>
+                    <li><NavLink exact to='/bookings/current'>Your Trips</NavLink></li>
                     <li>
                         <button id='logout-button' onClick={logout}>Log Out</button>
                     </li>
