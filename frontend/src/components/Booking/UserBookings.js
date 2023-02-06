@@ -4,7 +4,7 @@ import './Booking.css'
 
 const UserBookings = () => {
     const [userBookings, setUserBookings] = useState([])
-    const [ownerBookings, setOwnerBooings] = useState([])
+    const [ownerBookings, setOwnerBookings] = useState([])
 
     useEffect(() => {
         const getBookings = async () => {
@@ -13,11 +13,44 @@ const UserBookings = () => {
             })
             if (response.ok) {
                 const data = await response.json()
+                setUserBookings(data.Bookings)
                 console.log(data)
             }
         }
+
+        const getOwnerBookings = async () => {
+            const response = await csrfFetch('/api/spots/current', {
+                method: 'GET'
+            })
+            if (response.ok) {
+                const data = await response.json()
+                console.log(data)
+                if (data.Spots) {
+                    let ownerBookingsArr = []
+                    data.Spots.forEach(spot => {
+                        const bookings = fetchOwnerBookings(spot.id).then(bookings => {
+                            bookings.forEach(booking => ownerBookingsArr.push(booking))
+                        })
+                    })
+                    setOwnerBookings(ownerBookingsArr)
+                }
+            }
+        }
         getBookings()
-    })
+        getOwnerBookings()
+    }, [])
+
+    const fetchOwnerBookings = async (spotId) => {
+        const response = await csrfFetch(`/api/bookings/${spotId}`, {
+            method: 'GET'
+        })
+        if (response.ok) {
+            const data = await response.json()
+            console.log(data)
+            return data.Bookings
+        }
+    }
+
     return (
         <>
             <div id="header"><h2>Trips</h2></div>
