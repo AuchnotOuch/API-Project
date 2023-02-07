@@ -106,7 +106,22 @@ router.get('/current', requireAuth, async (req, res, next) => {
     const spots = await Spot.findAll({
         where: {
             ownerId: req.user.id
-        }
+        },
+        include: [
+            {
+                model: Booking,
+                include: [
+                    {
+                        model: User,
+                        exclude: ['createdAt', 'updatedAt', 'token', 'hashedPassword']
+                    },
+                    {
+                        model: Spot,
+                        exclude: ['createdAt', 'updatedAt'],
+                    }
+                ]
+            }
+        ]
     })
     const spotArr = []
     for (let spot of spots) {
@@ -240,37 +255,37 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
     }
 
 
-    // const conflictCheck1 = await Booking.findOne({
-    //     where: {
-    //         startDate: startDate
-    //     }
-    // })
+    const conflictCheck1 = await Booking.findOne({
+        where: {
+            startDate: startDate
+        }
+    })
 
-    // const conflictCheck2 = await Booking.findOne({
-    //     where: {
-    //         startDate: startDate
-    //     }
-    // })
+    const conflictCheck2 = await Booking.findOne({
+        where: {
+            startDate: startDate
+        }
+    })
 
-    // if (conflictCheck1) {
-    //     const err = new Error()
-    //     err.message = "Sorry, this spot is already booked for the specified dates"
-    //     err.status = 403
-    //     err.errors = {
-    //         startDate: 'Start date conflicts with an existing booking',
-    //     }
-    //     return next(err)
-    // }
+    if (conflictCheck1) {
+        const err = new Error()
+        err.message = "Sorry, this spot is already booked for the specified dates"
+        err.status = 403
+        err.errors = {
+            startDate: 'Start date conflicts with an existing booking',
+        }
+        return next(err)
+    }
 
-    // if (conflictCheck2) {
-    //     const err = new Error()
-    //     err.message = "Sorry, this spot is already booked for the specified dates"
-    //     err.status = 403
-    //     err.errors = {
-    //         startDate: 'End date conflicts with an existing booking',
-    //     }
-    //     return next(err)
-    // }
+    if (conflictCheck2) {
+        const err = new Error()
+        err.message = "Sorry, this spot is already booked for the specified dates"
+        err.status = 403
+        err.errors = {
+            startDate: 'End date conflicts with an existing booking',
+        }
+        return next(err)
+    }
 
     const newBooking = await Booking.create({
         userId: req.user.id,
@@ -331,7 +346,6 @@ router.get('/:spotId/bookings', requireAuth, async (req, res, next) => {
     }
 
     if (req.user.id !== spot.ownerId) {
-        console.log(req.user.id)
         const bookings = await Booking.findAll({
             where: {
                 userId: req.user.id,
@@ -341,7 +355,7 @@ router.get('/:spotId/bookings', requireAuth, async (req, res, next) => {
                 exclude: ['createdAt', 'updatedAt', 'id', 'userId']
             }
         })
-        console.log(bookings)
+
         return res.json({ Bookings: bookings })
     }
 

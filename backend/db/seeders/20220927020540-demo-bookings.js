@@ -53,6 +53,12 @@ module.exports = {
         userId: 5,
         startDate: new Date('2023-05-17'),
         endDate: new Date('2023-05-28')
+      },
+      {
+        spotId: 1,
+        userId: 5,
+        startDate: new Date('2023-01-17'),
+        endDate: new Date('2023-01-28')
       }
     ])
   },

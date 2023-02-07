@@ -36,7 +36,16 @@ router.get('/current', requireAuth, async (req, res, next) => {
                 model: Spot,
                 attributes: {
                     exclude: ['createdAt', 'updatedAt', 'description']
-                }
+                },
+                include: [
+                    {
+                        model: User,
+                        as: 'Owner',
+                        attributes: {
+                            exclude: ['token', 'username', 'email', 'hashedPassword', 'createdAt', 'updatedAt']
+                        }
+                    }
+                ]
             },
             {
                 model: User,
