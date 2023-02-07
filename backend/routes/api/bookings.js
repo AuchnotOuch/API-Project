@@ -37,10 +37,15 @@ router.get('/current', requireAuth, async (req, res, next) => {
                 attributes: {
                     exclude: ['createdAt', 'updatedAt', 'description']
                 }
+            },
+            {
+                model: User,
+                attributes: {
+                    exclude: ['createdAt', 'updatedAt', 'hashedPassword', 'token']
+                }
             }
         ]
     })
-
     const bookingArr = []
     for (let booking of bookings) {
         const spot = await Spot.findByPk(booking.spotId)
@@ -54,7 +59,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
         bookingData.Spot.previewImage = spotImage.url
         bookingArr.push(bookingData)
     }
-
+    console.log(bookingArr)
     return res.json({ Bookings: bookingArr })
 })
 // get all bookings for spot
@@ -72,7 +77,21 @@ router.get('/:spotId', requireAuth, async (req, res, next) => {
     const bookings = await Booking.findAll({
         where: {
             spotId: req.params.spotId
-        }
+        },
+        include: [
+            {
+                model: Spot,
+                attributes: {
+                    exclude: ['createdAt', 'updatedAt', 'description']
+                }
+            },
+            {
+                model: User,
+                attributes: {
+                    exclude: ['createdAt', 'updatedAt', 'hashedPassword', 'token']
+                }
+            }
+        ]
     })
 
     return res.json({ Bookings: bookings })

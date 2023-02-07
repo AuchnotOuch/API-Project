@@ -25,6 +25,12 @@ module.exports = {
         endDate: new Date('2023-02-28')
       },
       {
+        spotId: 5,
+        userId: 1,
+        startDate: new Date('2023-01-17'),
+        endDate: new Date('2023-01-28')
+      },
+      {
         spotId: 4,
         userId: 2,
         startDate: new Date('2023-02-17'),
@@ -60,7 +66,7 @@ module.exports = {
      */
     options.tableName = 'Bookings'
     await queryInterface.bulkDelete(options, {
-      id: [1, 2, 3, 4, 5]
+      id: [1, 2, 3, 4, 5, 6]
     })
   }
 };
