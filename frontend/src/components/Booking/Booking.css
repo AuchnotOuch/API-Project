@@ -132,8 +132,26 @@ p {
 
 .user-bookings {
     border: 1px solid black;
+    padding: 20px;
 }
 
 .owner-bookings {
     border: 1px solid black;
+    padding: 20px;
+}
+
+.future-bookings,
+.past-bookings {
+    display: flex;
+    flex-direction: row;
+}
+
+.booking-container {
+    display: flex;
+}
+
+#booking-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 5px;
 }
