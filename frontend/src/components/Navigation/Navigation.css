@@ -9,6 +9,7 @@
     width: 100vw;
     height: 100px;
     background-color: white;
+    z-index: 99;
 }
 
 i {
@@ -48,7 +49,7 @@ button {
     box-shadow: 0 0 10px #d7d7d7;
     border-radius: 5px;
     background-color: white;
-    position: absolute;
+    position: fixed;
     padding-left: 5px;
 }
 

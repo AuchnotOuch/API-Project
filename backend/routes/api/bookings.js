@@ -25,6 +25,52 @@ const router = express.Router()
 //         }),
 //     handleValidationErrors
 // ]
+//get all of the current users bookings
+router.get('/current', requireAuth, async (req, res, next) => {
+    const bookings = await Booking.findAll({
+        where: {
+            userId: req.user.id
+        },
+        include: [
+            {
+                model: Spot,
+                attributes: {
+                    exclude: ['createdAt', 'updatedAt', 'description']
+                },
+                include: [
+                    {
+                        model: User,
+                        as: 'Owner',
+                        attributes: {
+                            exclude: ['token', 'username', 'email', 'hashedPassword', 'createdAt', 'updatedAt']
+                        }
+                    }
+                ]
+            },
+            {
+                model: User,
+                attributes: {
+                    exclude: ['createdAt', 'updatedAt', 'hashedPassword', 'token']
+                }
+            }
+        ]
+    })
+    const bookingArr = []
+    for (let booking of bookings) {
+        const spot = await Spot.findByPk(booking.spotId)
+        const spotImage = await SpotImage.findByPk(spot.id, {
+            where: {
+                preview: true
+            }
+        })
+
+        let bookingData = booking.toJSON()
+        bookingData.Spot.previewImage = spotImage.url
+        bookingArr.push(bookingData)
+    }
+    console.log(bookingArr)
+    return res.json({ Bookings: bookingArr })
+})
 // get all bookings for spot
 router.get('/:spotId', requireAuth, async (req, res, next) => {
 
@@ -40,18 +86,6 @@ router.get('/:spotId', requireAuth, async (req, res, next) => {
     const bookings = await Booking.findAll({
         where: {
             spotId: req.params.spotId
-        }
-    })
-
-    return res.json({ Bookings: bookings })
-
-})
-//get all of the current users bookings
-router.get('/current', requireAuth, async (req, res, next) => {
-
-    const bookings = await Booking.findAll({
-        where: {
-            userId: req.user.id
         },
         include: [
             {
@@ -59,25 +93,18 @@ router.get('/current', requireAuth, async (req, res, next) => {
                 attributes: {
                     exclude: ['createdAt', 'updatedAt', 'description']
                 }
+            },
+            {
+                model: User,
+                attributes: {
+                    exclude: ['createdAt', 'updatedAt', 'hashedPassword', 'token']
+                }
             }
         ]
     })
 
-    const bookingArr = []
-    for (let booking of bookings) {
-        const spot = await Spot.findByPk(booking.spotId)
-        const spotImage = await SpotImage.findByPk(spot.id, {
-            where: {
-                preview: true
-            }
-        })
+    return res.json({ Bookings: bookings })
 
-        let bookingData = booking.toJSON()
-        bookingData.Spot.previewImage = spotImage.url
-        bookingArr.push(bookingData)
-    }
-
-    return res.json({ Bookings: bookingArr })
 })
 
 //edit a booking
