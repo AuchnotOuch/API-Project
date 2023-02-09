@@ -148,10 +148,61 @@ p {
 
 .booking-container {
     display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.booking-info-container {
+    padding: 10px;
+}
+
+.edit-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 10px;
+}
+
+.edit-booking-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 100px;
+    border: 1px solid lightgrey;
+    box-shadow: 0 0 10px #d7d7d7;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.spot-info {
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+    box-shadow: 0 0 10px #d7d7d7;
+    align-items: center;
+    padding: 5px;
+}
+
+.current-booking-dates {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    font-size: larger;
+}
+
+.current-checkin {
+    margin-right: 100px;
 }
 
 #booking-image {
     width: 100px;
     height: 100px;
+    border-radius: 5px;
+}
+
+#spot-image {
+    width: 600px;
     border-radius: 5px;
 }
