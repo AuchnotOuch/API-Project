@@ -4,6 +4,7 @@ import Calendar from "react-calendar";
 import { isWithinInterval, parseISO } from "date-fns";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import './Booking.css'
+import DeleteBooking from "./DeleteBooking";
 
 
 const EditBooking = () => {
@@ -13,6 +14,7 @@ const EditBooking = () => {
     const [value, onChange] = useState([parseISO(booking.startDate), parseISO(booking.endDate)]);
     const [dayTotal, setDayTotal] = useState(null)
     const [currentBookings, setCurrentBookings] = useState([])
+    const [deleteMode, setDeleteMode] = useState(false)
     const [errors, setErrors] = useState([])
 
     useEffect(() => {
@@ -93,6 +95,9 @@ const EditBooking = () => {
 
     return (
         <div className="edit-container">
+            {deleteMode &&
+                <DeleteBooking booking={booking} deleteMode={deleteMode} setDeleteMode={setDeleteMode} />
+            }
             <div className="spot-info">
                 <img id="spot-image" src={booking.Spot.previewImage} />
                 <p>Hosted by {booking.Spot.Owner.firstName}</p>
@@ -141,7 +146,7 @@ const EditBooking = () => {
                 <Calendar className='calendar' onChange={onChange} value={value} selectRange={true} tileDisabled={tileDisabled} />
                 <span><button onClick={handleSubmit} disabled={!!errors.length} className="save-dates">Save</button></span>
                 <span><Link to='/bookings/current' className="cancel-dates">Cancel</Link></span>
-                <h3>Need to cancel your trip? Click here.</h3>
+                <h3>Need to cancel your trip?<button onClick={() => setDeleteMode(!deleteMode)} style={{ background: 'none', border: 'none' }}>Click here.</button></h3>
             </div>
         </div>
     )

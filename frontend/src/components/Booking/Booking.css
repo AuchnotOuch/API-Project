@@ -196,6 +196,22 @@ p {
     margin-right: 100px;
 }
 
+.delete-container {
+    position: fixed;
+    border: 1px solid lightgrey;
+    margin-top: 25vh;
+    width: 400px;
+    height: 200px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 0 10px #d7d7d7;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    padding: 10px;
+}
+
 #booking-image {
     width: 100px;
     height: 100px;
