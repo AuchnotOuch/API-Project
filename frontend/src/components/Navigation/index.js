@@ -7,6 +7,7 @@ import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal'
 import { actionClearReviews } from '../../store/spotReviews';
 import './Navigation.css';
+import SearchBar from '../Search/SearchBar';
 
 function Navigation({ isLoaded }) {
     const dispatch = useDispatch()
@@ -43,6 +44,7 @@ function Navigation({ isLoaded }) {
                 </img>
                 <>al's bnb</>
             </NavLink>
+            <SearchBar />
             <ul>
                 <li>
                     {isLoaded && sessionLinks}

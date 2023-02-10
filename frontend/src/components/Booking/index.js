@@ -86,7 +86,7 @@ const Booking = ({ spot }) => {
                         </div>
                     </div>
                 </button>
-                <button className="reserve">Login or Signup to Reserve!</button>
+                <button disabled={true} className="reserve">Login or Signup to Reserve!</button>
                 <p>You won't be charged yet.</p>
                 <div className="price">
                     <div className="per-night">${spot.price} X {dayTotal} nights</div>
