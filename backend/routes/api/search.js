@@ -11,6 +11,7 @@ const router = express.Router()
 
 router.get('/', async (req, res, next) => {
     console.log(req.query)
+    return res.json({ test: 'test' })
 })
 
 module.exports = router
