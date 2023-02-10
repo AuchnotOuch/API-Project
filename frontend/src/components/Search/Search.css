@@ -1,15 +1,38 @@
+.search-container {
+    display: flex;
+    width: 400px;
+    margin-top: -50px;
+}
+
 .search-bar {
     border: 1px solid lightgrey;
+    box-shadow: 0 0 10px #d7d7d7;
     border-radius: 50px;
     width: 400px;
     height: 35px;
     padding: 10px;
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
+    align-items: center;
 }
 
-.fa-magnifying-glass {
-    /* font-size: small; */
+.search-bar>input {
+    height: 30px;
+    border: none;
+}
+
+.search-bar>input:focus {
+    outline: none;
+}
+
+
+.search-form {
+    border: none;
+    background: none;
+    box-shadow: none;
+    display: flex;
+    flex-direction: row;
 }
 
 #search-button {

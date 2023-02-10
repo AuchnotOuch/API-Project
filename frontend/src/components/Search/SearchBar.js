@@ -4,10 +4,13 @@ const SearchBar = () => {
 
     return (
         <div className="search-container">
-            <div className="search-bar">
-                <div>input</div>
+            <form className="search-bar">
+                <input
+                    type="text"
+                    placeholder="Search spots..."
+                />
                 <button id="search-button"><i className="fa-solid fa-magnifying-glass"></i></button>
-            </div>
+            </form>
         </div>
     )
 }
