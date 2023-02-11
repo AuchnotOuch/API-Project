@@ -15,7 +15,7 @@ const SearchBar = () => {
         })
         if (response.ok) {
             const data = await response.json()
-            console.log(data)
+            setQuery('')
             history.push({
                 pathname: `/search`,
                 search: `?q=${query}`,

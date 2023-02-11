@@ -35,6 +35,10 @@
     flex-direction: row;
 }
 
+.results-container {
+    border: 1px solid lightgrey;
+}
+
 #search-button {
     background: none;
     border: none;
