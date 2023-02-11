@@ -41,7 +41,7 @@ function SpotDetails() {
     if (!user) return (
         <div className='single-spot'>
             <div className='spot-details'>
-                <div id='price-div'>${spot.price} nightly</div>
+                <Booking spot={spot} />
 
                 <div><h2>{spot.name}</h2></div>
                 <div id='rating'><i className="fa-solid fa-star"></i>{spot.city}, {spot.state}, {spot.country}</div>

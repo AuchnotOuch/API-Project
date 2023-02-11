@@ -263,7 +263,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
 
     const conflictCheck2 = await Booking.findOne({
         where: {
-            startDate: startDate
+            endDate: startDate
         }
     })
 
@@ -282,7 +282,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
         err.message = "Sorry, this spot is already booked for the specified dates"
         err.status = 403
         err.errors = {
-            startDate: 'End date conflicts with an existing booking',
+            endDate: 'End date conflicts with an existing booking',
         }
         return next(err)
     }

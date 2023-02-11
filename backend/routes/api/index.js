@@ -6,6 +6,7 @@ const reviewsRouter = require('./reviews.js')
 const spotImagesRouter = require('./spot-images')
 const reviewImagesRouter = require('./review-images')
 const bookingsRouter = require('./bookings')
+const searchRouter = require('./search.js')
 const { setTokenCookie, restoreUser, requireAuth } = require('../../utils/auth.js')
 const { User } = require('../../db/models')
 
@@ -25,6 +26,8 @@ router.use('/spot-images', spotImagesRouter)
 router.use('/review-images', reviewImagesRouter)
 //router for bookings resource
 router.use('/bookings', bookingsRouter)
+//router for search feature
+router.use('/search', searchRouter)
 
 
 module.exports = router

@@ -13,6 +13,7 @@ import EditReview
   from "./components/Reviews/EditReview";
 import UserBookings from "./components/Booking/UserBookings";
 import EditBooking from "./components/Booking/EditBooking";
+import Results from "./components/Search/Results";
 
 function App() {
   const dispatch = useDispatch();
@@ -34,6 +35,7 @@ function App() {
           <Route exact path='/reviews/:reviewId' component={EditReview} />
           <Route exact path='/bookings/current' component={UserBookings} />
           <Route exact path='/bookings/:bookingId' component={EditBooking} />
+          <Route path='/search' component={Results} />
           <Route path='/spots' component={CreateSpot} />
           <Route><div id='header'>404 Page Not Found</div></Route>
         </Switch>

@@ -47,7 +47,7 @@ const Booking = ({ spot }) => {
             })
         })
         if (response.ok) {
-            history.push('/')
+            history.push('/bookings/current')
         }
         if (response.err) {
             const data = await response.json()
@@ -60,6 +60,50 @@ const Booking = ({ spot }) => {
         }
     }
 
+    if (!user) return (
+        <>
+            <div className='book-spot'>
+                {mountCalendar &&
+                    <SelectDays dayTotal={dayTotal} checkin={checkin} setCheckin={setCheckin} checkout={checkout} setCheckout={setCheckout} mountCalendar={mountCalendar} setMountCalendar={setMountCalendar} />
+                }
+                <div className='book-header'>
+                    <div>
+                        ${spot.price} nightly
+                    </div>
+                    <div>
+                        <div><i className="fa-solid fa-star"></i> {Math.round(spot.avgStarRating * 100) / 100 || 'No Ratings'}</div>
+                    </div>
+                </div>
+                <button onClick={() => mount()} id="date-select-button">
+                    <div className='date-select'>
+                        <div className="check-in">
+                            <div className="check-in-header">CHECK-IN</div>
+                            <div className="date">{checkin}</div>
+                        </div>
+                        <div className="check-out">
+                            <div className="check-out-header">CHECK-OUT</div>
+                            <div className="date">{checkout}</div>
+                        </div>
+                    </div>
+                </button>
+                <button disabled={true} className="reserve">Login or Signup to Reserve!</button>
+                <p>You won't be charged yet.</p>
+                <div className="price">
+                    <div className="per-night">${spot.price} X {dayTotal} nights</div>
+                    <div className="subtotal">${spot.price * dayTotal}</div>
+                </div>
+                <div className="total">
+                    <div className="total-price">
+                        <div>Total before taxes:</div>
+                        <div className="subtotal">${spot.price * dayTotal}</div>
+                    </div>
+                </div>
+                <ul>
+                    {errors.map(error => <li id='error' key={error}>{error}</li>)}
+                </ul>
+            </div>
+        </>
+    )
     return (
         <>
             <div className='book-spot'>
@@ -86,7 +130,7 @@ const Booking = ({ spot }) => {
                         </div>
                     </div>
                 </button>
-                <button disabled={user.id === spot.ownerId} onClick={handleSubmit} className="reserve">{user.id === spot.ownerId ? "You can't book your own spot" : 'Reserve'}</button>
+                <button disabled={user.id === spot.ownerId || checkin === checkout} onClick={handleSubmit} className="reserve">{user.id === spot.ownerId ? "You can't book your own spot" : 'Reserve'}</button>
                 <p>You won't be charged yet.</p>
                 <div className="price">
                     <div className="per-night">${spot.price} X {dayTotal} nights</div>
