@@ -9,6 +9,7 @@ const Results = () => {
     console.log(results)
 
 
+    if (!results) return null
     return (
         <div className="results-container">
             <>
@@ -19,12 +20,12 @@ const Results = () => {
                                 <Link to={`/spots/${spot.id}`}>
                                     <div key={spot.id} className='container'>
                                         <div className='wrapper'>
-                                            <img src={spot.SpotImages['0'].url} alt={spot.name}></img>
+                                            <img src={spot.previewImage} alt={spot.name}></img>
                                         </div>
                                         <div>
                                             <div id='location-stars'>
                                                 <span>{spot.city}, {spot.state}</span>
-                                                <span><i className="fa-solid fa-star"></i> {Math.round(spot.Reviews['0'].avgRating * 100) / 100 || 'No Ratings'}</span>
+                                                {/* <span><i className="fa-solid fa-star"></i> {Math.round(spot.avgRating * 100) / 100 || 'No Ratings'}</span> */}
                                             </div>
                                             <br></br>
                                             <div id='price-nightly'>

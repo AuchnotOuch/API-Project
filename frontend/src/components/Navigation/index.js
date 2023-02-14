@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useDispatch } from "react-redux";
@@ -12,8 +12,15 @@ import SearchBar from '../Search/SearchBar';
 function Navigation({ isLoaded }) {
     const dispatch = useDispatch()
     const sessionUser = useSelector(state => state.session.user);
+    const [showMenu, setShowMenu] = useState(false)
+
     const resetReviewState = () => {
         dispatch(actionClearReviews())
+    }
+
+    const openMenu = () => {
+        // if (showMenu) return
+        setShowMenu(!showMenu)
     }
 
     let sessionLinks;
@@ -27,9 +34,18 @@ function Navigation({ isLoaded }) {
     } else {
         sessionLinks = (
             <>
-                <LoginFormModal />
-                <SignupFormModal />
+                <button className='menu-button' onClick={openMenu}>
+                    <i className="fa-solid fa-bars"></i>
+                    <i className="fa-regular fa-user"></i>
+                </button>
+                {showMenu &&
+                    <ul className="profile-dropdown">
+                        <LoginFormModal />
+                        <SignupFormModal />
+                    </ul>
+                }
             </>
+
         );
     }
 

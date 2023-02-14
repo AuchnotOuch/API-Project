@@ -51,7 +51,7 @@ function LoginForm() {
             />
             <div>
                 <button id="login-button" type="submit">Log In</button>
-                <button id="login-button" onClick={demoUser}>Demo User</button>
+                <button id="demo-button" onClick={demoUser}>Demo User</button>
 
             </div>
         </form>
