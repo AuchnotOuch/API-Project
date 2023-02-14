@@ -31,9 +31,7 @@ const SelectDays = ({ setCheckin, setCheckout, setMountCalendar, mountCalendar }
             })
             if (response.ok) {
                 const data = await response.json()
-                console.log(data)
                 setCurrentBookings(data.Bookings)
-                console.log(currentBookings)
             }
         }
         getBookings()

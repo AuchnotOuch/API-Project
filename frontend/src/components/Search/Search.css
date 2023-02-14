@@ -35,9 +35,9 @@
     flex-direction: row;
 }
 
-.results-container {
+/* .results-container {
     border: 1px solid lightgrey;
-}
+} */
 
 #search-button {
     background: none;

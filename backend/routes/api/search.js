@@ -43,13 +43,13 @@ router.get('/', async (req, res, next) => {
                 id: spot.id
             },
             include: [
-                {
-                    model: User,
-                    as: 'Owner',
-                    attributes: {
-                        exclude: ['token', 'username', 'email', 'hashedPassword', 'createdAt', 'updatedAt']
-                    }
-                },
+                // {
+                //     model: User,
+                //     as: 'Owner',
+                //     attributes: {
+                //         exclude: ['token', 'username', 'email', 'hashedPassword', 'createdAt', 'updatedAt']
+                //     }
+                // },
                 {
                     model: Review,
                     attributes: []

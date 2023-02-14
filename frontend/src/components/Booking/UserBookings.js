@@ -33,8 +33,6 @@ const UserBookings = () => {
                 setPastUserBookings(pastBookings)
             }
         }
-        console.log('currentUser', currentUserBookings)
-        console.log('pastUser', pastUserBookings)
 
 
         const getOwnerSpots = async () => {
@@ -43,12 +41,9 @@ const UserBookings = () => {
             })
             if (response.ok) {
                 const data = await response.json()
-                console.log(data.Spots)
                 setOwnerSpots(data.Spots)
             }
         }
-        console.log("currentOwner", currentOwnerBookings)
-        console.log("pastOwner", pastOwnerBookings)
         getBookings()
         getOwnerSpots()
     }, [])
@@ -58,7 +53,6 @@ const UserBookings = () => {
         const pastOwner = []
         ownerSpots.forEach(spot => {
             spot.Bookings.forEach(booking => {
-                console.log(booking)
                 booking.Spot.previewImage = spot.previewImage
                 if (new Date(booking.endDate) < new Date()) {
                     pastOwner.push(booking)

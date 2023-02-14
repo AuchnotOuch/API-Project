@@ -88,7 +88,6 @@ const EditBooking = () => {
                     errorsArr.push(error.message)
                 })
                 setErrors(errorsArr)
-                console.log(errorsArr)
             }
         }
     }

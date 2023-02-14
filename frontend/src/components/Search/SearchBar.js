@@ -20,7 +20,7 @@ const SearchBar = () => {
                 pathname: `/search`,
                 search: `?q=${query}`,
                 state: {
-                    results: data
+                    results: data.results
                 }
             })
         }

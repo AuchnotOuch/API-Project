@@ -29,7 +29,6 @@ function SpotDetails() {
     }
 
     const spot = useSelector(state => state.singleSpot)
-    console.log(spot)
     const user = useSelector(state => state.session.user)
     // const spots = useSelector(state => state.allSpots)
 
