@@ -6,6 +6,7 @@ import { useLocation } from "react-router-dom";
 const Results = () => {
     const location = useLocation()
     const results = location.state.results
+    console.log(results)
 
 
     return (
@@ -18,7 +19,7 @@ const Results = () => {
                                 <Link to={`/spots/${spot.id}`}>
                                     <div key={spot.id} className='container'>
                                         <div className='wrapper'>
-                                            <img src={spot.previewImage} alt={spot.name}></img>
+                                            <img src={spot.SpotImages['0'].url} alt={spot.name}></img>
                                         </div>
                                         <div>
                                             <div id='location-stars'>

@@ -13,7 +13,7 @@ const router = express.Router()
 router.get('/', async (req, res, next) => {
     const query = req.query.q
 
-    const spots = await Spot.findAll({
+    const results = await Spot.findAll({
         where: {
             [Op.or]: [
                 {
@@ -32,44 +32,50 @@ router.get('/', async (req, res, next) => {
                     }
                 }
             ]
-        }
+        },
+        include: [
+            {
+                model: SpotImage,
+                as: 'SpotImages'
+            },
+        ],
     })
 
-    const results = []
+    // const results = []
 
-    for (let spot of spots) {
-        const aggregateData = await Spot.findAll({
-            where: {
-                id: spot.id
-            },
-            include: [
-                // {
-                //     model: User,
-                //     as: 'Owner',
-                //     attributes: {
-                //         exclude: ['token', 'username', 'email', 'hashedPassword', 'createdAt', 'updatedAt']
-                //     }
-                // },
-                {
-                    model: Review,
-                    attributes: []
-                }
-            ],
-            attributes: [
-                [Sequelize.fn("AVG", Sequelize.col("Reviews.stars")), "avgRating"]
-            ],
-            raw: true
-        })
-        const spotImage = await SpotImage.findByPk(spot.id, {
-            where: {
-                preview: true
-            }
-        })
-        let spotData = spot.toJSON()
-        spotData.previewImage = spotImage.url
-        spotData.avgRating = aggregateData[0].avgRating
-        results.push(spotData)
-    }
+    // for (let spot of spots) {
+    //     const aggregateData = await Spot.findAll({
+    //         where: {
+    //             id: spot.id
+    //         },
+    //         include: [
+    //             // {
+    //             //     model: User,
+    //             //     as: 'Owner',
+    //             //     attributes: {
+    //             //         exclude: ['token', 'username', 'email', 'hashedPassword', 'createdAt', 'updatedAt']
+    //             //     }
+    //             // },
+    //             {
+    //                 model: Review,
+    //                 attributes: []
+    //             }
+    //         ],
+    //         attributes: [
+    //             [Sequelize.fn("AVG", Sequelize.col("Reviews.stars")), "avgRating"]
+    //         ],
+    //         raw: true
+    //     })
+    //     const spotImage = await SpotImage.findByPk(spot.id, {
+    //         where: {
+    //             preview: true
+    //         }
+    //     })
+    //     let spotData = spot.toJSON()
+    //     spotData.previewImage = spotImage.url
+    //     spotData.avgRating = aggregateData[0].avgRating
+    //     results.push(spotData)
+    // }
     return res.json({ results: results })
 })
 
