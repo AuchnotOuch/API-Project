@@ -38,6 +38,11 @@ router.get('/', async (req, res, next) => {
                 model: SpotImage,
                 as: 'SpotImages'
             },
+            {
+                model: Review,
+                attributes: [[Sequelize.fn("AVG", Sequelize.col("Reviews.stars")), "avgRating"]
+                ]
+            }
         ],
     })
 
