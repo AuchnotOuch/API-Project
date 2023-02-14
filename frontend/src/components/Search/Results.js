@@ -6,7 +6,6 @@ import { useLocation } from "react-router-dom";
 const Results = () => {
     const location = useLocation()
     const results = location.state.results
-    console.log(results)
 
 
     return (
