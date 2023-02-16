@@ -54,6 +54,22 @@ function SpotDetails() {
                     <div id='description'>
                         <div>{spot.description}</div>
                     </div>
+                    <div className='als-cover'>
+                        <span style={{ color: 'salmon' }}>al's</span><span>cover</span>
+                        <div style={{ fontSize: 'large', marginTop: '10px' }}>Every booking includes free protection from Host cancellations, listing inaccuracies, and other issues like trouble checking in.</div>
+                    </div>
+                    <div className='offerings'>
+                        <h3>What this place offers:</h3>
+                        <div className='offers'>
+                            <div><i className="fa-solid fa-wifi"></i> Wifi</div>
+                            <div><i className="fa-solid fa-utensils"></i> Kitchen</div>
+                            <div><i className="fa-solid fa-tv"></i> TV</div>
+                            <div><i className="fa-solid fa-snowflake"></i> AC/Heating</div>
+                            <div><i className="fa-solid fa-paw"></i> Pets Allowed</div>
+                            <div><i className="fa-solid fa-car"></i> Free Parking</div>
+                            <div><i className="fa-solid fa-fire"></i> Smoke/Carbon Monoxide Detecters</div>
+                        </div>
+                    </div>
                 </div>
                 <Reviews />
             </div>
@@ -82,6 +98,22 @@ function SpotDetails() {
                         <br></br>
                         <div id='description'>
                             <div>{spot.description}</div>
+                        </div>
+                        <div className='als-cover'>
+                            <span style={{ color: 'salmon' }}>al's</span><span>cover</span>
+                            <div style={{ fontSize: 'large', marginTop: '10px' }}>Every booking includes free protection from Host cancellations, listing inaccuracies, and other issues like trouble checking in.</div>
+                        </div>
+                        <div className='offerings'>
+                            <h3>What this place offers:</h3>
+                            <div className='offers'>
+                                <div><i className="fa-solid fa-wifi"></i> Wifi</div>
+                                <div><i className="fa-solid fa-utensils"></i> Kitchen</div>
+                                <div><i className="fa-solid fa-tv"></i> TV</div>
+                                <div><i className="fa-solid fa-snowflake"></i> AC/Heating</div>
+                                <div><i className="fa-solid fa-paw"></i> Pets Allowed</div>
+                                <div><i className="fa-solid fa-car"></i> Free Parking</div>
+                                <div><i className="fa-solid fa-fire"></i> Smoke/Carbon Monoxide Detecters</div>
+                            </div>
                         </div>
                     </div>
                     <Reviews />
