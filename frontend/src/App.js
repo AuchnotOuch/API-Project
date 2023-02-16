@@ -14,6 +14,7 @@ import EditReview
 import UserBookings from "./components/Booking/UserBookings";
 import EditBooking from "./components/Booking/EditBooking";
 import Results from "./components/Search/Results";
+import Footer from "./components/Navigation/Footer";
 
 function App() {
   const dispatch = useDispatch();
@@ -40,6 +41,7 @@ function App() {
           <Route><div style={{ color: 'red', marginTop: "100px", marginLeft: '38%', fontSize: 'xx-large' }} id='header'>404 Page Not Found</div></Route>
         </Switch>
       )}
+      <Footer />
     </>
   );
 }
