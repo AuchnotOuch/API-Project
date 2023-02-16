@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useHistory, useParams } from 'react-router-dom'
 import { thunkAddReview, thunkGetReviews } from '../../store/spotReviews'
-import '../CreateSpot/CreateSpot.css'
+import './Reviews.css'
 
 function AddReview() {
     const { spotId } = useParams()
@@ -10,6 +10,7 @@ function AddReview() {
     const [review, setReview] = useState('')
     const [stars, setStars] = useState('')
     const [errors, setErrors] = useState([])
+    const [submit, setSubmit] = useState(false)
 
 
 
@@ -33,7 +34,8 @@ function AddReview() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
+        setSubmit(true)
+        if (!!errors.length) return
         const newReview = {
             review: review,
             stars: stars
@@ -108,7 +110,7 @@ function AddReview() {
                 />
                 <button id='create-spot-button' type='submit' disabled={!!errors.length}>Add Review</button>
                 <ul>
-                    {errors.map(error => <li id='error' key={error}>{error}</li>)}
+                    {submit && !!errors.length && errors.map(error => <li id='error' key={error}>{error}</li>)}
                 </ul>
             </form>
         </div>

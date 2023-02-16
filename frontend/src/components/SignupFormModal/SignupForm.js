@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { Redirect } from "react-router-dom"
 import './SignupForm.css'
 
-function SignupFormPage({ openMenu }) {
+function SignupFormPage({ openMenu, setShowModal }) {
     const dispatch = useDispatch()
     const sessionUser = useSelector(state => state.session.user)
     const [email, setEmail] = useState('')
@@ -31,8 +31,22 @@ function SignupFormPage({ openMenu }) {
         return setErrors(['Confirm Password field must be the same as the Password field']);
     };
 
+    const demoUser = (e) => {
+        e.stopPropagation();
+        setErrors([]);
+        openMenu()
+        return dispatch(sessionActions.login({ credential: 'demosmith', password: 'password' })).catch(
+            async (res) => {
+                const data = await res.json();
+                if (data && data.errors) setErrors(data.errors);
+            }
+        );
+    };
+
     return (
         <form className='signup-form' onSubmit={handleSubmit}>
+            <button style={{ background: 'none', border: 'none', marginLeft: '475px' }} onClick={() => setShowModal(false)}>X</button>
+
             <ul>
                 {errors.map((error, idx) => <li id="error" key={idx}>{error}</li>)}
             </ul>
@@ -78,7 +92,10 @@ function SignupFormPage({ openMenu }) {
                 required
                 placeholder="Last Name"
             />
-            <button id='signup-button' type="submit">Sign Up</button>
+            <div className="signup-buttons">
+                <button id='signup-button' type="submit">Sign Up</button>
+                <button id="demo-button" onClick={demoUser}>Demo User</button>
+            </div>
         </form>
     );
 }

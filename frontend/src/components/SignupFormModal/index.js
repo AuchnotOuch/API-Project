@@ -11,7 +11,7 @@ function SignupFormModal({ openMenu }) {
             <button style={{ textAlign: 'start', background: 'none', border: 'none', width: '100%' }} id='signup-button' onClick={() => setShowModal(true)}>Sign Up</button>
             {showModal && (
                 <Modal onClose={() => setShowModal(false)}>
-                    <SignupForm openMenu={openMenu} />
+                    <SignupForm openMenu={openMenu} setShowModal={setShowModal} />
                 </Modal>
             )}
         </>

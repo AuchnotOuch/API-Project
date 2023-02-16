@@ -14,6 +14,7 @@ function CreateSpot() {
     const [price, setPrice] = useState('')
     const [previewImage, setPreviewImage] = useState('')
     const [errors, setErrors] = useState([])
+    const [submit, setSubmit] = useState(false)
 
 
     const dispatch = useDispatch()
@@ -53,7 +54,8 @@ function CreateSpot() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
+        setSubmit(true)
+        if (!!errors.length) return
         const spot = {
             address,
             city,
@@ -138,9 +140,9 @@ function CreateSpot() {
                     placeholder='Description'
                 />
                 <ul>
-                    {errors.map(error => <li id='error' key={error}>{error}</li>)}
+                    {submit && !!errors.length && errors.map(error => <li id='error' key={error}>{error}</li>)}
                 </ul>
-                <button id='create-spot-button' type='submit' disabled={!!errors.length}>Create Spot!</button>
+                <button id='create-spot-button' type='submit' >Create Spot!</button>
             </form>
 
         </div>

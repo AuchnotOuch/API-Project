@@ -6,6 +6,9 @@
     align-items: center;
     padding-bottom: 30px;
     background-color: white;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    box-shadow: 0 0 10px #d7d7d7;
 }
 
 input {
@@ -14,12 +17,24 @@ input {
     border-radius: 5px;
 }
 
+
+.login-buttons {
+    display: flex;
+    width: 200px;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
 #login-button {
-    background-color: white;
+    background-color: salmon;
+    border: none;
+}
+
+#login-button:hover {
     border: none;
 }
 
 #demo-button {
-    background-color: white;
+    background-color: salmon;
     border: none;
 }
