@@ -1,8 +1,9 @@
 .search-container {
     display: flex;
     width: 400px;
-    margin-top: -50px;
+    /* margin-top: -50px; */
 }
+
 
 .search-bar {
     border: 1px solid lightgrey;

@@ -17,6 +17,8 @@ function EditReview() {
     const [editReview, setEditReview] = useState(targetReview ? targetReview.review : '')
     const [stars, setStars] = useState(targetReview ? targetReview.stars : '')
     const [errors, setErrors] = useState([])
+    const [submit, setSubmit] = useState(false)
+
 
 
     useEffect(() => {
@@ -35,7 +37,8 @@ function EditReview() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
+        setSubmit(true)
+        if (!!errors.length) return
         const editedReview = {
             review: editReview,
             stars: stars
@@ -130,7 +133,7 @@ function EditReview() {
 
                 />
                 <ul>
-                    {errors.map(error => <li id='error' key={error}>{error}</li>)}
+                    {submit && !!errors.length && errors.map(error => <li id='error' key={error}>{error}</li>)}
                 </ul>
                 <button id='create-spot-button' type='submit' disabled={!!errors.length}>Save</button>
                 <button id="delete-button-review" onClick={deleteReview}><i className="fa-solid fa-trash-can"></i>Delete</button>
