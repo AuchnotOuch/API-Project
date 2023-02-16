@@ -40,13 +40,12 @@ const ProfileButton = ({ user }) => {
             </button>
             {showMenu && (
                 <ul className="profile-dropdown">
-                    <li id="greeting">Hello {user.firstName}!</li>
-                    {/* <li>{user.email}</li> */}
+                    <h4 style={{ margin: '0', borderBottom: '1px solid lightgrey' }} id="greeting">Hello {user.firstName}!</h4>
                     <br></br>
                     <li><NavLink exact to='/reviews/current'>Your Reviews</NavLink></li>
                     <li><NavLink exact to='/spots/current'>Spots You Own</NavLink></li>
                     <li><NavLink exact to='/bookings/current'>Your Trips</NavLink></li>
-                    <li>
+                    <li style={{ borderTop: '1px solid lightgrey' }}>
                         <button id='logout-button' onClick={logout}>Log Out</button>
                     </li>
                 </ul>

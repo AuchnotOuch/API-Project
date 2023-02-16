@@ -6,8 +6,8 @@ import ProfileButton from './ProfileButton';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal'
 import { actionClearReviews } from '../../store/spotReviews';
-import './Navigation.css';
 import SearchBar from '../Search/SearchBar';
+import './Navigation.css';
 
 function Navigation({ isLoaded }) {
     const dispatch = useDispatch()
@@ -39,9 +39,9 @@ function Navigation({ isLoaded }) {
                     <i className="fa-regular fa-user"></i>
                 </button>
                 {showMenu &&
-                    <ul className="profile-dropdown">
-                        <LoginFormModal />
-                        <SignupFormModal />
+                    <ul style={{ marginLeft: '-135px' }} className="profile-dropdown">
+                        <li ><LoginFormModal openMenu={openMenu} /></li>
+                        <li ><SignupFormModal openMenu={openMenu} /></li>
                     </ul>
                 }
             </>
