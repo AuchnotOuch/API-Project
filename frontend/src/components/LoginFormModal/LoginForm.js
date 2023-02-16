@@ -4,7 +4,7 @@ import * as sessionActions from "../../store/session";
 import { useDispatch } from "react-redux";
 import './LoginForm.css'
 
-function LoginForm({ openMenu }) {
+function LoginForm({ openMenu, setShowModal }) {
     const dispatch = useDispatch();
     const [credential, setCredential] = useState("");
     const [password, setPassword] = useState("");
@@ -30,6 +30,7 @@ function LoginForm({ openMenu }) {
 
     return (
         <form className='login-form' onSubmit={handleSubmit}>
+            <button style={{ background: 'none', border: 'none', marginLeft: '475px' }} onClick={() => setShowModal(false)}>X</button>
             <ul>
                 {errors.map((error, idx) => (
                     <li key={idx}>{error}</li>
@@ -50,7 +51,7 @@ function LoginForm({ openMenu }) {
                 required
                 placeholder="Password"
             />
-            <div>
+            <div className="login-buttons">
                 <button id="login-button" type="submit">Log In</button>
                 <button id="demo-button" onClick={demoUser}>Demo User</button>
 
