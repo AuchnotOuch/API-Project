@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { Redirect } from "react-router-dom"
 import './SignupForm.css'
 
-function SignupFormPage() {
+function SignupFormPage({ openMenu }) {
     const dispatch = useDispatch()
     const sessionUser = useSelector(state => state.session.user)
     const [email, setEmail] = useState('')
@@ -21,6 +21,7 @@ function SignupFormPage() {
         e.preventDefault();
         if (password === confirmPassword) {
             setErrors([]);
+            openMenu()
             return dispatch(sessionActions.signup({ email, username, password, firstName, lastName }))
                 .catch(async (res) => {
                     const data = await res.json();
