@@ -8,18 +8,12 @@ function EditReview() {
     const dispatch = useDispatch()
     const history = useHistory()
     const { reviewId } = useParams()
-
-    // useEffect(() => {
-    //     dispatch(thunkGetUserReviews())
-    // }, [dispatch])
-
     const targetReview = useSelector(state => state.userReviews[reviewId])
+
     const [editReview, setEditReview] = useState(targetReview ? targetReview.review : '')
     const [stars, setStars] = useState(targetReview ? targetReview.stars : '')
     const [errors, setErrors] = useState([])
     const [submit, setSubmit] = useState(false)
-
-
 
     useEffect(() => {
         const errArr = []
@@ -62,11 +56,6 @@ function EditReview() {
             .then(() => dispatch(thunkGetUserReviews()))
             .then(() => history.push(`/reviews/current`))
     }
-
-    // useEffect(() => {
-
-    // }, [deleteReview])
-
 
     return (
         <div className='form-div'>

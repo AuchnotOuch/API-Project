@@ -28,13 +28,6 @@ const actionDeleteReview = (id) => {
     }
 }
 
-// const actionAddReview = (review) => {
-//     return {
-//         type: GET_REVIEWS,
-//         payload: review
-//     }
-// }
-
 export const thunkGetUserReviews = () => async (dispatch) => {
     const response = await csrfFetch(`/api/reviews/current`, {
         method: 'GET'

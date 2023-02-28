@@ -19,7 +19,6 @@ function Navigation({ isLoaded }) {
     }
 
     const openMenu = () => {
-        // if (showMenu) return
         setShowMenu(!showMenu)
     }
 

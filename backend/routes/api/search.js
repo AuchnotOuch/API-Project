@@ -33,49 +33,11 @@ router.get('/', async (req, res, next) => {
                 }
             ]
         }
-        // include: [
-        //     {
-        //         model: SpotImage,
-        //         as: 'SpotImages',
-        //         // required: true
-
-        //     },
-        //     {
-        //         model: Review,
-        //         // attributes: [[Sequelize.fn("AVG", Sequelize.col("Reviews.stars")), "avgRating"]
-        //         // ],
-        //         // required: true
-        //     }
-        // ],
-        // attributes: [[Sequelize.fn("AVG", Sequelize.col("Reviews.stars")), "avgRating"]
-        // ],
     })
 
     const results = []
 
     for (let spot of spots) {
-        // const aggregateData = await Spot.findAll({
-        //     where: {
-        //         id: spot.id
-        //     },
-        //     include: [
-        //         {
-        //             model: User,
-        //             as: 'Owner',
-        //             attributes: {
-        //                 exclude: ['token', 'username', 'email', 'hashedPassword', 'createdAt', 'updatedAt']
-        //             }
-        //         },
-        //         {
-        //             model: Review,
-        //             attributes: []
-        //         }
-        //     ],
-        //     attributes: [
-        //         [Sequelize.fn("AVG", Sequelize.col("Reviews.stars")), "avgRating"]
-        //     ],
-        //     raw: true
-        // })
         const spotImage = await SpotImage.findByPk(spot.id, {
             where: {
                 preview: true
@@ -83,7 +45,6 @@ router.get('/', async (req, res, next) => {
         })
         let spotData = spot.toJSON()
         spotData.previewImage = spotImage.url
-        // spotData.avgRating = aggregateData[0].avgRating
         results.push(spotData)
     }
     console.log(results)

@@ -46,15 +46,6 @@ router.post('/', validateSignup, async (req, res, next) => {
             username: username
         }
     })
-    // if (userNameCheck && userEmailCheck) {
-    //     const err = new Error()
-    //     err.message = "User already exists"
-    //     err.status = 403
-    //     err.errors = {
-    //         email_username: "User with that username and email already exists"
-    //     }
-    //     return next(err)
-    // }
     if (userEmailCheck) {
         const err = new Error()
         err.message = "User already exists"

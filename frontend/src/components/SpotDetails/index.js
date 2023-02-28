@@ -30,7 +30,6 @@ function SpotDetails() {
 
     const spot = useSelector(state => state.singleSpot)
     const user = useSelector(state => state.session.user)
-    // const spots = useSelector(state => state.allSpots)
 
     if (!spot) return null
     if (!spot.SpotImages) return null

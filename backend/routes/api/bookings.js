@@ -8,24 +8,6 @@ const { Op } = require('sequelize')
 
 const router = express.Router()
 
-// const validateBooking = [
-//     body('endDate')
-//         .custom((value, { req }) => {
-//             console.log('req.body --->', req.body)
-//             console.log('value --->', value)
-//             const endDate = new Date(value).getTime()
-//             console.log('endDate --->', endDate)
-//             const startDate = new Date(req.body.startDate).getTime()
-//             console.log('req.body.startDate --->', req.body.startDate)
-//             console.log('startDate --->', startDate)
-//             if (endDate <= startDate) {
-//                 throw new Error('endDate cannot be on or before startDate')
-//             }
-//             return true
-//         }),
-//     handleValidationErrors
-// ]
-//get all of the current users bookings
 router.get('/current', requireAuth, async (req, res, next) => {
     const bookings = await Booking.findAll({
         where: {

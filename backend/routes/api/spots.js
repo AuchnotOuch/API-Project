@@ -55,51 +55,6 @@ const validateReview = [
     handleValidationErrors
 ]
 
-// const validateBooking = [
-//     body('endDate')
-//         .custom((value, { req }) => {
-//             console.log('req.body --->', req.body)
-//             console.log('value --->', value)
-//             const endDate = new Date(value).getTime()
-//             console.log('endDate --->', endDate)
-//             const startDate = new Date(req.body.startDate).getTime()
-//             console.log('req.body.startDate --->', req.body.startDate)
-//             console.log('startDate --->', startDate)
-//             if (endDate <= startDate) {
-//                 throw new Error('endDate cannot be on or before startDate')
-//             }
-//             return true
-//         }),
-//     handleValidationErrors
-// ]
-
-// const validateQuery = [
-//     query('page')
-//         .isInt({ min: 1 })
-//         .withMessage('Page must be greater than or equal to 1'),
-//     query('size')
-//         .isInt({ min: 1 })
-//         .withMessage('Size must be greater than or equal to 1'),
-//     query('maxLat')
-//         .isDecimal({ force_decimal: true })
-//         .withMessage('Maximum latitude is invalid'),
-//     query('minLat')
-//         .isDecimal({ force_decimal: true })
-//         .withMessage('Minimum latitude is invalid'),
-//     query('maxLng')
-//         .isDecimal({ force_decimal: true })
-//         .withMessage('Maximum longitude is invalid'),
-//     query('minLng')
-//         .isDecimal({ force_decimal: true })
-//         .withMessage('Minimum longitude is invalid'),
-//     query('minPrice')
-//         .isInt({ min: 0 })
-//         .withMessage('Maximum price must be greater than or equal to 0'),
-//     query('maxPrice')
-//         .isInt({ min: 0 })
-//         .withMessage('Minimum price must be greater than or equal to 0'),
-//     handleValidationErrors
-// ]
 //get all spots of current user
 router.get('/current', requireAuth, async (req, res, next) => {
 

@@ -15,8 +15,6 @@ function EditSpot({ spot }) {
     const [description, setDescription] = useState(spot.description)
     const [price, setPrice] = useState(spot.price)
     const [errors, setErrors] = useState([])
-    // const previewImgUrl = useSelector(state => state.allSpots[spot.id].previewImage)
-
     const [previewImage, setPreviewImage] = useState(spot.SpotImages[0].url)
 
 

@@ -28,9 +28,6 @@ function Reviews() {
 
 
     if (!spot) return null
-    // if (!reviews) return (
-    //     <div>No reviews for this spot!</div>
-    // )
     if (!user) return (
         <div className='reviews'>
             <div id='reviews-label'>Reviews</div>
